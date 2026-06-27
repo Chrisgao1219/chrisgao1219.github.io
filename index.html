@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Chrisgao AI — 跨境电商 AI 营销工作台。10 大 AI 工具覆盖作图、竞品分析、红人营销、VOC 口碑、价格追踪全链路。一键直达，即开即用。">
+<title>Chrisgao AI — 跨境电商智能营销</title>
+<style>
+/* ═══════════════════════════ Design Tokens ═══════════════════════════ */
+:root {
+  --bg:        #fafaf9;
+  --bg-alt:    #f5f4f1;
+  --surface:   #ffffff;
+  --surface2:  #f7f6f3;
+  --border:    #e8e5e0;
+  --border-v:  #d6d3ce;
+  --text:      #1a1816;
+  --text2:     #5c5955;
+  --text3:     #999692;
+  --accent:    #0d9488;
+  --accent-h:  #0f766e;
+  --accent-glow: rgba(13,148,136,.12);
+  --accent-subtle: #f0fdf9;
+  --green:     #059669;
+  --amber:     #d97706;
+  --red:       #dc2626;
+
+  --font-display: "Outfit", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+
+  --shadow-card: 0 1px 2px rgba(0,0,0,.03), 0 2px 8px rgba(0,0,0,.04);
+  --shadow-hover: 0 0 0 1px rgba(13,148,136,.08), 0 4px 20px rgba(0,0,0,.08), 0 0 40px rgba(13,148,136,.06);
+  --shadow-lg: 0 0 0 1px rgba(0,0,0,.03), 0 16px 48px rgba(0,0,0,.1);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-xs: 8px;
+  --nav-h: 56px;
+}
+
+/* ═══════════════════════════ Reset & Base ═══════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:var(--font-body);line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-y:auto;
+  transition:background .3s,color .3s;
+}
+
+/* ═══════════════════════════ Theme Toggle ═══════════════════════════ */
+.theme-toggle{
+  position:fixed;bottom:24px;right:24px;z-index:2000;
+  display:flex;padding:4px;background:var(--surface);
+  border:1px solid var(--border);border-radius:var(--radius-xs);
+  box-shadow:var(--shadow-card);
+}
+.theme-toggle button{
+  width:34px;height:34px;border-radius:6px;border:none;
+  font-size:15px;cursor:pointer;background:transparent;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s;
+}
+.theme-toggle button:hover{background:var(--bg-alt)}
+.theme-toggle button.active{background:var(--accent-subtle)}
+
+/* ═══════════════════════════ Nav ═══════════════════════════ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:var(--nav-h);
+  background:rgba(250,250,249,.88);
+  backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);
+  border-bottom:1px solid var(--border);
+  transition:background .3s,border-color .3s;
+}
+.nav-inner{
+  max-width:1240px;margin:0 auto;padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;height:100%;
+}
+.nav-left{display:flex;align-items:center;gap:16px}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text);
+  text-decoration:none;letter-spacing:-.02em;cursor:pointer;
+  border:none;background:none;
+}
+.nav-mark{
+  width:30px;height:30px;border-radius:50%;object-fit:cover;flex-shrink:0;
+  border:2px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.06);
+}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-pill{
+  padding:7px 16px;border-radius:20px;font-size:13px;font-weight:500;
+  border:1px solid var(--border);background:var(--surface);
+  color:var(--text2);cursor:pointer;font-family:var(--font-body);
+  transition:all .2s;
+}
+.nav-pill:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.nav-github{color:var(--text2);transition:color .2s;display:flex;align-items:center;padding:4px}
+.nav-github:hover{color:var(--accent)}
+
+/* Tool Switcher */
+.tool-switch{position:relative}
+.tool-switch-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:7px 16px;border-radius:20px;
+  border:1px solid var(--border);background:var(--surface);
+  font-size:13px;font-weight:500;color:var(--text);
+  cursor:pointer;font-family:var(--font-body);
+  transition:all .2s;
+}
+.tool-switch-btn:hover{border-color:var(--border-v);box-shadow:var(--shadow-card)}
+.tool-switch-btn .arrow{font-size:9px;color:var(--text3);transition:transform .2s}
+.tool-switch.open .tool-switch-btn .arrow{transform:rotate(180deg)}
+.tool-switch-btn .current-tool{max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.dropdown{
+  position:absolute;top:calc(100% + 8px);right:0;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);box-shadow:var(--shadow-lg);
+  min-width:260px;max-height:420px;overflow-y:auto;
+  display:none;z-index:1001;padding:6px;
+}
+.tool-switch.open .dropdown{display:block}
+.dropdown-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;cursor:pointer;font-size:13px;color:var(--text);
+  transition:all .12s;border:none;background:none;width:100%;text-align:left;
+  font-family:var(--font-body);border-radius:var(--radius-xs);
+}
+.dropdown-item:hover{background:var(--bg-alt)}
+.dropdown-item.active{background:var(--accent-subtle);color:var(--accent);font-weight:600}
+.dropdown-item .dot{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+
+/* ═══════════════════════════ Viewport ═══════════════════════════ */
+.viewport{margin-top:var(--nav-h)}
+
+/* ═══════════════════════════ Hero ═══════════════════════════ */
+.hero{
+  padding:88px 24px 48px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-30%;left:50%;transform:translateX(-50%);
+  width:700px;height:700px;
+  background:radial-gradient(ellipse at center,var(--accent-glow) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-inner{position:relative;z-index:1;max-width:720px;margin:0 auto}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:5px 18px;border-radius:20px;
+  background:var(--accent-subtle);color:var(--accent);
+  font-size:13px;font-weight:600;margin-bottom:28px;
+  border:1px solid rgba(13,148,136,.15);
+  font-family:var(--font-body);
+}
+.hero-badge .live{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 4px var(--green)}50%{opacity:.35;box-shadow:0 0 12px var(--green)}}
+
+.hero h1{
+  font-family:var(--font-display);
+  font-size:clamp(38px,6vw,60px);font-weight:800;
+  letter-spacing:-.05em;line-height:1.06;margin-bottom:20px;
+}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),#14b8a6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{
+  font-size:17px;color:var(--text2);max-width:500px;margin:0 auto 38px;line-height:1.7;
+}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 30px;border-radius:var(--radius-xs);font-size:15px;font-weight:600;
+  text-decoration:none;transition:all .25s;cursor:pointer;
+  border:none;font-family:var(--font-body);
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent),#14b8a6);color:#fff;
+  box-shadow:0 2px 10px rgba(13,148,136,.25);
+}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(13,148,136,.35)}
+.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--text3);color:var(--text)}
+
+/* ═══════════════════════════ Section ═══════════════════════════ */
+.section{padding:64px 24px}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-eyebrow{
+  font-family:var(--font-body);font-size:12px;font-weight:700;color:var(--accent);
+  text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;
+}
+.section-title{
+  font-family:var(--font-display);
+  font-size:clamp(28px,4vw,38px);font-weight:800;
+  letter-spacing:-.04em;line-height:1.14;margin-bottom:10px;
+}
+.section-desc{font-size:16px;color:var(--text2);max-width:520px;line-height:1.7;margin-bottom:44px}
+
+/* ═══════════════════════════ Tool Grid ═══════════════════════════ */
+.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:0}
+.tool-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:24px 26px 22px;
+  cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;position:relative;
+  text-decoration:none;color:inherit;
+}
+.tool-card::after{
+  content:'';position:absolute;inset:-1px;border-radius:var(--radius);
+  background:linear-gradient(135deg,var(--accent),#14b8a6);opacity:0;
+  transition:opacity .3s;z-index:-1;pointer-events:none;
+}
+.tool-card:hover{
+  border-color:transparent;box-shadow:var(--shadow-hover);transform:translateY(-3px);
+}
+.tool-card:hover::after{opacity:.06}
+
+.tool-card.featured{
+  grid-column:span 2;flex-direction:row;gap:26px;align-items:center;min-height:150px;
+  background:linear-gradient(135deg,var(--surface) 60%,var(--accent-subtle));
+}
+.tool-card.featured .tool-icon{font-size:40px;margin-bottom:0;flex-shrink:0}
+.tool-card.featured .tool-desc{font-size:14px}
+
+.tool-icon{font-size:26px;margin-bottom:12px;display:block;transition:transform .3s}
+.tool-card:hover .tool-icon{transform:scale(1.08)}
+.tool-name{font-family:var(--font-display);font-size:15px;font-weight:700;margin-bottom:4px}
+.tool-desc{font-size:13px;color:var(--text2);line-height:1.55;flex:1;margin-bottom:14px}
+.tool-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:4px}
+.tool-platform{font-size:10px;padding:3px 8px;border-radius:5px;font-weight:600;letter-spacing:.01em}
+.tool-platform.server{background:var(--accent-subtle);color:var(--accent)}
+.tool-platform.external{background:var(--bg-alt);color:var(--text3)}
+.tool-tag{font-size:10px;padding:3px 8px;border-radius:5px;background:var(--bg-alt);color:var(--text3);font-weight:500}
+
+/* ═══════════════════════════ Footer ═══════════════════════════ */
+.footer{padding:32px 24px;border-top:1px solid var(--border);text-align:center}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:24px;font-size:13px;color:var(--text3);flex-wrap:wrap}
+.footer-inner a{color:var(--text2);text-decoration:none;transition:color .2s}
+.footer-inner a:hover{color:var(--accent)}
+.footer-sep{color:var(--border-v)}
+
+/* ═══════════════════════════ Responsive ═══════════════════════════ */
+@media(max-width:900px){
+  .tool-grid{grid-template-columns:repeat(2,1fr)}
+  .tool-card.featured{grid-column:span 2}
+  .footer-inner{gap:16px}
+  .hero{padding:72px 16px 40px}
+}
+@media(max-width:600px){
+  .tool-grid{grid-template-columns:1fr}
+  .tool-card.featured{grid-column:span 1;flex-direction:column;gap:14px;align-items:flex-start;min-height:auto}
+  .footer-inner{gap:12px}
+  .hero{padding:64px 16px 40px}
+  .hero h1{font-size:30px}
+  .section{padding:48px 16px}
+  .nav-logo span:not(.nav-mark){display:none}
+  .dropdown{right:auto;left:0}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ Nav ═══ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <button class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到首页">
+        <img class="nav-mark" src="avatar.jpg" alt="Chris"> <span>Chrisgao AI</span>
+      </button>
+    </div>
+    <div class="nav-right">
+      <div class="tool-switch" id="toolSwitch">
+        <button class="tool-switch-btn" onclick="toggleDropdown()" aria-label="切换工具">
+          <span class="current-tool" id="currentToolLabel">工具</span>
+          <span class="arrow">&#9660;</span>
+        </button>
+        <div class="dropdown" id="dropdown"></div>
+      </div>
+      <a href="https://github.com/Chrisgao1219" target="_blank" rel="noopener" class="nav-github" title="GitHub">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ Main ═══ -->
+<div class="viewport">
+  <!-- HOME -->
+  <div id="homeView">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-badge"><span class="live"></span> 10 大 AI 工具，一站式跨境运营</div>
+        <h1><em>AI</em> 驱动的跨境电商增长引擎</h1>
+        <p>从选品调研到产品图生成，从竞品分析到红人营销——覆盖跨境运营全链路。点击工具卡片即达。</p>
+        <div class="hero-actions">
+          <a href="#tools" class="btn btn-primary">探索全部工具 ↓</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tools">
+      <div class="section-inner">
+        <div class="section-title">全部工具</div>
+        <div class="tool-grid" id="toolGrid"></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <img class="nav-mark" src="avatar.jpg" alt="Chris" style="width:22px;height:22px">
+        <span>Chrisgao AI</span>
+        <span class="footer-sep">|</span>
+        <a href="https://github.com/Chrisgao1219" target="_blank" rel="noopener">GitHub</a>
+        <span class="footer-sep">|</span>
+        <span>&copy; 2026</span>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script>
+// ═══ Tool Registry ═══
+	const TOOLS = [
+	  { id:"image-studio",   icon:"🛹", name:"AI 生图工作台",    desc:"22 个AI作图功能（含电商套图工作流）+ Agent 智能引擎：对话式生图、外模换脸、手持商品、智能修图、扩图、翻译等。", tags:["GPT-4o","GPT-Image-2","Agent"], url:"https://chrisgao1219-product-image-prompts.hf.space/", external:true, featured:true },
+	  { id:"agent",          icon:"🤖", name:"AI 运营 Agent",     desc:"60+ 运营场景智能路由：选品调研、Listing优化、广告投放、合规风控、红人营销。", tags:["GPT-4o","意图识别","URL解析"], url:"https://chrisgao1219-linkfox-agent.hf.space/", external:true },
+	  { id:"price-tracker",  icon:"📊", name:"价格追踪",         desc:"竞品价格实时监控，汇率自动换算，价格变动趋势分析", tags:["Pandas","Plotly"], url:"https://chrisgao1219-price-tracker.hf.space/", external:true },
+	  { id:"competitor",     icon:"🔍", name:"竞品对比看板",     desc:"多品牌竞品分析：Trustpilot评分、Reddit VOC一站汇总", tags:["多品牌","Trustpilot"], url:"https://chrisgao1219-competitor-dashboard.hf.space/", external:true },
+
+	  { id:"affiliate",      icon:"👥", name:"Affiliate 数据大屏",desc:"KOL 红人数据看板：搜索、外联、追踪、效果分析一站式", tags:["KOL","飞书"], url:"https://chrisgao1219-kol-affiliate.hf.space/", external:true },
+	  { id:"inventory",      icon:"📦", name:"库存/订单看板",     desc:"多品牌库存与销售监控，Shopline 订单数据实时同步", tags:["Shopline","多品牌"], url:"https://chrisgao1219-meepo-dashboard.hf.space/dashboard.html", external:true },
+	  { id:"trustpilot",     icon:"⭐", name:"Trustpilot VOC",   desc:"品牌评价监控与 Reddit 消费者洞察，自动分析口碑趋势", tags:["评价","Reddit"], url:"https://trustpilot-voc.vercel.app/", external:true },
+	  { id:"email-dash",     icon:"📧", name:"邮件营销看板",     desc:"Gmail 品牌邮件分析 + 邮件策略生成（策略/序列/文案/设计 四步出方案）", tags:["React","Gmail","策略生成"], url:"https://email-dashboard-roan.vercel.app/", external:true },
+	  { id:"skills-gallery", icon:"🧰", name:"Skills Gallery",   desc:"140+ AI 营销技能策展画廊，按品类分级的开源技能库", tags:["Claude","开源"], url:"https://chrisgao1219.github.io/skills-gallery/", external:true },
+	];
+
+// Unique tools for dropdown (dedup by id)
+const seen = new Set();
+const UNIQUE = TOOLS.filter(t => { if (seen.has(t.id)) return false; seen.add(t.id); return true; });
+
+// ═══ Render Tool Cards ═══
+document.getElementById("toolGrid").innerHTML = TOOLS.map(t => {
+  const cls = 'tool-card' + (t.featured ? ' featured' : '');
+  const platform = t.external ? 'external' : 'server';
+  const label = t.external ? 'HuggingFace / Vercel' : '本站';
+  const tags = (t.tags || []).map(tg => `<span class="tool-tag">${tg}</span>`).join('');
+  const onclick = t.external
+    ? `window.open('${t.url}','_blank','noopener')`
+    : `openTool('${t.id}')`;
+  return `<div class="${cls}" onclick="${onclick}">
+    <div class="tool-icon">${t.icon}</div>
+    <div class="tool-name">${t.name}</div>
+    <div class="tool-desc">${t.desc || ''}</div>
+    <div class="tool-meta">
+      <span class="tool-platform ${platform}">${label}</span>
+      ${tags}
+    </div>
+  </div>`;
+}).join("");
+
+// ═══ Render Dropdown ═══
+document.getElementById("dropdown").innerHTML = UNIQUE.map(t =>
+  `<button class="dropdown-item" onclick="openTool('${t.id}')"><span class="dot">${t.icon}</span> ${t.name}</button>`
+).join("");
+
+function toggleDropdown() {
+  document.getElementById("toolSwitch").classList.toggle("open");
+}
+document.addEventListener("click", e => {
+  if (!e.target.closest(".tool-switch")) document.getElementById("toolSwitch").classList.remove("open");
+});
+
+function openTool(id) {
+  const tool = UNIQUE.find(t => t.id === id) || TOOLS.find(t => t.id === id);
+  if (!tool) return;
+  window.open(tool.url, "_blank", "noopener");
+}
+</script>
+</body>
+</html>
