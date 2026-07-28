@@ -226,6 +226,7 @@ body{
 .tool-card.featured .tool-desc{font-size:14px}
 
 .tool-icon{font-size:26px;margin-bottom:12px;display:block;transition:transform .3s}
+.tool-icon img{display:block}
 .tool-card:hover .tool-icon{transform:scale(1.08)}
 .tool-name{font-family:var(--font-display);font-size:15px;font-weight:700;margin-bottom:4px}
 .tool-desc{font-size:13px;color:var(--text2);line-height:1.55;flex:1;margin-bottom:14px}
@@ -324,7 +325,7 @@ body{
 <script>
 // ═══ Tool Registry ═══
 	const TOOLS = [
-	  { id:"chrisgao-chrome", icon:"🌐", name:"Chrisgao Chrome",  desc:"给 AI 一个真实的浏览器：Chrome 隐身窗口共享登录态，MCP 原生支持，21 个工具直连 Claude Code", tags:["Chrome","MCP","Claude Code"], url:"/chrisgao-chrome.html", featured:true },
+	  { id:"chrisgao-chrome", icon:'<img src="chrisgao-chrome-icon.jpg" alt="" style="width:40px;height:40px;border-radius:8px;object-fit:cover">', name:"Chrisgao Chrome",  desc:"给 AI 一个真实的浏览器：Chrome 隐身窗口共享登录态，MCP 原生支持，21 个工具直连 Claude Code", tags:["Chrome","MCP","Claude Code"], url:"/chrisgao-chrome.html", featured:true },
 	  { id:"price-tracker",  icon:"📊", name:"价格追踪",         desc:"竞品价格实时监控，汇率自动换算，价格变动趋势分析", tags:["Pandas","Plotly"], url:"https://chrisgao1219-price-tracker.hf.space/", external:true },
 	  { id:"competitor",     icon:"🔍", name:"竞品对比看板",     desc:"多品牌竞品分析：Trustpilot评分、Reddit VOC一站汇总", tags:["多品牌","Trustpilot"], url:"https://chrisgao1219-competitor-dashboard.hf.space/", external:true },
 
