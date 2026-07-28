@@ -236,25 +236,51 @@ body{
 .tool-platform.external{background:var(--bg-alt);color:var(--text3)}
 .tool-tag{font-size:10px;padding:3px 8px;border-radius:5px;background:var(--bg-alt);color:var(--text3);font-weight:500}
 
-/* ═══════════════════════════ Priority Grid ═══════════════════════════ */
-.priority-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:48px}
-.priority-card{
-  background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--accent);
-  border-radius:var(--radius);padding:22px 20px 18px;cursor:pointer;
+/* ═══════════════════════════ Featured Grid (2x2) ═══════════════════════════ */
+.featured-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:48px}
+.featured-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:32px 28px 28px;cursor:pointer;
   transition:all .3s cubic-bezier(.4,0,.2,1);
   display:flex;flex-direction:column;text-decoration:none;color:inherit;
+  position:relative;overflow:hidden;
 }
-.priority-card:hover{
-  border-color:var(--accent);box-shadow:var(--shadow-hover);transform:translateY(-3px);
+.featured-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--accent),#14b8a6);
 }
-.priority-card .tool-icon{font-size:30px;margin-bottom:10px}
-.priority-card .tool-name{font-family:var(--font-display);font-size:14px;font-weight:700;margin-bottom:3px}
-.priority-card .tool-desc{font-size:11px;color:var(--text2);line-height:1.5;flex:1}
-.priority-card .tool-meta{margin-top:6px}
+.featured-card:hover{
+  border-color:var(--accent);box-shadow:var(--shadow-hover);transform:translateY(-2px);
+}
+.featured-card .f-icon{font-size:36px;margin-bottom:14px;line-height:1}
+.featured-card .f-icon img{width:44px;height:44px;border-radius:10px;object-fit:cover;display:block}
+.featured-card .f-name{
+  font-family:var(--font-display);font-size:18px;font-weight:700;margin-bottom:6px;
+  letter-spacing:-.02em;
+}
+.featured-card .f-desc{font-size:13px;color:var(--text2);line-height:1.6;flex:1;margin-bottom:16px}
+.featured-card .f-arrow{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:12px;font-weight:600;color:var(--accent);
+}
+.featured-card:hover .f-arrow{gap:8px;transition:gap .2s}
 .section-label{
   font-family:var(--font-display);font-size:13px;font-weight:600;color:var(--accent);
-  text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;
+  text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;
 }
+
+/* ═══════════════════════════ More Tools (compact) ═══════════════════════════ */
+.more-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.mini-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:14px 16px 12px;cursor:pointer;
+  transition:all .2s;display:flex;align-items:center;gap:10px;
+  text-decoration:none;color:inherit;
+}
+.mini-card:hover{border-color:var(--border-v);box-shadow:var(--shadow-card)}
+.mini-card .m-icon{font-size:18px;flex-shrink:0;width:22px;text-align:center}
+.mini-card .m-icon img{width:22px;height:22px;border-radius:5px;object-fit:cover;display:block}
+.mini-card .m-name{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* ═══════════════════════════ Footer ═══════════════════════════ */
 .footer{padding:32px 24px;border-top:1px solid var(--border);text-align:center}
@@ -264,20 +290,19 @@ body{
 .footer-sep{color:var(--border-v)}
 
 /* ═══════════════════════════ Responsive ═══════════════════════════ */
-@media(max-width:1100px){
-  .priority-grid{grid-template-columns:repeat(3,1fr)}
-}
 @media(max-width:900px){
+  .featured-grid{grid-template-columns:1fr;gap:12px}
+  .more-grid{grid-template-columns:repeat(3,1fr)}
   .tool-grid{grid-template-columns:repeat(2,1fr)}
   .tool-card.featured{grid-column:span 2}
-  .priority-grid{grid-template-columns:repeat(2,1fr)}
   .footer-inner{gap:16px}
   .hero{padding:72px 16px 40px}
 }
 @media(max-width:600px){
+  .featured-grid{grid-template-columns:1fr}
+  .more-grid{grid-template-columns:repeat(2,1fr)}
   .tool-grid{grid-template-columns:1fr}
   .tool-card.featured{grid-column:span 1;flex-direction:column;gap:14px;align-items:flex-start;min-height:auto}
-  .priority-grid{grid-template-columns:1fr}
   .footer-inner{gap:12px}
   .hero{padding:64px 16px 40px}
   .hero h1{font-size:30px}
@@ -364,38 +389,44 @@ body{
 	  { id:"skills-gallery",  icon:"🧰", name:"Skills Gallery",   desc:"140+ AI 营销技能策展画廊，按品类分级的开源技能库", tags:["Claude","开源"], url:"https://chrisgao1219.github.io/skills-gallery/", external:true },
 	];
 
-// Top 5 priority + rest
-const PRIORITY = TOOLS.slice(0, 5);
-const MORE = TOOLS.slice(5);
+// Top 4 featured + rest
+const PRIORITY = TOOLS.slice(0, 4);
+const MORE = TOOLS.slice(4);
 
 // Unique tools for dropdown (dedup by id)
 const seen = new Set();
 const UNIQUE = TOOLS.filter(t => { if (seen.has(t.id)) return false; seen.add(t.id); return true; });
 
-function buildCard(t, cls) {
-  const platform = t.external ? 'external' : 'server';
-  const label = t.external ? 'Vercel / HF / Pages' : '本站';
-  const tags = (t.tags || []).map(tg => `<span class="tool-tag">${tg}</span>`).join('');
+// ═══ Render Featured (2x2) ═══
+function buildFeatured(t) {
   const onclick = t.external
     ? `window.open('${t.url}','_blank','noopener')`
     : `openTool('${t.id}')`;
-  return `<div class="${cls}" onclick="${onclick}">
-    <div class="tool-icon">${t.icon}</div>
-    <div class="tool-name">${t.name}</div>
-    <div class="tool-desc">${t.desc || ''}</div>
-    <div class="tool-meta">
-      <span class="tool-platform ${platform}">${label}</span>
-      ${tags}
-    </div>
+  return `<div class="featured-card" onclick="${onclick}">
+    <div class="f-icon">${t.icon}</div>
+    <div class="f-name">${t.name}</div>
+    <div class="f-desc">${t.desc || ''}</div>
+    <span class="f-arrow">进入 &rarr;</span>
   </div>`;
 }
 
-// ═══ Render ═══
+// ═══ Render Mini (compact) ═══
+function buildMini(t) {
+  const onclick = t.external
+    ? `window.open('${t.url}','_blank','noopener')`
+    : `openTool('${t.id}')`;
+  return `<div class="mini-card" onclick="${onclick}">
+    <span class="m-icon">${t.icon}</span>
+    <span class="m-name">${t.name}</span>
+  </div>`;
+}
+
+// ═══ Render All ═══
 document.getElementById("toolGrid").innerHTML =
   '<div class="section-label">核心工具</div>'
-  + '<div class="priority-grid">' + PRIORITY.map(t => buildCard(t, 'priority-card')).join('') + '</div>'
-  + '<div class="section-label" style="margin-top:0">更多工具</div>'
-  + MORE.map(t => buildCard(t, 'tool-card')).join('');
+  + '<div class="featured-grid">' + PRIORITY.map(buildFeatured).join('') + '</div>'
+  + '<div class="section-label">更多工具</div>'
+  + '<div class="more-grid">' + MORE.map(buildMini).join('') + '</div>';
 
 // ═══ Render Dropdown ═══
 document.getElementById("dropdown").innerHTML = UNIQUE.map(t =>
