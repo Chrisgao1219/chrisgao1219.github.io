@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="Chrisgao AI — 跨境电商 AI 营销工作台。10 大 AI 工具覆盖作图、竞品分析、红人营销、VOC 口碑、价格追踪全链路。一键直达，即开即用。">
+<meta name="description" content="Chrisgao AI — 跨境电商 AI 营销工作台。10 大 AI 工具覆盖竞品分析、红人营销、VOC 口碑、价格追踪全链路。一键直达，即开即用。">
 <title>Chrisgao AI — 跨境电商智能营销</title>
 <style>
 /* ═══════════════════════════ Design Tokens ═══════════════════════════ */
@@ -292,9 +292,9 @@ body{
   <div id="homeView">
     <section class="hero">
       <div class="hero-inner">
-        <div class="hero-badge"><span class="live"></span> 10 大 AI 工具，一站式跨境运营</div>
+        <div class="hero-badge"><span class="live"></span> 9 大 AI 工具，一站式跨境运营</div>
         <h1><em>AI</em> 驱动的跨境电商增长引擎</h1>
-        <p>从选品调研到产品图生成，从竞品分析到红人营销——覆盖跨境运营全链路。点击工具卡片即达。</p>
+        <p>从竞品分析到红人营销，从价格追踪到口碑监控——覆盖跨境运营全链路。点击工具卡片即达。</p>
         <div class="hero-actions">
           <a href="#tools" class="btn btn-primary">探索全部工具 ↓</a>
         </div>
@@ -324,11 +324,12 @@ body{
 <script>
 // ═══ Tool Registry ═══
 	const TOOLS = [
-	  { id:"image-studio",   icon:"🛹", name:"AI 生图工作台",    desc:"22 个AI作图功能（含电商套图工作流）+ Agent 智能引擎：对话式生图、外模换脸、手持商品、智能修图、扩图、翻译等。", tags:["GPT-4o","GPT-Image-2","Agent"], url:"https://chrisgao1219-product-image-prompts.hf.space/", external:true, featured:true },
+	  { id:"chrisgao-chrome", icon:"🌐", name:"Chrisgao Chrome",  desc:"给 AI 一个真实的浏览器：Chrome 隐身窗口共享登录态，MCP 原生支持，21 个工具直连 Claude Code", tags:["Chrome","MCP","Claude Code"], url:"/chrisgao-chrome.html", featured:true },
 	  { id:"price-tracker",  icon:"📊", name:"价格追踪",         desc:"竞品价格实时监控，汇率自动换算，价格变动趋势分析", tags:["Pandas","Plotly"], url:"https://chrisgao1219-price-tracker.hf.space/", external:true },
 	  { id:"competitor",     icon:"🔍", name:"竞品对比看板",     desc:"多品牌竞品分析：Trustpilot评分、Reddit VOC一站汇总", tags:["多品牌","Trustpilot"], url:"https://chrisgao1219-competitor-dashboard.hf.space/", external:true },
 
 	  { id:"affiliate",      icon:"👥", name:"Affiliate 数据大屏",desc:"KOL 红人数据看板：搜索、外联、追踪、效果分析一站式", tags:["KOL","飞书"], url:"https://chrisgao1219-kol-affiliate.hf.space/", external:true },
+	  { id:"kol-dashboard",  icon:"🔗", name:"KOL 外联看板",     desc:"电动滑板 KOL 外联管理：40 个精选外联目标，联系方式 + 飞书同步", tags:["KOL","外联","飞书"], url:"https://chrisgao1219-kol-dashboard.hf.space/", external:true },
 	  { id:"inventory",      icon:"📦", name:"库存/订单看板",     desc:"多品牌库存与销售监控，Shopline 订单数据实时同步", tags:["Shopline","多品牌"], url:"https://chrisgao1219-meepo-dashboard.hf.space/dashboard.html", external:true },
 	  { id:"trustpilot",     icon:"⭐", name:"Trustpilot VOC",   desc:"品牌评价监控与 Reddit 消费者洞察，自动分析口碑趋势", tags:["评价","Reddit"], url:"https://trustpilot-voc.vercel.app/", external:true },
 	  { id:"email-dash",     icon:"📧", name:"邮件营销看板",     desc:"Gmail 品牌邮件分析 + 邮件策略生成（策略/序列/文案/设计 四步出方案）", tags:["React","Gmail","策略生成"], url:"https://email-dashboard-roan.vercel.app/", external:true },
