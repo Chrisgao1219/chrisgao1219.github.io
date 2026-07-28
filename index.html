@@ -236,6 +236,26 @@ body{
 .tool-platform.external{background:var(--bg-alt);color:var(--text3)}
 .tool-tag{font-size:10px;padding:3px 8px;border-radius:5px;background:var(--bg-alt);color:var(--text3);font-weight:500}
 
+/* ═══════════════════════════ Priority Grid ═══════════════════════════ */
+.priority-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:48px}
+.priority-card{
+  background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--accent);
+  border-radius:var(--radius);padding:22px 20px 18px;cursor:pointer;
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;text-decoration:none;color:inherit;
+}
+.priority-card:hover{
+  border-color:var(--accent);box-shadow:var(--shadow-hover);transform:translateY(-3px);
+}
+.priority-card .tool-icon{font-size:30px;margin-bottom:10px}
+.priority-card .tool-name{font-family:var(--font-display);font-size:14px;font-weight:700;margin-bottom:3px}
+.priority-card .tool-desc{font-size:11px;color:var(--text2);line-height:1.5;flex:1}
+.priority-card .tool-meta{margin-top:6px}
+.section-label{
+  font-family:var(--font-display);font-size:13px;font-weight:600;color:var(--accent);
+  text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;
+}
+
 /* ═══════════════════════════ Footer ═══════════════════════════ */
 .footer{padding:32px 24px;border-top:1px solid var(--border);text-align:center}
 .footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:24px;font-size:13px;color:var(--text3);flex-wrap:wrap}
@@ -244,15 +264,20 @@ body{
 .footer-sep{color:var(--border-v)}
 
 /* ═══════════════════════════ Responsive ═══════════════════════════ */
+@media(max-width:1100px){
+  .priority-grid{grid-template-columns:repeat(3,1fr)}
+}
 @media(max-width:900px){
   .tool-grid{grid-template-columns:repeat(2,1fr)}
   .tool-card.featured{grid-column:span 2}
+  .priority-grid{grid-template-columns:repeat(2,1fr)}
   .footer-inner{gap:16px}
   .hero{padding:72px 16px 40px}
 }
 @media(max-width:600px){
   .tool-grid{grid-template-columns:1fr}
   .tool-card.featured{grid-column:span 1;flex-direction:column;gap:14px;align-items:flex-start;min-height:auto}
+  .priority-grid{grid-template-columns:1fr}
   .footer-inner{gap:12px}
   .hero{padding:64px 16px 40px}
   .hero h1{font-size:30px}
@@ -325,30 +350,31 @@ body{
 <script>
 // ═══ Tool Registry ═══
 	const TOOLS = [
-	  { id:"chrisgao-chrome", icon:'<img src="chrisgao-chrome-icon.jpg" alt="" style="width:40px;height:40px;border-radius:8px;object-fit:cover">', name:"Chrisgao Chrome",  desc:"给 AI 一个真实的浏览器：Chrome 隐身窗口共享登录态，MCP 原生支持，21 个工具直连 Claude Code", tags:["Chrome","MCP","Claude Code"], url:"/chrisgao-chrome.html", featured:true },
-	  { id:"price-tracker",  icon:"📊", name:"价格追踪",         desc:"竞品价格实时监控，汇率自动换算，价格变动趋势分析", tags:["Pandas","Plotly"], url:"https://chrisgao1219-price-tracker.hf.space/", external:true },
-	  { id:"competitor",     icon:"🔍", name:"竞品对比看板",     desc:"多品牌竞品分析：Trustpilot评分、Reddit VOC一站汇总", tags:["多品牌","Trustpilot"], url:"https://chrisgao1219-competitor-dashboard.hf.space/", external:true },
-
-	  { id:"affiliate",      icon:"👥", name:"Affiliate 数据大屏",desc:"KOL 红人数据看板：搜索、外联、追踪、效果分析一站式", tags:["KOL","飞书"], url:"https://chrisgao1219-kol-affiliate.hf.space/", external:true },
-	  { id:"inventory",      icon:"📦", name:"库存/订单看板",     desc:"多品牌库存与销售监控，Shopline 订单数据实时同步", tags:["Shopline","多品牌"], url:"https://meepo-sales-dashboard.vercel.app", external:true },
-	  { id:"trustpilot",     icon:"⭐", name:"VOC 竞品情报",     desc:"品牌评价监控与 Reddit 消费者洞察，多品牌竞品对比分析", tags:["评价","Reddit","竞品"], url:"https://voc-intel-dashboard.vercel.app/", external:true },
-	  { id:"email-dash",     icon:"📧", name:"邮件营销看板",     desc:"Gmail 品牌邮件分析 + 邮件策略生成（策略/序列/文案/设计 四步出方案）", tags:["React","Gmail","策略生成"], url:"https://email-dashboard-roan.vercel.app/", external:true },
-	  { id:"seo-center",     icon:"🔎", name:"SEO 命令中心",     desc:"18 大 SEO 模块：关键词研究、竞品分析、内容策略、排名追踪一站式", tags:["SEO","Semrush","AI"], url:"https://ai-seo-command-center.vercel.app/", external:true },
-	  { id:"ai-support",     icon:"🎧", name:"AI 客服系统",       desc:"AI 驱动的客户支持系统：邮件管理、自动回复、IMAP 集成", tags:["客服","AI","邮件"], url:"https://ai-customer-support-web-nine.vercel.app/", external:true },
-	  { id:"workbench",      icon:"🛠", name:"AI 营销工作台",     desc:"一站式 AI 营销仪表板：工作流管理、数据分析、自动化运营", tags:["营销","工作流","AI"], url:"https://ai-marketing-workbench.vercel.app/", external:true },
-	  { id:"wechat-ai",      icon:"💬", name:"WeChat AI 助手",    desc:"微信公众号 AI 智能助手：文章分析、知识管理、自动回复", tags:["微信","AI","自动化"], url:"https://wechat-ai.chrisgao1219.com/", external:true },
-	  { id:"skills-gallery", icon:"🧰", name:"Skills Gallery",   desc:"140+ AI 营销技能策展画廊，按品类分级的开源技能库", tags:["Claude","开源"], url:"https://chrisgao1219.github.io/skills-gallery/", external:true },
+	  { id:"chrisgao-chrome",  icon:'<img src="chrisgao-chrome-icon.jpg" alt="" style="width:40px;height:40px;border-radius:8px;object-fit:cover">', name:"Chrisgao Chrome",  desc:"给 AI 一个真实的浏览器：隐身窗口共享登录态，MCP 原生支持，21 个工具直连 Claude Code", tags:["Chrome","MCP","Claude Code"], url:"/chrisgao-chrome.html" },
+	  { id:"email-dash",      icon:"📧", name:"邮件营销看板",     desc:"Gmail 品牌邮件分析 + 策略生成（策略/序列/文案/设计四步出方案）", tags:["React","Gmail","策略生成"], url:"https://email-dashboard-roan.vercel.app/", external:true },
+	  { id:"affiliate",       icon:"👥", name:"Affiliate 数据大屏",desc:"KOL 红人数据看板：搜索、外联、追踪、效果分析一站式", tags:["KOL","飞书"], url:"https://chrisgao1219-kol-affiliate.hf.space/", external:true },
+	  { id:"trustpilot",      icon:"⭐", name:"VOC 竞品情报",     desc:"品牌评价监控 + Reddit 消费者洞察，多品牌竞品对比分析", tags:["评价","Reddit","竞品"], url:"https://voc-intel-dashboard.vercel.app/", external:true },
+	  { id:"seo-center",      icon:"🔎", name:"SEO 命令中心",     desc:"18 大 SEO 模块：关键词研究、竞品分析、内容策略、排名追踪", tags:["SEO","Semrush","AI"], url:"https://ai-seo-command-center.vercel.app/", external:true },
+	  { id:"inventory",       icon:"📦", name:"库存/订单看板",     desc:"多品牌库存与销售监控，Shopline 订单数据实时同步", tags:["Shopline","多品牌"], url:"https://meepo-sales-dashboard.vercel.app", external:true },
+	  { id:"price-tracker",   icon:"📊", name:"价格追踪",         desc:"竞品价格实时监控，汇率自动换算，价格变动趋势分析", tags:["Pandas","Plotly"], url:"https://chrisgao1219-price-tracker.hf.space/", external:true },
+	  { id:"competitor",      icon:"🔍", name:"竞品对比看板",     desc:"多品牌竞品分析：Trustpilot 评分、Reddit VOC 一站汇总", tags:["多品牌","Trustpilot"], url:"https://chrisgao1219-competitor-dashboard.hf.space/", external:true },
+	  { id:"ai-support",      icon:"🎧", name:"AI 客服系统",       desc:"AI 驱动的客户支持系统：邮件管理、自动回复、IMAP 集成", tags:["客服","AI","邮件"], url:"https://ai-customer-support-web-nine.vercel.app/", external:true },
+	  { id:"workbench",       icon:"🛠", name:"AI 营销工作台",     desc:"一站式 AI 营销仪表板：工作流管理、数据分析、自动化运营", tags:["营销","工作流","AI"], url:"https://ai-marketing-workbench.vercel.app/", external:true },
+	  { id:"wechat-ai",       icon:"💬", name:"WeChat AI 助手",    desc:"微信公众号 AI 智能助手：文章分析、知识管理、自动回复", tags:["微信","AI","自动化"], url:"https://wechat-ai.chrisgao1219.com/", external:true },
+	  { id:"skills-gallery",  icon:"🧰", name:"Skills Gallery",   desc:"140+ AI 营销技能策展画廊，按品类分级的开源技能库", tags:["Claude","开源"], url:"https://chrisgao1219.github.io/skills-gallery/", external:true },
 	];
+
+// Top 5 priority + rest
+const PRIORITY = TOOLS.slice(0, 5);
+const MORE = TOOLS.slice(5);
 
 // Unique tools for dropdown (dedup by id)
 const seen = new Set();
 const UNIQUE = TOOLS.filter(t => { if (seen.has(t.id)) return false; seen.add(t.id); return true; });
 
-// ═══ Render Tool Cards ═══
-document.getElementById("toolGrid").innerHTML = TOOLS.map(t => {
-  const cls = 'tool-card' + (t.featured ? ' featured' : '');
+function buildCard(t, cls) {
   const platform = t.external ? 'external' : 'server';
-  const label = t.external ? 'HuggingFace / Vercel' : '本站';
+  const label = t.external ? 'Vercel / HF / Pages' : '本站';
   const tags = (t.tags || []).map(tg => `<span class="tool-tag">${tg}</span>`).join('');
   const onclick = t.external
     ? `window.open('${t.url}','_blank','noopener')`
@@ -362,7 +388,14 @@ document.getElementById("toolGrid").innerHTML = TOOLS.map(t => {
       ${tags}
     </div>
   </div>`;
-}).join("");
+}
+
+// ═══ Render ═══
+document.getElementById("toolGrid").innerHTML =
+  '<div class="section-label">核心工具</div>'
+  + '<div class="priority-grid">' + PRIORITY.map(t => buildCard(t, 'priority-card')).join('') + '</div>'
+  + '<div class="section-label" style="margin-top:0">更多工具</div>'
+  + MORE.map(t => buildCard(t, 'tool-card')).join('');
 
 // ═══ Render Dropdown ═══
 document.getElementById("dropdown").innerHTML = UNIQUE.map(t =>
