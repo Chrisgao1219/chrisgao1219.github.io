@@ -199,88 +199,69 @@ body{
 }
 .section-desc{font-size:16px;color:var(--text2);max-width:520px;line-height:1.7;margin-bottom:44px}
 
-/* ═══════════════════════════ Tool Grid ═══════════════════════════ */
-.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:0}
-.tool-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius);padding:24px 26px 22px;
-  cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);
-  display:flex;flex-direction:column;position:relative;
-  text-decoration:none;color:inherit;
-}
-.tool-card::after{
-  content:'';position:absolute;inset:-1px;border-radius:var(--radius);
-  background:linear-gradient(135deg,var(--accent),#14b8a6);opacity:0;
-  transition:opacity .3s;z-index:-1;pointer-events:none;
-}
-.tool-card:hover{
-  border-color:transparent;box-shadow:var(--shadow-hover);transform:translateY(-3px);
-}
-.tool-card:hover::after{opacity:.06}
-
-.tool-card.featured{
-  grid-column:span 2;flex-direction:row;gap:26px;align-items:center;min-height:150px;
-  background:linear-gradient(135deg,var(--surface) 60%,var(--accent-subtle));
-}
-.tool-card.featured .tool-icon{font-size:40px;margin-bottom:0;flex-shrink:0}
-.tool-card.featured .tool-desc{font-size:14px}
-
-.tool-icon{font-size:26px;margin-bottom:12px;display:block;transition:transform .3s}
-.tool-icon img{display:block}
-.tool-card:hover .tool-icon{transform:scale(1.08)}
-.tool-name{font-family:var(--font-display);font-size:15px;font-weight:700;margin-bottom:4px}
-.tool-desc{font-size:13px;color:var(--text2);line-height:1.55;flex:1;margin-bottom:14px}
-.tool-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:4px}
-.tool-platform{font-size:10px;padding:3px 8px;border-radius:5px;font-weight:600;letter-spacing:.01em}
-.tool-platform.server{background:var(--accent-subtle);color:var(--accent)}
-.tool-platform.external{background:var(--bg-alt);color:var(--text3)}
-.tool-tag{font-size:10px;padding:3px 8px;border-radius:5px;background:var(--bg-alt);color:var(--text3);font-weight:500}
-
-/* ═══════════════════════════ Featured Grid (2x2) ═══════════════════════════ */
-.featured-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:48px}
-.featured-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius);padding:32px 28px 28px;cursor:pointer;
-  transition:all .3s cubic-bezier(.4,0,.2,1);
-  display:flex;flex-direction:column;text-decoration:none;color:inherit;
-  position:relative;overflow:hidden;
-}
-.featured-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--accent),#14b8a6);
-}
-.featured-card:hover{
-  border-color:var(--accent);box-shadow:var(--shadow-hover);transform:translateY(-2px);
-}
-.featured-card .f-icon{font-size:36px;margin-bottom:14px;line-height:1}
-.featured-card .f-icon img{width:44px;height:44px;border-radius:10px;object-fit:cover;display:block}
-.featured-card .f-name{
-  font-family:var(--font-display);font-size:18px;font-weight:700;margin-bottom:6px;
-  letter-spacing:-.02em;
-}
-.featured-card .f-desc{font-size:13px;color:var(--text2);line-height:1.6;flex:1;margin-bottom:16px}
-.featured-card .f-arrow{
-  display:inline-flex;align-items:center;gap:4px;
-  font-size:12px;font-weight:600;color:var(--accent);
-}
-.featured-card:hover .f-arrow{gap:8px;transition:gap .2s}
+/* ═══════════════════════════ Tool Section ═══════════════════════════ */
 .section-label{
   font-family:var(--font-display);font-size:13px;font-weight:600;color:var(--accent);
-  text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;
+  text-transform:uppercase;letter-spacing:.05em;margin-bottom:14px;
 }
 
-/* ═══════════════════════════ More Tools (compact) ═══════════════════════════ */
-.more-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.mini-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius-sm);padding:14px 16px 12px;cursor:pointer;
-  transition:all .2s;display:flex;align-items:center;gap:10px;
+/* ── Hero card (Chrisgao Chrome) ── */
+.hero-card{
+  display:flex;align-items:center;gap:32px;
+  background:linear-gradient(135deg,var(--surface) 60%,var(--accent-subtle));
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:32px 36px;margin-bottom:44px;cursor:pointer;
+  transition:all .3s cubic-bezier(.4,0,.2,1);
   text-decoration:none;color:inherit;
 }
-.mini-card:hover{border-color:var(--border-v);box-shadow:var(--shadow-card)}
-.mini-card .m-icon{font-size:18px;flex-shrink:0;width:22px;text-align:center}
-.mini-card .m-icon img{width:22px;height:22px;border-radius:5px;object-fit:cover;display:block}
-.mini-card .m-name{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hero-card:hover{border-color:var(--accent);box-shadow:var(--shadow-hover);transform:translateY(-2px)}
+.hero-icon{flex-shrink:0}
+.hero-icon img{width:56px;height:56px;border-radius:12px;object-fit:cover;display:block}
+.hero-body{flex:1;min-width:0}
+.hero-name{font-family:var(--font-display);font-size:22px;font-weight:800;letter-spacing:-.03em;margin-bottom:4px}
+.hero-desc{font-size:14px;color:var(--text2);line-height:1.6}
+.hero-tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.hero-tags .tool-tag{font-size:11px;padding:4px 10px}
+.hero-arrow{font-size:13px;font-weight:600;color:var(--accent);flex-shrink:0;display:flex;align-items:center;gap:4px;transition:gap .2s}
+.hero-card:hover .hero-arrow{gap:10px}
+
+/* ── Priority grid (2x2) ── */
+.prio-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:44px}
+.prio-card{
+  display:flex;align-items:flex-start;gap:20px;
+  background:var(--surface);border:1px solid var(--border);
+  border-left:4px solid var(--accent);border-radius:var(--radius);
+  padding:24px 28px;cursor:pointer;
+  transition:all .25s cubic-bezier(.4,0,.2,1);
+  text-decoration:none;color:inherit;
+}
+.prio-card:hover{border-color:var(--accent);box-shadow:var(--shadow-hover);transform:translateX(4px)}
+.prio-icon{font-size:30px;flex-shrink:0;line-height:1;margin-top:2px}
+.prio-icon img{width:40px;height:40px;border-radius:8px;object-fit:cover;display:block}
+.prio-body{flex:1;min-width:0}
+.prio-name{font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:3px}
+.prio-desc{font-size:13px;color:var(--text2);line-height:1.55;margin-bottom:8px}
+.prio-tags{display:flex;gap:5px;flex-wrap:wrap}
+
+/* ── More list (horizontal compact) ── */
+.more-list{display:flex;flex-direction:column;gap:8px}
+.more-card{
+  display:flex;align-items:center;gap:18px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:15px 22px;cursor:pointer;
+  transition:all .2s;text-decoration:none;color:inherit;
+}
+.more-card:hover{border-color:var(--border-v);box-shadow:var(--shadow-card);transform:translateX(3px)}
+.more-icon{font-size:22px;flex-shrink:0;width:30px;text-align:center}
+.more-icon img{width:26px;height:26px;border-radius:6px;object-fit:cover;display:block}
+.more-body{flex:1;display:flex;align-items:baseline;gap:10px;min-width:0}
+.more-name{font-size:14px;font-weight:600;white-space:nowrap}
+.more-desc{font-size:12px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.more-arrow{font-size:12px;color:var(--text3);flex-shrink:0;transition:transform .2s}
+.more-card:hover .more-arrow{transform:translateX(3px);color:var(--accent)}
+
+/* ── shared ── */
+.tool-tag{font-size:10px;padding:3px 8px;border-radius:5px;background:var(--bg-alt);color:var(--text3);font-weight:500}
 
 /* ═══════════════════════════ Footer ═══════════════════════════ */
 .footer{padding:32px 24px;border-top:1px solid var(--border);text-align:center}
@@ -291,18 +272,19 @@ body{
 
 /* ═══════════════════════════ Responsive ═══════════════════════════ */
 @media(max-width:900px){
-  .featured-grid{grid-template-columns:1fr;gap:12px}
-  .more-grid{grid-template-columns:repeat(3,1fr)}
-  .tool-grid{grid-template-columns:repeat(2,1fr)}
-  .tool-card.featured{grid-column:span 2}
+  .prio-grid{grid-template-columns:1fr}
+  .hero-card{flex-direction:column;align-items:flex-start;gap:20px}
+  .hero-arrow{display:none}
   .footer-inner{gap:16px}
   .hero{padding:72px 16px 40px}
 }
 @media(max-width:600px){
-  .featured-grid{grid-template-columns:1fr}
-  .more-grid{grid-template-columns:repeat(2,1fr)}
-  .tool-grid{grid-template-columns:1fr}
-  .tool-card.featured{grid-column:span 1;flex-direction:column;gap:14px;align-items:flex-start;min-height:auto}
+  .prio-grid{grid-template-columns:1fr}
+  .more-name{font-size:13px}
+  .more-desc{display:none}
+  .hero-card{padding:24px}
+  .hero-icon img{width:44px;height:44px}
+  .hero-name{font-size:18px}
   .footer-inner{gap:12px}
   .hero{padding:64px 16px 40px}
   .hero h1{font-size:30px}
@@ -389,44 +371,64 @@ body{
 	  { id:"skills-gallery",  icon:"🧰", name:"Skills Gallery",   desc:"140+ AI 营销技能策展画廊，按品类分级的开源技能库", tags:["Claude","开源"], url:"https://chrisgao1219.github.io/skills-gallery/", external:true },
 	];
 
-// Top 4 featured + rest
-const PRIORITY = TOOLS.slice(0, 4);
-const MORE = TOOLS.slice(4);
+// Slice
+const HERO    = TOOLS[0];          // Chrisgao Chrome
+const PRIORITY = TOOLS.slice(1, 5); // 邮件营销, Affiliate, VOC, SEO
+const MORE    = TOOLS.slice(5);     // 其余 7 个
 
 // Unique tools for dropdown (dedup by id)
 const seen = new Set();
 const UNIQUE = TOOLS.filter(t => { if (seen.has(t.id)) return false; seen.add(t.id); return true; });
 
-// ═══ Render Featured (2x2) ═══
-function buildFeatured(t) {
-  const onclick = t.external
+function link(t) {
+  return t.external
     ? `window.open('${t.url}','_blank','noopener')`
     : `openTool('${t.id}')`;
-  return `<div class="featured-card" onclick="${onclick}">
-    <div class="f-icon">${t.icon}</div>
-    <div class="f-name">${t.name}</div>
-    <div class="f-desc">${t.desc || ''}</div>
-    <span class="f-arrow">进入 &rarr;</span>
-  </div>`;
+}
+function tags(t) {
+  return (t.tags||[]).map(g => `<span class="tool-tag">${g}</span>`).join('');
 }
 
-// ═══ Render Mini (compact) ═══
-function buildMini(t) {
-  const onclick = t.external
-    ? `window.open('${t.url}','_blank','noopener')`
-    : `openTool('${t.id}')`;
-  return `<div class="mini-card" onclick="${onclick}">
-    <span class="m-icon">${t.icon}</span>
-    <span class="m-name">${t.name}</span>
-  </div>`;
-}
+// ═══ Render ═══
+let html = '';
 
-// ═══ Render All ═══
-document.getElementById("toolGrid").innerHTML =
-  '<div class="section-label">核心工具</div>'
-  + '<div class="featured-grid">' + PRIORITY.map(buildFeatured).join('') + '</div>'
-  + '<div class="section-label">更多工具</div>'
-  + '<div class="more-grid">' + MORE.map(buildMini).join('') + '</div>';
+// Hero: Chrisgao Chrome
+html += `<div class="hero-card" onclick="${link(HERO)}">
+  <div class="hero-icon">${HERO.icon}</div>
+  <div class="hero-body">
+    <div class="hero-name">${HERO.name}</div>
+    <div class="hero-desc">${HERO.desc}</div>
+    <div class="hero-tags">${tags(HERO)}</div>
+  </div>
+  <div class="hero-arrow">进入 &rarr;</div>
+</div>`;
+
+// Priority 4 (2x2)
+html += '<div class="section-label">核心工具</div><div class="prio-grid">';
+PRIORITY.forEach(t => {
+  html += `<div class="prio-card" onclick="${link(t)}">
+    <div class="prio-icon">${t.icon}</div>
+    <div class="prio-body">
+      <div class="prio-name">${t.name}</div>
+      <div class="prio-desc">${t.desc}</div>
+      <div class="prio-tags">${tags(t)}</div>
+    </div>
+  </div>`;
+});
+html += '</div>';
+
+// More list
+html += '<div class="section-label">更多工具</div><div class="more-list">';
+MORE.forEach(t => {
+  html += `<div class="more-card" onclick="${link(t)}">
+    <div class="more-icon">${t.icon}</div>
+    <div class="more-body"><span class="more-name">${t.name}</span><span class="more-desc">${t.desc}</span></div>
+    <div class="more-arrow">&rarr;</div>
+  </div>`;
+});
+html += '</div>';
+
+document.getElementById("toolGrid").innerHTML = html;
 
 // ═══ Render Dropdown ═══
 document.getElementById("dropdown").innerHTML = UNIQUE.map(t =>
