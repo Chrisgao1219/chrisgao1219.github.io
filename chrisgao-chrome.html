@@ -151,11 +151,11 @@
 
 <div class="hero">
   <img class="avatar" src="icon.png" alt="Chrisgao" onerror="this.style.display='none'">
-  <h1>给 AI 一个<em>真实的</em>浏览器</h1>
-  <p>你的 Chrome，借给 AI 使用。隐身窗口里操作，共享登录态，不影响你。</p>
+  <h1>让你的浏览器<em>替你做</em>重复性工作</h1>
+  <p>说人话就能指挥 AI 自动打开网页、搜索信息、填写表单、抓取数据。在隐身窗口里操作，既不干扰你，也不改变你的登录状态。</p>
   <div class="btns">
-    <a class="btn btn-primary" href="https://github.com/Chrisgao1219/chrisgao-chrome" target="_blank">开始使用</a>
-    <a class="btn btn-ghost" href="#usage">使用场景 ↓</a>
+    <a class="btn btn-primary" href="#quickstart">快速上手</a>
+    <a class="btn btn-ghost" href="#usage">能做什么 ↓</a>
   </div>
 </div>
 
@@ -180,21 +180,21 @@
 
   <div class="sec">
     <h2 class="center">能力对比</h2>
-    <p class="sub center">基于 TT Bridge 重构，新增网络监控 / Console / MCP / 智能错误提示等</p>
+    <p class="sub center">和市面上其他浏览器控制工具相比，Chrisgao 强在哪</p>
     <div class="t-wrap">
       <table>
         <thead><tr><th></th><th class="pick">Chrisgao</th><th>TT Bridge</th><th>Playwright</th><th>agent-browser</th></tr></thead>
         <tbody>
           <tr><td>共享你的登录态</td><td class="pick">隐身窗口</td><td>隐身窗口</td><td class="no">空白浏览器</td><td>共享窗口</td></tr>
           <tr><td>不干扰你操作</td><td class="pick">✓</td><td>✓</td><td>✓</td><td class="no">✗</td></tr>
-          <tr><td>MCP 直连 AI</td><td class="pick">21 工具</td><td class="no">无</td><td>✓</td><td>✓</td></tr>
-          <tr><td>网络请求监控</td><td class="pick">✓</td><td class="no">无</td><td>✓</td><td>✓</td></tr>
-          <tr><td>Console 日志</td><td class="pick">✓</td><td class="no">无</td><td class="no">有限</td><td>✓</td></tr>
-          <tr><td>结构快照</td><td class="pick">AX Tree</td><td class="no">无</td><td>AX Tree</td><td class="no">原始 HTML</td></tr>
+          <tr><td>AI 能直接操控浏览器</td><td class="pick">21 工具</td><td class="no">无</td><td>✓</td><td>✓</td></tr>
+          <tr><td>查看网页后台数据</td><td class="pick">✓</td><td class="no">无</td><td>✓</td><td>✓</td></tr>
+          <tr><td>检测网页错误</td><td class="pick">✓</td><td class="no">无</td><td class="no">有限</td><td>✓</td></tr>
+          <tr><td>看懂页面结构</td><td class="pick">精准提取</td><td class="no">无</td><td>精准提取</td><td class="no">原始代码</td></tr>
           <tr><td>智能错误提示</td><td class="pick">✓</td><td class="no">无</td><td class="no">无</td><td class="no">无</td></tr>
-          <tr><td>Session 恢复</td><td class="pick">持久化</td><td class="no">内存</td><td class="no">N/A</td><td class="no">内存</td></tr>
-          <tr><td>REPL 模式</td><td class="pick">✓</td><td class="no">无</td><td class="no">无</td><td class="no">无</td></tr>
-          <tr><td>安装难度</td><td class="pick">1 步</td><td>解压 zip</td><td>装驱动</td><td>编译 Rust</td></tr>
+          <tr><td>上次操作接着来</td><td class="pick">✓</td><td class="no">✗</td><td class="no">✗</td><td class="no">内存</td></tr>
+          <tr><td>一句一句交互</td><td class="pick">✓</td><td class="no">无</td><td class="no">无</td><td class="no">无</td></tr>
+          <tr><td>安装难度</td><td class="pick">1 行命令</td><td>解压 zip(麻烦)</td><td>装驱动(复杂)</td><td>编译 Rust(复杂)</td></tr>
         </tbody>
       </table>
     </div>
@@ -202,22 +202,22 @@
 
   <div class="sec">
     <h2 class="center">为什么选 Chrisgao</h2>
-    <p class="sub center">三个无法替代的优势</p>
+    <p class="sub center">和同类工具拉开差距的三个点</p>
     <div class="feat">
       <div class="f-card">
         <div class="f-icon">&#x1F81F;</div>
-        <h4>隐身窗口隔离</h4>
-        <p>AI 在 incognito 窗口操作，共享 Cookie，不影响你浏览。</p>
+        <h4>隐身窗口，不影响你</h4>
+        <p>AI 在一个独立的隐身窗口里操作，但用的是你 Chrome 的登录状态。你继续正常上网，两边互不干扰。</p>
       </div>
       <div class="f-card">
         <div class="f-icon">&#x26A1;</div>
-        <h4>1 分钟安装</h4>
-        <p>git clone + npm link。不需要 WebDriver，不需要编译。</p>
+        <h4>1 分钟装好</h4>
+        <p>不需要装驱动，不需要配环境。5 行命令搞定，全程 1 分钟。</p>
       </div>
       <div class="f-card">
         <div class="f-icon">&#x1F916;</div>
-        <h4>MCP 原生支持</h4>
-        <p>21 个工具，Claude Code 直接调用浏览器。</p>
+        <h4>21 个操控工具</h4>
+        <p>打开网页、点击按钮、输入文字、截图、抓数据… 21 个操控能力，Claude 都能调用。</p>
       </div>
     </div>
   </div>
@@ -305,16 +305,16 @@
     </div>
   </div>
 
-  <div class="sec no-border">
-    <h2 class="center">开始使用</h2>
-    <p class="sub center">需要 Node.js &ge; 18</p>
+  <div class="sec no-border" id="quickstart">
+    <h2 class="center">快速上手</h2>
+    <p class="sub center">需要电脑上装了 Node.js（版本 18 以上）</p>
     <div class="t-wrap">
       <ol class="steps">
-        <li><span class="s-num">1</span> 克隆仓库：<code>git clone https://github.com/Chrisgao1219/chrisgao-chrome.git</code></li>
-        <li><span class="s-num">2</span> 安装 CLI：<code>cd chrisgao-cli &amp;&amp; npm link</code></li>
-        <li><span class="s-num">3</span> 安装 MCP：<code>cd chrisgao-mcp &amp;&amp; npm install</code></li>
-        <li><span class="s-num">4</span> 加载扩展：<code>chrome://extensions</code> &rarr; 开发者模式 &rarr; 加载 <code>chrisgao-chrome-extension</code> 文件夹</li>
-        <li><span class="s-num">5</span> 启动：<code>chrisgao daemon start</code></li>
+        <li><span class="s-num">1</span> <span class="step-label">下载代码</span>：<code>git clone https://github.com/Chrisgao1219/chrisgao-chrome.git</code></li>
+        <li><span class="s-num">2</span> <span class="step-label">装好命令行工具</span>：<code>cd chrisgao-cli <code>cd chrisgao-cli &amp;&amp; npm link</code>amp;<code>cd chrisgao-cli &amp;&amp; npm link</code>amp; npm link</code></li>
+        <li><span class="s-num">3</span> <span class="step-label">装好 AI 连接器</span>：<code>cd chrisgao-mcp <code>cd chrisgao-mcp &amp;&amp; npm install</code>amp;<code>cd chrisgao-mcp &amp;&amp; npm install</code>amp; npm install</code></li>
+        <li><span class="s-num">4</span> <span class="step-label">装 Chrome 插件</span>：打开 <code>chrome://extensions</code> → 打开右上角<strong>开发者模式</strong> → 点<strong>加载已解压的扩展程序</strong> → 选 <code>chrisgao-chrome-extension</code> 文件夹</li>
+        <li><span class="s-num">5</span> <span class="step-label">启动</span>：<code>chrisgao daemon start</code></li>
       </ol>
     </div>
   </div>
