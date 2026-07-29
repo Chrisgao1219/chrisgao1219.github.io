@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -357,17 +357,17 @@ body{
 // ═══ Tool Registry ═══
 	const TOOLS = [
 	  { id:"chrisgao-chrome",  icon:'<img src="chrisgao-chrome-icon.jpg" alt="">', name:"Chrisgao Chrome",  desc:"让 AI 替你上网干活——自动搜索、填表、抓数据，像真人操作一样。隐身窗口，不影响你", tags:["浏览器自动化","AI 操控","无需编程"], url:"/chrisgao-chrome.html" },
-	  { id:"email-dash",      icon:"📧", name:"邮件营销看板",     desc:"Gmail 品牌邮件分析 + AI 策略生成：四步出方案，从策略到设计", tags:["React","Gmail","策略生成"], url:"https://email-dashboard-roan.vercel.app/", external:true },
-	  { id:"affiliate",       icon:"👥", name:"Affiliate 数据大屏",desc:"KOL 红人搜索 + 外联 + 追踪 + 效果分析一站式看板", tags:["KOL","飞书"], url:"https://chrisgao1219-kol-affiliate.hf.space/", external:true },
-	  { id:"trustpilot",      icon:"⭐", name:"VOC 竞品情报",     desc:"Trustpilot 评价监控 + Reddit 消费者洞察，多品牌竞品对比", tags:["评价","Reddit","竞品"], url:"https://voc-intel-dashboard.vercel.app/", external:true },
-	  { id:"seo-center",      icon:"🔎", name:"SEO 命令中心",     desc:"18 大 SEO 模块：关键词研究 + 竞品分析 + 内容策略 + 排名追踪", tags:["SEO","Semrush","AI"], url:"https://ai-seo-command-center.vercel.app/", external:true },
-	  { id:"inventory",       icon:"📦", name:"库存/订单看板",     desc:"多品牌库存 & 销售监控，Shopline 订单实时同步", tags:["Shopline","多品牌"], url:"https://meepo-sales-dashboard.vercel.app", external:true },
-	  { id:"price-tracker",   icon:"📊", name:"价格追踪",         desc:"竞品价格实时监控，汇率自动换算，价格变动趋势分析", tags:["Pandas","Plotly"], url:"https://chrisgao1219-price-tracker.hf.space/", external:true },
-	  { id:"competitor",      icon:"🔍", name:"竞品对比看板",     desc:"多品牌竞品对比：Trustpilot 评分 + Reddit VOC 一站汇总", tags:["多品牌","Trustpilot"], url:"https://chrisgao1219-competitor-dashboard.hf.space/", external:true },
-	  { id:"ai-support",      icon:"🎧", name:"AI 客服系统",       desc:"AI 驱动的客户支持系统：邮件管理、自动回复、IMAP 集成", tags:["客服","AI","邮件"], url:"https://ai-customer-support-web-nine.vercel.app/", external:true },
-	  { id:"workbench",       icon:"🛠", name:"AI 营销工作台",     desc:"一站式 AI 营销仪表板：工作流管理、数据分析、自动化运营", tags:["营销","工作流","AI"], url:"https://ai-marketing-workbench.vercel.app/", external:true },
-	  { id:"wechat-ai",       icon:"💬", name:"WeChat AI 助手",    desc:"微信公众号 AI 智能助手：文章分析、知识管理、自动回复", tags:["微信","AI","自动化"], url:"https://wechat-ai.chrisgao1219.com/", external:true },
-	  { id:"skills-gallery",  icon:"🧰", name:"Skills Gallery",   desc:"140+ AI 营销技能策展画廊，按品类分级的开源技能库", tags:["Claude","开源"], url:"https://chrisgao1219.github.io/skills-gallery/", external:true },
+	  { id:"email-dash",      icon:"📧", name:"邮件营销看板",     desc:"自动分析品牌邮件，一键生成营销策略、邮件序列、文案和设计稿", tags:["邮件","自动化","策略"], url:"https://email-dashboard-roan.vercel.app/", external:true },
+	  { id:"affiliate",       icon:"👥", name:"Affiliate 数据大屏",desc:"找红人、发邮件、追效果，一条龙搞定。40+ 外联目标实时追踪", tags:["KOL","飞书"], url:"https://chrisgao1219-kol-affiliate.hf.space/", external:true },
+	  { id:"trustpilot",      icon:"⭐", name:"VOC 竞品情报",     desc:"自动监控品牌评价和 Reddit 讨论，一眼看出用户喜欢什么、讨厌什么", tags:["口碑","监控"], url:"https://voc-intel-dashboard.vercel.app/", external:true },
+	  { id:"seo-center",      icon:"🔎", name:"SEO 命令中心",     desc:"18 个 SEO 工具一站搞定：挖关键词、分析竞品、出内容方案、追踪排名", tags:["SEO","关键词","AI"], url:"https://ai-seo-command-center.vercel.app/", external:true },
+	  { id:"inventory",       icon:"📦", name:"库存/订单看板",     desc:"多品牌库存和销量实时监控，自动同步订单，缺货第一时间知道", tags:["库存","实时"], url:"https://meepo-sales-dashboard.vercel.app", external:true },
+	  { id:"price-tracker",   icon:"📊", name:"价格追踪",         desc:"竞品价格实时监控，汇率自动换算，价格变动趋势分析", tags:["监控","汇率"], url:"https://chrisgao1219-price-tracker.hf.space/", external:true },
+	  { id:"competitor",      icon:"🔍", name:"竞品对比看板",     desc:"把竞品的评分、口碑、用户评价全聚合到一个页面，随时对比", tags:["竞品","评分"], url:"https://chrisgao1219-competitor-dashboard.hf.space/", external:true },
+	  { id:"ai-support",      icon:"🎧", name:"AI 客服系统",       desc:"AI 自动处理客服邮件：分类、回复、跟进，不用一封封手动回", tags:["客服","自动化","邮件"], url:"https://ai-customer-support-web-nine.vercel.app/", external:true },
+	  { id:"workbench",       icon:"🛠", name:"AI 营销工作台",     desc:"营销工作总控台：管理任务流程、看数据报表、自动执行重复工作", tags:["工作流","报表","自动化"], url:"https://ai-marketing-workbench.vercel.app/", external:true },
+	  { id:"wechat-ai",       icon:"💬", name:"WeChat AI 助手",    desc:"微信公众号 AI 智能助手：文章分析、知识管理、自动回复", tags:["微信","AI","公众号"], url:"https://wechat-ai.chrisgao1219.com/", external:true },
+	  { id:"skills-gallery",  icon:"🧰", name:"Skills Gallery",   desc:"140+ 个现成的 AI 营销技能模板，拿来就用，按品类分类查找", tags:["Claude","开源"], url:"https://chrisgao1219.github.io/skills-gallery/", external:true },
 	];
 
 // Slice
