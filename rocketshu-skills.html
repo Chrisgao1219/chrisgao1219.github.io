@@ -106,7 +106,7 @@ body{
   font-family:var(--font-display);font-size:14px;font-weight:700;
   letter-spacing:-.01em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
-.skill-desc{font-size:12px;color:var(--text2);margin-top:3px;line-height:1.4}
+.skill-desc{font-size:12px;color:var(--text2);margin-top:4px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .skill-star{
   flex-shrink:0;font-size:13px;font-weight:700;color:var(--amber);
   display:flex;align-items:center;gap:3px;white-space:nowrap;
@@ -158,39 +158,39 @@ body{
 
 <script>
 const SKILLS = [
-  { repo:"nousresearch/hermes-agent",           stars:"222K",  desc:"AI Agent 框架" },
-  { repo:"yt-dlp/yt-dlp",                       stars:"181K",  desc:"视频下载终极神器" },
-  { repo:"microsoft/markitdown",                stars:"170K",  desc:"文件转 Markdown" },
-  { repo:"clash-verge-rev/clash-verge-rev",     stars:"134K",  desc:"网络代理工具" },
-  { repo:"opendatalab/mineru",                  stars:"76K",   desc:"PDF/Office 转 Markdown" },
-  { repo:"Panniantong/agent-reach",             stars:"62K",   desc:"Agent 全网触达" },
-  { repo:"ChromeDevTools/chrome-devtools-mcp",  stars:"48K",   desc:"Chrome 调试 MCP" },
-  { repo:"vercel-labs/agent-browser",           stars:"39K",   desc:"浏览器 Agent" },
-  { repo:"Chanzhaoyu/chatgpt-web",              stars:"31K",   desc:"ChatGPT 网页版" },
-  { repo:"GaiZhenbiao/ChuanhuChatGPT",          stars:"15K",   desc:"川虎 ChatGPT" },
-  { repo:"wechat-article/wechat-article-exporter",stars:"12.5K",desc:"公众号文章批量导出" },
-  { repo:"s0md3v/roop",                         stars:"3.5K",  desc:"AI 换脸工具" },
-  { repo:"iBigQiang/feedgrab",                  stars:"582",   desc:"通用内容抓取" },
-  { repo:"joeseesun/qiaomu-wx-video",           stars:"83",    desc:"视频号下载" },
-  { repo:"mymark21/tt-bridge",                  stars:"4",     desc:"浏览器控制" },
-  { repo:"wenmengjie82/meng-wx-history-summarize",stars:"1",   desc:"微信历史总结" },
-  { repo:"noique/cross-border-ecommerce-skills",stars:"",     desc:"跨境电商 Skills 集合" },
-  { repo:"Fei-Away/Codex-Dream-Skin",           stars:"",     desc:"Codex Dream Skin 主题" },
-  { repo:"zarazhangrui/beautiful-html-templates",stars:"",    desc:"精美 HTML 模板集合" },
-  { repo:"zarazhangrui/frontend-slides",        stars:"",     desc:"前端幻灯片工具" },
-  { repo:"googleanalytics/google-analytics-mcp",stars:"",     desc:"Google Analytics MCP" },
-  { repo:"dontbesilent2025/dbskill",            stars:"",     desc:"通用 Claude Skill" },
-  { repo:"BlueMatthew/WechatExporter",          stars:"",     desc:"微信聊天记录导出" },
-  { repo:"godly-devotion/MochiDiffusion",       stars:"",     desc:"Mac 端 AI 图片生成" },
-  { repo:"zongjianpeng/jd_maota",              stars:"",     desc:"京东茅台抢购助手" },
-  { repo:"hwchase17/langchainjs",               stars:"",     desc:"LangChain JavaScript SDK" },
-  { repo:"sunner/ChatALL",                      stars:"",     desc:"同时向多个 AI 提问" },
-  { repo:"chathub-dev/chathub",                 stars:"",     desc:"多平台聊天聚合" },
-  { repo:"Chanzhaoyu/chatgpt-web-plus",         stars:"",     desc:"ChatGPT 网页增强版" },
-  { repo:"xcanwin/KeepChatGPT",                 stars:"",     desc:"保持 ChatGPT 连接稳定" },
-  { repo:"fuergaosi233/wechat-chatgpt",         stars:"",     desc:"微信接入 ChatGPT" },
-  { repo:"ourongxing/chatgpt-vercel",           stars:"",     desc:"Vercel 一键部署 ChatGPT" },
-  { repo:"liaokongVFX/LangChain-Chinese-Getting-Started-Guide",stars:"",desc:"LangChain 中文入门教程" },
+  { repo:"nousresearch/hermes-agent",           stars:"222K",  desc:"高质量 AI Agent 训练数据集与模型，支持工具调用、结构化推理和函数执行，是构建自主 Agent 的基石" },
+  { repo:"yt-dlp/yt-dlp",                       stars:"181K",  desc:"万能视频下载器，支持 YouTube/B站/抖音等数千网站，可选分辨率与格式，支持字幕提取和播放列表批量下载" },
+  { repo:"microsoft/markitdown",                stars:"170K",  desc:"微软出品：将 Office 文档、PDF、图片、网页一键转成干净的 Markdown，为 AI 处理准备好结构化素材" },
+  { repo:"clash-verge-rev/clash-verge-rev",     stars:"134K",  desc:"跨平台网络代理客户端，图形化界面支持多协议规则分流，一键切换节点，内置系统代理和 TUN 模式" },
+  { repo:"opendatalab/mineru",                  stars:"76K",   desc:"高精度 PDF/Office 转 Markdown，保留表格、公式、图片和排版结构，RAG 知识库和数据分析的文档预处理利器" },
+  { repo:"Panniantong/agent-reach",             stars:"62K",   desc:"AI Agent 全网触达引擎：自动搜索、浏览网页、采集信息，像真人一样在互联网上自主完成调研任务" },
+  { repo:"ChromeDevTools/chrome-devtools-mcp",  stars:"48K",   desc:"让 AI 直接操控 Chrome 开发者工具：审查元素、监控网络请求、执行 JS、性能分析，自动化测试与网页抓取利器" },
+  { repo:"vercel-labs/agent-browser",           stars:"39K",   desc:"Vercel 出品：AI 驱动的浏览器 Agent，可以像真人一样浏览网页、点击按钮、填写表单、截图和抓取数据" },
+  { repo:"Chanzhaoyu/chatgpt-web",              stars:"31K",   desc:"自部署 ChatGPT 网页客户端，支持多轮对话、历史记录管理、自定义 API Key，数据完全掌握在自己手里" },
+  { repo:"GaiZhenbiao/ChuanhuChatGPT",          stars:"15K",   desc:"川虎 ChatGPT：功能丰富的 AI 聊天界面，支持多模型切换、插件扩展、Markdown/LaTeX 渲染和文件上传分析" },
+  { repo:"wechat-article/wechat-article-exporter",stars:"12.5K",desc:"一键批量导出微信公众号文章为 PDF/HTML/Markdown，自动下载文中图片，做知识库沉淀和竞品分析的必备工具" },
+  { repo:"s0md3v/roop",                         stars:"3.5K",  desc:"一键 AI 换脸工具：支持图片、视频和实时摄像头画面中人脸的替换，无需训练模型，即开即用" },
+  { repo:"iBigQiang/feedgrab",                  stars:"582",   desc:"通用内容抓取器：从 RSS、网页、API 等多种来源提取结构化数据，支持自定义规则，做信息聚合和舆情监控" },
+  { repo:"joeseesun/qiaomu-wx-video",           stars:"83",    desc:"微信视频号视频下载工具：粘贴视频号链接即可下载高清无水印视频，方便素材收集和内容存档" },
+  { repo:"mymark21/tt-bridge",                  stars:"4",     desc:"浏览器控制桥接工具：打通浏览器扩展与外部应用的通信通道，实现跨进程自动化操控网页和浏览器行为" },
+  { repo:"wenmengjie82/meng-wx-history-summarize",stars:"1",   desc:"微信聊天记录智能分析与总结：自动提取群聊/私聊中的关键信息、待办事项、重要决策，再也不用爬楼翻记录" },
+  { repo:"noique/cross-border-ecommerce-skills",stars:"",     desc:"跨境电商专属 Claude Skills 集合：红人开发、竞品分析、邮件营销、SEO 等场景的 Prompt 模板和自动化工作流" },
+  { repo:"Fei-Away/Codex-Dream-Skin",           stars:"",     desc:"Codex Dream Skin：梦幻配色的 VS Code 精美主题皮肤，护眼暗色 + 精致图标，让每天写代码都有仪式感" },
+  { repo:"zarazhangrui/beautiful-html-templates",stars:"",    desc:"精美 HTML 模板合集：涵盖登录页、落地页、Dashboard、个人主页等多种场景，设计现代、代码干净、即拿即用" },
+  { repo:"zarazhangrui/frontend-slides",        stars:"",     desc:"用前端技术（HTML/CSS/JS）制作演示幻灯片，比 PPT 更灵活自由，支持代码高亮、交互动画和响应式布局" },
+  { repo:"googleanalytics/google-analytics-mcp",stars:"",     desc:"MCP 服务器让 AI 直连 Google Analytics：自动查询网站流量、用户行为、转化率，生成数据洞察报告，告别手动拉报表" },
+  { repo:"dontbesilent2025/dbskill",            stars:"",     desc:"通用 Claude Skill 工具包：集成文件处理、网页抓取、数据转换等常用功能，一个 Skill 搞定日常重复性 AI 任务" },
+  { repo:"BlueMatthew/WechatExporter",          stars:"",     desc:"微信聊天记录完整导出工具：支持文字、图片、语音、视频全类型消息，输出 HTML/TXT 格式，保留原始时间线和联系人" },
+  { repo:"godly-devotion/MochiDiffusion",       stars:"",     desc:"Mac 原生 Stable Diffusion AI 绘图客户端：SwiftUI 精美界面，无需联网，本地运行保护隐私，支持多种模型和参数调节" },
+  { repo:"zongjianpeng/jd_maota",              stars:"",     desc:"京东茅台抢购助手：自动监控库存状态、模拟下单流程，在茅台放货瞬间自动提交订单，大幅提升抢购成功率" },
+  { repo:"hwchase17/langchainjs",               stars:"",     desc:"LangChain 官方 JavaScript/TypeScript SDK：构建 LLM 应用的标准框架，支持链式调用、向量数据库、Agent 编排等核心能力" },
+  { repo:"sunner/ChatALL",                      stars:"",     desc:"同时向 ChatGPT、Claude、Gemini、文心一言等多个 AI 提问，并排对比各家的回答质量，一次提问多方验证" },
+  { repo:"chathub-dev/chathub",                 stars:"",     desc:"聊天 Hub：一个界面统一接入多个 AI 对话平台，集中管理不同 AI 的对话历史，无需在多个网页间来回切换" },
+  { repo:"Chanzhaoyu/chatgpt-web-plus",         stars:"",     desc:"ChatGPT 网页增强版：在开源 web 客户端基础上增加了提示词库、对话导出、角色预设、多 API Key 管理等高级功能" },
+  { repo:"xcanwin/KeepChatGPT",                 stars:"",     desc:"ChatGPT 防断连浏览器扩展：自动检测并修复网络错误、防止掉线、抑制报错弹窗，让长时间 AI 对话稳定不中断" },
+  { repo:"fuergaosi233/wechat-chatgpt",         stars:"",     desc:"微信接入 ChatGPT：在微信里使用 AI 自动回复消息，支持私聊和群聊场景，可设置关键词触发和上下文记忆" },
+  { repo:"ourongxing/chatgpt-vercel",           stars:"",     desc:"Vercel 一键部署 ChatGPT 网页版：无需服务器、无需数据库，3 分钟拥有自己的 ChatGPT 站点，支持自定义域名和 API Key" },
+  { repo:"liaokongVFX/LangChain-Chinese-Getting-Started-Guide",stars:"",desc:"LangChain 中文入门教程：从环境搭建到项目实战，配套完整代码示例和中文讲解，零基础也能学会构建 LLM 应用" },
 ];
 
 (function render() {
