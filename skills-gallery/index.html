@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="color-scheme" content="light dark">
+<title>Chrisgao — AI Skills Gallery</title>
+<style>
+/* ═══════ Design Tokens ═══════ */
+:root {
+  --bg:#fafaf9;--bg-alt:#f5f4f1;--surface:#fff;--border:#e8e5e0;--border-v:#d6d3ce;
+  --text:#1a1816;--text2:#5c5955;--text3:#999692;
+  --accent:#0d9488;--accent-subtle:#f0fdf9;--accent-glow:rgba(13,148,136,.12);
+  --amber:#d97706;--gold:#fef3c7;--gold-border:#fcd34d;--silver-bg:#f8fafc;--silver-border:#cbd5e1;--bronze-bg:#fefcf9;--bronze-border:#d4a574;
+  --font-display:"Outfit","PingFang SC","Microsoft YaHei",sans-serif;
+  --font-body:"Inter","PingFang SC","Microsoft YaHei",sans-serif;
+  --shadow-hover:0 0 0 1px rgba(13,148,136,.08),0 4px 20px rgba(0,0,0,.08);
+  --radius:16px;--radius-sm:10px;--radius-xs:8px;--nav-h:56px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ═══════ Nav ═══════ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);background:rgba(250,250,249,.88);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:100%}
+.nav-logo{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-.02em}
+.nav-back{font-size:13px;color:var(--text2);text-decoration:none;display:flex;align-items:center;gap:4px;transition:color .2s}
+.nav-back:hover{color:var(--accent)}
+
+/* ═══════ Hero ═══════ */
+.hero{margin-top:var(--nav-h);padding:56px 24px 36px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:500px;height:500px;background:radial-gradient(ellipse at center,var(--accent-glow) 0%,transparent 65%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:640px;margin:0 auto}
+.hero h1{font-family:var(--font-display);font-size:clamp(32px,5vw,48px);font-weight:800;letter-spacing:-.04em;line-height:1.12;margin-bottom:12px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),#14b8a6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:15px;color:var(--text2);max-width:500px;margin:0 auto;line-height:1.6}
+.hero-stats{display:flex;gap:32px;justify-content:center;margin-top:22px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat .num{font-family:var(--font-display);font-size:36px;font-weight:800}
+.hero-stat .label{font-size:11px;color:var(--text3);margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
+
+/* ═══════ Container ═══════ */
+.container{max-width:1200px;margin:0 auto;padding:0 24px 56px}
+
+/* ═══════ Toolbar ═══════ */
+.toolbar{display:flex;gap:8px;margin-bottom:32px;flex-wrap:wrap;align-items:center;position:sticky;top:var(--nav-h);z-index:50;background:rgba(250,250,249,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:10px 14px;border-radius:var(--radius-sm);border:1px solid var(--border)}
+.search-box{flex:1;min-width:180px;position:relative}
+.search-box input{width:100%;padding:8px 32px 8px 34px;border:1.5px solid var(--border);border-radius:var(--radius-xs);font-size:13px;font-family:var(--font-body);background:var(--surface);outline:none;transition:border-color .2s}
+.search-box input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3);pointer-events:none;font-size:13px}
+.search-clear{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:14px;padding:2px 5px;border-radius:4px;display:none}
+.search-clear.show{display:block}
+.search-clear:hover{color:var(--text);background:var(--bg-alt)}
+.result-hint{font-size:12px;color:var(--text3);white-space:nowrap}
+.filter-wrap{display:flex;gap:3px;flex-wrap:wrap;max-height:90px;overflow-y:auto}
+.filter-wrap::-webkit-scrollbar{display:none}
+.filter-tab{padding:5px 11px;border-radius:16px;border:1.5px solid var(--border);background:var(--surface);font-size:11px;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap;color:var(--text2);font-family:var(--font-body)}
+.filter-tab:hover{border-color:var(--accent);color:var(--accent)}
+.filter-tab.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.filter-tab.tier-gold{background:var(--gold);border-color:var(--gold-border);color:#92400e}
+.filter-tab.tier-gold.on{background:linear-gradient(135deg,#eab308,#ca8a04);color:#fff}
+.filter-tab.tier-silver{background:var(--silver-bg);border-color:var(--silver-border);color:#475569}
+.filter-tab.tier-silver.on{background:linear-gradient(135deg,#64748b,#475569);color:#fff}
+.filter-tab.tier-bronze{background:var(--bronze-bg);border-color:var(--bronze-border);color:#7c4a2a}
+.filter-tab.tier-bronze.on{background:linear-gradient(135deg,#b87333,#9a5d28);color:#fff}
+
+/* ═══════ Category ═══════ */
+.cat-group{margin-bottom:36px}
+.cat-header{display:flex;align-items:baseline;gap:10px;margin-bottom:4px;padding-bottom:8px;border-bottom:2px solid var(--accent-glow)}
+.cat-title{font-family:var(--font-display);font-size:18px;font-weight:700;letter-spacing:-.02em}
+.cat-count{font-size:12px;font-weight:500;color:var(--text3);background:var(--bg-alt);padding:2px 10px;border-radius:10px}
+.cat-desc{font-size:13px;color:var(--text3);margin-bottom:14px;line-height:1.5}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* ═══════ Card ═══════ */
+.card{display:block;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:15px 18px;transition:all .2s ease;text-decoration:none;color:inherit}
+.card:hover{border-color:var(--accent);box-shadow:var(--shadow-hover)}
+.card.t1{border-left:4px solid var(--gold-border);background:linear-gradient(135deg,var(--surface) 70%,#fffef5)}
+.card.t2{border-left:4px solid var(--silver-border);background:linear-gradient(135deg,var(--surface) 70%,#f8fafc)}
+.card.t3{border-left:4px solid var(--bronze-border);background:linear-gradient(135deg,var(--surface) 70%,#fefcf9)}
+.card-name{font-family:"SF Mono","Fira Code",Consolas,monospace;font-size:12px;font-weight:600;color:var(--accent);margin-bottom:3px;word-break:break-all}
+.card-desc{font-size:13px;color:var(--text2);line-height:1.5;margin-bottom:7px}
+.card-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.card-tag{display:inline-block;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:600}
+.tag-insight{background:#eef2ff;color:#4338ca}.tag-brand{background:#f3e8ff;color:#6b21a8}.tag-traffic{background:#fff0f0;color:#b91c1c}.tag-influence{background:#ecfdf5;color:#065f46}.tag-email{background:#f0f9ff;color:#0369a1}.tag-seo{background:#ffedd5;color:#9a3412}.tag-cro{background:#fefce8;color:#854d0e}.tag-ops{background:#e0f2fe;color:#0c4a6e}.tag-data{background:#f1f5f9;color:#334155}.tag-util{background:#f3f4f6;color:#374151}.tag-devtools{background:#f0fdf4;color:#166534}
+.tier-badge{display:inline-flex;align-items:center;gap:2px;padding:2px 7px;border-radius:8px;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
+.t1 .tier-badge{background:linear-gradient(135deg,#f59e0b,#d97706)}
+.t2 .tier-badge{background:linear-gradient(135deg,#64748b,#475569)}
+.t3 .tier-badge{background:linear-gradient(135deg,#b87333,#9a5d28)}
+.repo-link{font-size:10px;color:var(--text3);text-decoration:none;font-weight:500;transition:color .15s}
+.repo-link:hover{color:var(--accent);text-decoration:underline}
+
+/* ═══════ Quality ═══════ */
+.quality{background:var(--surface);border-radius:var(--radius);padding:24px 28px;margin-top:40px;border:1px solid var(--border)}
+.quality h3{font-family:var(--font-display);font-size:17px;font-weight:700;margin-bottom:4px}
+.quality .sub{font-size:13px;color:var(--text3);margin-bottom:16px}
+.qrow{display:flex;align-items:center;gap:12px;margin-bottom:6px;padding:10px 14px;border-radius:var(--radius-xs);background:var(--bg-alt)}
+.qicon{font-size:18px;flex-shrink:0}
+.qinfo{flex:1}.qname{font-size:13px;font-weight:700}.qdesc{font-size:11px;color:var(--text3)}
+.qnum{font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--accent)}
+.qnote{font-size:12px;color:var(--text3);margin-top:12px;text-align:center}
+.qlist{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-top:8px}
+.qtag{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:10px;font-size:10px;font-weight:600;text-decoration:none;white-space:nowrap;transition:transform .15s}
+.qtag:hover{transform:translateY(-1px)}
+.qtag.t1{background:#fef3c7;color:#92400e;border:1px solid #fcd34d}
+.qtag.t2{background:#e2e8f0;color:#475569;border:1px solid #94a3b8}
+.qtag.t3{background:#fdf6ef;color:#7c4a2a;border:1px solid #d4a574}
+
+/* ═══════ Empty ═══════ */
+.empty{text-align:center;padding:80px 20px;color:var(--text3)}
+.empty-icon{font-size:48px;margin-bottom:12px}
+.empty-text{font-size:15px}
+
+/* ═══════ Footer ═══════ */
+.footer{text-align:center;padding:20px;color:var(--text3);font-size:13px;border-top:1px solid var(--border)}
+.footer a{color:var(--text2);text-decoration:none}.footer a:hover{color:var(--accent)}
+
+/* ═══════ Toast ═══════ */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1f2937;color:#fff;padding:10px 24px;border-radius:10px;font-size:13px;pointer-events:none;z-index:999;opacity:0;transition:opacity .3s}
+.toast.on{opacity:1}
+.btt{position:fixed;bottom:20px;right:20px;width:40px;height:40px;border-radius:50%;background:var(--surface);border:1.5px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--text2);transition:all .2s;opacity:0;pointer-events:none;z-index:100}
+.btt.on{opacity:1;pointer-events:auto}
+.btt:hover{border-color:var(--accent);color:var(--accent)}
+
+@media(max-width:900px){.cat-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.toolbar{flex-direction:column;align-items:stretch}.hero-stats{gap:20px}}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="nav-logo">🧰 AI Skills Gallery</a>
+  <a href="/" class="nav-back">&larr; 返回首页</a>
+</div></nav>
+
+<section class="hero"><div class="hero-inner">
+  <h1>跨境电商 AI <em>能力矩阵</em></h1>
+  <p>140+ 个 Claude Code Skills，覆盖市场洞察、广告投放、SEO、红人营销等全链路 — 全部来自真实 GitHub 仓库</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num" id="totalN">—</div><div class="label">Skills</div></div>
+    <div class="hero-stat"><div class="num" id="t1n" style="color:#d97706">—</div><div class="label">🥇 金牌</div></div>
+    <div class="hero-stat"><div class="num" id="t2n" style="color:#64748b">—</div><div class="label">🥈 银牌</div></div>
+    <div class="hero-stat"><div class="num" id="t3n" style="color:#b87333">—</div><div class="label">🥉 铜牌</div></div>
+  </div>
+</div></section>
+
+<main class="container">
+  <div class="toolbar">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search" placeholder="搜索 Skill 名称或功能…" autocomplete="off">
+      <button class="search-clear" id="searchClear" title="清除">&times;</button>
+    </div>
+    <span class="result-hint" id="hint"></span>
+    <div class="filter-wrap" id="filters">
+      <button class="filter-tab tier-gold" data-cat="tier1">🥇 金牌</button>
+      <button class="filter-tab tier-silver" data-cat="tier2">🥈 银牌</button>
+      <button class="filter-tab tier-bronze" data-cat="tier3">🥉 铜牌</button>
+      <button class="filter-tab on" data-cat="all">全部</button>
+      <button class="filter-tab" data-cat="insight">🔍 市场洞察</button>
+      <button class="filter-tab" data-cat="brand">🏪 品牌 & Listing</button>
+      <button class="filter-tab" data-cat="traffic">📣 流量 & 广告</button>
+      <button class="filter-tab" data-cat="influence">🤝 红人 & 外联</button>
+      <button class="filter-tab" data-cat="email">📧 邮件 & CRM</button>
+      <button class="filter-tab" data-cat="seo">🔎 SEO</button>
+      <button class="filter-tab" data-cat="cro">🧪 CRO & 增长</button>
+      <button class="filter-tab" data-cat="ops">📦 运营 & 供应链</button>
+      <button class="filter-tab" data-cat="data">📊 数据 & 分析</button>
+      <button class="filter-tab" data-cat="util">🛠 效率 & 策略</button>
+      <button class="filter-tab" data-cat="devtools">⚡ AI 编码必装</button>
+    </div>
+  </div>
+  <div id="sections"></div>
+
+  <div class="quality">
+    <h3>🏆 分级标准 · 3 级质量体系</h3>
+    <p class="sub">基于 GitHub 社区信号 + 跨境电商行业相关性</p>
+    <div class="qrow" style="background:#fffef5;border:1px solid #fcd34d"><div class="qicon">🥇</div><div class="qinfo"><div class="qname">金牌精选</div><div class="qdesc">源仓库 ≥ 1,000 Stars · 社区广泛验证 · 跨境电商高相关性</div></div><div class="qnum" id="q1n">—</div></div>
+    <div class="qrow" style="background:#f8fafc;border:1px solid #94a3b8"><div class="qicon">🥈</div><div class="qinfo"><div class="qname">银牌认证</div><div class="qdesc">源仓库 200–999 Stars · 有社区认可 · 已验证实用性</div></div><div class="qnum" id="q2n">—</div></div>
+    <div class="qrow" style="background:#fefcf9;border:1px solid #d4a574"><div class="qicon">🥉</div><div class="qinfo"><div class="qname">铜牌收录</div><div class="qdesc">源仓库 &lt; 200 Stars 或特色专业库 · 经人工审核收录</div></div><div class="qnum" id="q3n">—</div></div>
+    <p class="qnote">所有 Skill 均链接至真实 GitHub 仓库，源仓库 Star 数标注于每张卡片</p>
+    <div class="qlist" id="qlist"></div>
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+<button class="btt" id="btt" title="顶部">&uarr;</button>
+<footer class="footer"><a href="/">Chrisgao AI</a> &copy; 2026</footer>
+
+<script>
+// ═══ Source Repos ═══
+const REPOS = [
+  {id:"marketingskills",name:"marketingskills",stars:"34.4K",url:"https://github.com/coreyhaines31/marketingskills",tier:1},
+  {id:"uiux",name:"ui-ux-pro-max",stars:"38K+",url:"https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",tier:1},
+  {id:"claude-skills",name:"claude-skills",stars:"18.7K",url:"https://github.com/alirezarezvani/claude-skills",tier:1},
+  {id:"claude-seo",name:"claude-seo",stars:"9.4K",url:"https://github.com/AgriciDaniel/claude-seo",tier:1},
+  {id:"claude-ads",name:"claude-ads",stars:"6.3K",url:"https://github.com/AgriciDaniel/claude-ads",tier:1},
+  {id:"notfair",name:"NotFair",stars:"2.9K",url:"https://github.com/nowork-studio/NotFair",tier:1},
+  {id:"seo-geo",name:"seo-geo-claude-skills",stars:"2.2K",url:"https://github.com/aaron-he-zhu/seo-geo-claude-skills",tier:1},
+  {id:"gtm-engineer",name:"gtm-engineer-skills",stars:"1.2K",url:"https://github.com/onvoyage-ai/gtm-engineer-skills",tier:1},
+  {id:"arcads",name:"arcads-claude-code",stars:"823",url:"https://github.com/krusemediallc/arcads-claude-code",tier:2},
+  {id:"ecom-img",name:"ecom-details-image",stars:"429",url:"https://github.com/liangdabiao/ecom-details-image",tier:2},
+  {id:"ai-marketing",name:"ai-marketing-skills",stars:"334",url:"https://github.com/BrianRWagner/ai-marketing-claude-code-skills",tier:2},
+  {id:"email-bible",name:"email-marketing-bible",stars:"226",url:"https://github.com/CosmoBlk/email-marketing-bible",tier:2},
+  {id:"founder",name:"founder-skills",stars:"204",url:"https://github.com/ognjengt/founder-skills",tier:2},
+  {id:"caveman",name:"caveman",stars:"75K",url:"https://github.com/JuliusBrussee/caveman",tier:1},
+  {id:"prompt-master",name:"prompt-master",stars:"9.6K",url:"https://github.com/nidhinjs/prompt-master",tier:1},
+  {id:"dev-browser",name:"dev-browser",stars:"6.3K",url:"https://github.com/SawyerHood/dev-browser",tier:1},
+  {id:"qiaomu",name:"qiaomu-notebooklm",stars:"5.3K",url:"https://github.com/joeseesun/qiaomu-anything-to-notebooklm",tier:1},
+  {id:"codebase-course",name:"codebase-to-course",stars:"4.9K",url:"https://github.com/zarazhangrui/codebase-to-course",tier:1},
+  {id:"guizang",name:"guizang-social-card",stars:"3.8K",url:"https://github.com/op7418/guizang-social-card-skill",tier:1},
+  {id:"learning-opp",name:"learning-opportunities",stars:"2.2K",url:"https://github.com/DrCatHicks/learning-opportunities",tier:1},
+  {id:"claude-everything",name:"Claude-Code-Everything",stars:"2.1K",url:"https://github.com/wesammustafa/Claude-Code-Everything-You-Need-to-Know",tier:1},
+  {id:"keep-codex-fast",name:"keep-codex-fast",stars:"1.4K",url:"https://github.com/vibeforge1111/keep-codex-fast",tier:1},
+  {id:"office-skills",name:"claude-office-skills",stars:"758",url:"https://github.com/tfriedel/claude-office-skills",tier:2},
+  {id:"claude-forge",name:"claude-forge",stars:"752",url:"https://github.com/sangrokjung/claude-forge",tier:2},
+  {id:"chompute",name:"chompute-shopify-skills",stars:"—",url:"https://github.com/dragonfruit-ai/skills",tier:3},
+  {id:"shopify-hub",name:"shopify-skill-hub",stars:"—",url:"https://github.com/ivsao/shopify-skill-hub",tier:3},
+  {id:"superpowers",name:"superpowers",stars:"234K",url:"https://github.com/obra/superpowers",tier:1},
+  {id:"karpathy",name:"andrej-karpathy-skills",stars:"179K",url:"https://github.com/forrestchang/andrej-karpathy-skills",tier:1},
+  {id:"gstack",name:"gstack",stars:"112K",url:"https://github.com/garrytan/gstack",tier:1},
+  {id:"agent-skills",name:"agent-skills",stars:"64K",url:"https://github.com/addyosmani/agent-skills",tier:1}
+];
+const rm={}; REPOS.forEach(r=>{rm[r.id]=r;});
+
+// ═══ All Skills (your existing data) ═══
+const S = [
+  {id:"insight",icon:"🔍",title:"市场洞察 & 选品",tag:"tag-insight",desc:"竞品分析、用户调研、市场趋势、营销策略——搞清楚你的市场、对手和客户，制定数据驱动的营销计划",skills:[
+    {n:"mktg-competitor-profiling",t:1,r:"marketingskills",d:"输入竞品URL自动生成深度分析报告：SWOT、内容策略对标、定价对比、市场缺口洞察，一份报告看清对手底牌",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/competitor-profiling"},
+    {n:"mktg-customer-research",t:1,r:"marketingskills",d:"系统化用户调研：ICP理想客户画像、用户访谈提纲设计、访谈转录分析、需求洞察提炼，帮你真正理解客户",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/customer-research"},
+    {n:"mktg-marketing-plan",t:1,r:"marketingskills",d:"一键生成完整营销方案：涵盖市场策略、目标受众、品牌定位、渠道规划、内容日历、KPI指标和预算分配",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/marketing-plan"},
+    {n:"mktg-marketing-ideas",t:1,r:"marketingskills",d:"营销创意引擎：输入产品和行业，自动生成增长策略、获客创意、传播方案，打破创意枯竭",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/marketing-ideas"},
+    {n:"mktg-prospecting",t:1,r:"marketingskills",d:"潜客挖掘系统：B2B/B2C精准找客户、自动评估质量、按行业/规模/需求分类建名单，直接对接外联流程",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/prospecting"},
+    {n:"aimktg-last30days",t:2,r:"ai-marketing",d:"近30天全网舆情调研：同时搜索Reddit、X(Twitter)和全网内容，输出最新趋势、社区热议话题和消费者真实声音",u:"https://github.com/BrianRWagner/ai-marketing-claude-code-skills/tree/main/last-30-days"},
+    {n:"aimktg-reddit-insights",t:2,r:"ai-marketing",d:"Reddit语义搜索利器：从数百万帖子中精准挖掘用户痛点、产品反馈和社区情绪，找到最真实的消费者声音",u:"https://github.com/BrianRWagner/ai-marketing-claude-code-skills/tree/main/reddit-insights"},
+    {n:"aimktg-marketing-principles",t:2,r:"ai-marketing",d:"经典营销原则AI应用：让AI掌握科特勒定位理论、蓝海战略、JOBS-to-be-done等经典框架，用大师视角做决策",u:"https://github.com/BrianRWagner/ai-marketing-claude-code-skills/tree/main/marketing-principles"},
+    {n:"founder-competitor-intel",t:2,r:"founder",d:"创始人级竞品情报：自动抓取竞品网络足迹→验证关键指标→分析增长杠杆→预测下一步动作，像VC一样做竞调",u:"https://github.com/ognjengt/founder-skills/tree/main/skills/competitor-intel"},
+    {n:"founder-marketing-ideas",t:2,r:"founder",d:"定制化增长创意引擎：根据你的产品阶段和市场，生成增长战术、渠道策略和病毒传播机制，每一条都针对你的情况",u:"https://github.com/ognjengt/founder-skills/tree/main/skills/marketing-ideas"},
+    {n:"competitive-teardown",t:1,r:"claude-skills",d:"全面竞品拆解：扫描定价页、应用商店评价、招聘信息、SEO表现、社交媒体→自动汇总为结构化情报和行动建议",u:"https://github.com/alirezarezvani/claude-skills/tree/main/product-team/skills/competitive-teardown"}
+  ]},
+  {id:"brand",icon:"🏪",title:"品牌 & Listing",tag:"tag-brand",desc:"产品文案、品牌视觉、Listing优化、内容策略——打造高转化率的品牌形象和产品页面",skills:[
+    {n:"mktg-copywriting",t:1,r:"marketingskills",d:"全场景营销文案生成：首页、落地页、定价页、功能页、产品描述，一个Skill搞定所有文案需求",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/copywriting"},
+    {n:"mktg-copy-editing",t:1,r:"marketingskills",d:"文案润色修改：校对语法、优化表达、更新过时内容、提升说服力，让每句文案都经得起推敲",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/copy-editing"},
+    {n:"mktg-content-strategy",t:1,r:"marketingskills",d:"内容策略规划：确定内容支柱、编排发布日历、制定跨渠道分发策略，让内容体系化运作",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/content-strategy"},
+    {n:"mktg-image",t:1,r:"marketingskills",d:"AI图片创作与优化：博客头图、社交素材、产品效果图、Listing配图，无需设计师也能出高质量视觉内容",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/image"},
+    {n:"mktg-product-marketing",t:1,r:"marketingskills",d:"产品营销定位：差异化卖点提炼、目标市场信息传达、竞品差异化分析，让产品会说话",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/product-marketing"},
+    {n:"mktg-social",t:1,r:"marketingskills",d:"全平台社媒运营：LinkedIn/Twitter/Instagram/TikTok/Facebook内容创作、排期优化和平台适配",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/social"},
+    {n:"mktg-video",t:1,r:"marketingskills",d:"AI自动化视频制作：用Remotion编程生成视频，支持批量模板化生产，高效产出产品视频和社媒内容",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/video"},
+    {n:"mktg-ad-creative",t:1,r:"marketingskills",d:"广告素材规模化生成：根据产品信息自动生成多平台广告标题、描述和完整创意方案，支持批量A/B测试",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/ad-creative"},
+    {n:"ecom-details-image",t:2,r:"ecom-img",d:"电商详情页图片自动生成：A+内容、信息图、场景图，25种场景模板，中英双语，亚马逊/独立站通用",u:"https://github.com/liangdabiao/ecom-details-image"},
+    {n:"ui-ux-pro-max",t:1,r:"uiux",d:"全能AI设计系统：覆盖18+AI编码工具，67种UI风格、161套配色、100条行业规范、57种字体组合，设计不用求人",u:"https://github.com/nextlevelbuilder/ui-ux-pro-max-skill"},
+    {n:"guizang-social-card-skill",t:1,r:"guizang",d:"小红书图文+公众号封面神器：28种版式×10套主题，HTML直出PNG高清图，瑞士设计风格，社交媒体运营必备",u:"https://github.com/op7418/guizang-social-card-skill"},
+    {n:"seo-ecommerce",t:1,r:"claude-seo",d:"电商SEO专项优化：产品页结构优化、类目架构、筛选导航、Schema结构化数据标记、平台审计",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-ecommerce"},
+    {n:"seo-images",t:1,r:"claude-seo",d:"图片SEO全面优化：Alt文本、压缩策略、响应式图片、EXIF数据、视觉搜索排名，让图片给你带流量",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-images"},
+    {n:"seo-image-gen",t:1,r:"claude-seo",d:"SEO专用AI出图：自动生成Midjourney/DALL·E提示词、图片需求简报、视觉内容策略，配图也能做SEO",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-image-gen"}
+  ]},
+  {id:"traffic",icon:"📣",title:"流量 & 广告",tag:"tag-traffic",desc:"Google/Meta/TikTok/Amazon 全平台广告投放——从账户审计、创意生成到预算分配、归因分析的一站式工具",skills:[
+    {n:"claude-ads",t:1,r:"claude-ads",d:"广告超级审计系统：250+项检查、0-100加权评分、6子代理并行分析+PPC财务计算器，一次审计覆盖全部广告渠道",u:"https://github.com/AgriciDaniel/claude-ads"},
+    {n:"ads-google",t:1,r:"claude-ads",d:"Google Ads深度诊断：覆盖搜索、PMax、展示、YouTube、Demand Gen五大广告类型，80项检查指标",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-google"},
+    {n:"ads-meta",t:1,r:"claude-ads",d:"Meta广告全维度分析：Facebook+Instagram+Threads，50项检查含Pixel/CAPI追踪、创意多样性、受众策略",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-meta"},
+    {n:"ads-tiktok",t:1,r:"claude-ads",d:"TikTok广告专项诊断：创意、追踪、出价、Spark Ads、TikTok Shop，30+项检查，支持美区数据安全合规",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-tiktok"},
+    {n:"ads-youtube",t:1,r:"claude-ads",d:"YouTube广告全面分析：可跳过/不可跳过/Bumper/Shorts四种格式，ABCD创意框架评分，找出最优广告形式",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-youtube"},
+    {n:"ads-linkedin",t:1,r:"claude-ads",d:"LinkedIn B2B广告诊断：27项检查含技术配置、受众定向、创意质量、线索表单、Thought Leader广告效果",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-linkedin"},
+    {n:"ads-microsoft",t:1,r:"claude-ads",d:"微软/Bing广告分析：搜索、PMax、受众网络、Copilot广告，24项检查含Google导入验证，不放过任何流量入口",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-microsoft"},
+    {n:"ads-apple",t:1,r:"claude-ads",d:"Apple Search Ads优化：检查广告系列结构、出价健康度、CPP、AdAttributionKit归因、SKAdNetwork集成",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-apple"},
+    {n:"ads-amazon",t:1,r:"claude-ads",d:"亚马逊广告全面诊断：Sponsored Products、Sponsored Brands、DSP展示广告、归因追踪和零售就绪度检查",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-amazon"},
+    {n:"ads-audit",t:1,r:"claude-ads",d:"全平台一键审计：6个子代理并行分析Google/Meta/LinkedIn/TikTok/Microsoft/Apple+汇总报告，一次性掌握全部广告账户",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-audit"},
+    {n:"ads-competitor",t:1,r:"claude-ads",d:"竞品广告情报：分析竞品广告文案、创意策略、关键词定向、预估花费，全方位洞悉对手投放策略",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-competitor"},
+    {n:"ads-creative",t:1,r:"claude-ads",d:"跨平台创意质量审计：检查文案、视频、图片、格式多样性，自动检测创意疲劳度，及时发现素材衰退信号",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-creative"},
+    {n:"ads-plan",t:1,r:"claude-ads",d:"广告战略规划：帮你选择最佳投放平台、设计广告架构、分配预算、制定创意策略和分阶段执行路线图",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-plan"},
+    {n:"ads-math",t:1,r:"claude-ads",d:"PPC财务精算器：自动计算CPA、ROAS、CPL、盈亏平衡点、LTV:CAC比率、边际ROAS曲线，告别Excel手工算账",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-math"},
+    {n:"ads-dna",t:1,r:"claude-ads",d:"品牌DNA提取器：扫描网站自动识别品牌视觉基因——配色、字体、语调、图像风格，确保所有广告视觉统一",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-dna"},
+    {n:"ads-budget",t:1,r:"claude-ads",d:"预算智能分配：跨渠道预算优化、月度消耗节奏控制、脉冲投放策略，让每分钱都花在最高ROI的渠道",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-budget"},
+    {n:"ads-create",t:1,r:"claude-ads",d:"广告智能创建向导：输入产品信息和品牌指南，自动生成各平台优化后的广告文案、标题和完整素材方案",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-create"},
+    {n:"ads-generate",t:1,r:"claude-ads",d:"AI广告创意批量生成：基于产品数据自动生成广告变体、动态文案和视觉概念，支持大规模A/B测试",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-generate"},
+    {n:"ads-landing",t:1,r:"claude-ads",d:"广告落地页专项优化：检查信息匹配度、加载速度、转化路径，专为付费流量优化落地页体验",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-landing"},
+    {n:"ads-photoshoot",t:1,r:"claude-ads",d:"广告拍摄创意简报：自动生成创意方向、分镜清单、情绪版，让摄影师和设计师一看就懂",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-photoshoot"},
+    {n:"ads-test",t:1,r:"claude-ads",d:"广告A/B测试框架：结构化实验设计、统计显著性计算、创意轮换规则，科学验证哪版广告效果最好",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-test"},
+    {n:"mktg-ads",t:1,r:"marketingskills",d:"全平台广告策略：Google Ads、Meta、LinkedIn、Twitter/X四大渠道的投放策略规划与优化建议",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/ads"},
+    {n:"google-ads-audit",t:1,r:"notfair",d:"Google Ads账户全面体检：深度理解业务场景后输出账户健康评分，作为所有其他广告Skill的入口",u:"https://github.com/nowork-studio/NotFair/tree/main/google-ads/audit"},
+    {n:"google-ads-copy",t:1,r:"notfair",d:"Google Ads自适应搜索广告文案生成：自动生成标题/描述组合并进行A/B测试，统计显著性验证",u:"https://github.com/nowork-studio/NotFair/tree/main/google-ads/copy"},
+    {n:"google-ads-landing",t:1,r:"notfair",d:"Google Ads落地页体验评分：信息匹配度检测、转化率问题诊断、质量分提升建议",u:"https://github.com/nowork-studio/NotFair/tree/main/google-ads/landing"},
+    {n:"google-ads-manage",t:1,r:"notfair",d:"Google Ads日常管理助手：关键词优化、出价调整、预算分配、搜索词分析、质量分监控、否定词维护",u:"https://github.com/nowork-studio/NotFair/tree/main/google-ads/manage"},
+    {n:"meta-ads-audit",t:1,r:"notfair",d:"Meta广告账户全面审计：Facebook+Instagram双平台健康检查，受众策略基线和优化方向",u:"https://github.com/nowork-studio/NotFair/tree/main/meta-ads/audit"},
+    {n:"meta-ads-manage",t:1,r:"notfair",d:"Meta广告日常管理：ROAS监控、CPM优化、频次控制、受众重叠检测、学习期限踪、创意疲劳预警",u:"https://github.com/nowork-studio/NotFair/tree/main/meta-ads/manage"},
+    {n:"arcads-chatgpt-image-ad",t:2,r:"arcads",d:"ChatGPT生成Meta广告图片：通过Arcads平台用gpt-image-2模型一键生成Meta广告创意图片",u:"https://github.com/krusemediallc/arcads-claude-code/tree/main/skills/arcads-chatgpt-image-ad"},
+    {n:"arcads-external-api",t:2,r:"arcads",d:"Arcads外部API集成：批量生成图片、管理模板、自动化创意运营，跟你的工作流打通",u:"https://github.com/krusemediallc/arcads-claude-code/tree/main/skills/arcads-external-api"},
+    {n:"arcads-generate-youtube-thumbnail",t:2,r:"arcads",d:"高点击率YouTube缩略图生成：自动设计表情、文字叠加、色彩调校，提升视频点击率",u:"https://github.com/krusemediallc/arcads-claude-code/tree/main/skills/arcads-generate-youtube-thumbnail"},
+    {n:"arcads-image-ad-clone",t:2,r:"arcads",d:"广告图片逆向克隆：把一张优秀广告图片逆向解析为可复用的Prompt模板，快速批量复制爆款创意",u:"https://github.com/krusemediallc/arcads-claude-code/tree/main/skills/arcads-image-ad-clone"},
+    {n:"arcads-nano-banana-image-ad",t:2,r:"arcads",d:"Nano Banana模型快速出图：用Arcads低价快速生成Meta/TikTok/展示广告图片，适合批量测试",u:"https://github.com/krusemediallc/arcads-claude-code/tree/main/skills/arcads-nano-banana-image-ad"}
+  ]},
+  {id:"influence",icon:"🤝",title:"红人 & 外联",tag:"tag-influence",desc:"KOL红人开发、邮件外联、社群运营、公关传播——从找对人到说对话，建立品牌影响力",skills:[
+    {n:"mktg-cold-email",t:1,r:"marketingskills",d:"B2B开发信全流程：从标题到跟进序列自动生成，针对不同行业和角色定制话术，大幅提升回复率",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/cold-email"},
+    {n:"mktg-community-marketing",t:1,r:"marketingskills",d:"社群运营全攻略：Discord/Slack/微信群搭建、品牌大使计划设计、UGC激励体系，把用户变粉丝",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/community-marketing"},
+    {n:"mktg-referrals",t:1,r:"marketingskills",d:"推荐&联盟营销系统：单向/双向推荐机制设计、佣金结构、防作弊策略、归因追踪，让客户帮你拉客户",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/referrals"},
+    {n:"mktg-co-marketing",t:1,r:"marketingskills",d:"联合营销伙伴拓展：帮你找互补品牌、策划联合活动、设计合作方案，1+1>2的营销杠杆",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/co-marketing"},
+    {n:"mktg-sales-enablement",t:1,r:"marketingskills",d:"销售赋能物料包：自动生成Pitch Deck、一页纸方案、异议处理话术、产品演示脚本，让销售团队弹药充足",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/sales-enablement"},
+    {n:"mktg-public-relations",t:1,r:"marketingskills",d:"公关传播策略：媒体名单梳理、记者联络邮件、新闻稿撰写、媒体关系维护，用公关放大品牌声量",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/public-relations"},
+    {n:"aimktg-testimonial-collector",t:2,r:"ai-marketing",d:"客户证言系统化采集：自动收集、评分、格式化客户好评，建立品牌社交证明库，让口碑可见",u:"https://github.com/BrianRWagner/ai-marketing-claude-code-skills/tree/main/testimonial-collector"},
+    {n:"founder-outreach-specialist",t:2,r:"founder",d:"个性化外联专家：自动搜索目标人选、定制沟通话术、跟踪回复状态，创始人级别的精准外联",u:"https://github.com/ognjengt/founder-skills/tree/main/skills/outreach-specialist"},
+    {n:"founder-linkedin-writer",t:2,r:"founder",d:"LinkedIn内容引擎：规划创始人个人IP内容、写帖子/文章/评论，帮你用LinkedIn建立行业影响力",u:"https://github.com/ognjengt/founder-skills/tree/main/skills/linkedin-writer"},
+    {n:"founder-x-writer",t:2,r:"founder",d:"X(Twitter)内容引擎：自动生成Thread/推文/回复，帮你用Twitter/X建立创始人品牌和创业社群",u:"https://github.com/ognjengt/founder-skills/tree/main/skills/x-writer"}
+  ]},
+  {id:"email",icon:"📧",title:"邮件 & CRM",tag:"tag-email",desc:"邮件序列、SMS营销、流失挽回、Newsletter——自动化客户沟通，提升复购率和客户终身价值",skills:[
+    {n:"mktg-emails",t:1,r:"marketingskills",d:"全生命周期邮件自动化：欢迎序列、培育滴灌、促销活动、复购提醒，覆盖从新客到忠实客户的每个阶段",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/emails"},
+    {n:"mktg-churn-prevention",t:1,r:"marketingskills",d:"流失挽回系统：取消挽留流程、留存优惠设计、支付失败恢复、沉默用户唤醒，把要走的人拉回来",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/churn-prevention"},
+    {n:"mktg-sms",t:1,r:"marketingskills",d:"SMS/MMS短信营销：欢迎短信、弃购挽回、购后跟进、流失唤醒、订单通知，用短信抓住用户注意力",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/sms"},
+    {n:"email-marketing-bible",t:2,r:"email-bible",d:"邮件营销圣经：6.8万字知识库，17章完整体系，908个信息源，19个行业实战手册，从入门到精通",u:"https://github.com/CosmoBlk/email-marketing-bible"},
+    {n:"aimktg-newsletter-creation-curation",t:2,r:"ai-marketing",d:"B2B行业Newsletter智能生成：自动策展行业内容+原创文章+混合格式，适配不同行业的专业Newsletter",u:"https://github.com/BrianRWagner/ai-marketing-claude-code-skills/tree/main/newsletter-creation-curation"}
+  ]},
+  {id:"seo",icon:"🔎",title:"SEO & AI搜索",tag:"tag-seo",desc:"网站SEO审计、关键词研究、内容优化、AI搜索排名——让客户在Google和ChatGPT里都能找到你",skills:[
+    {n:"seo",t:1,r:"claude-seo",d:"一站式SEO分析：整站审计+单页分析+技术SEO+Schema标记+GEO优化，覆盖传统搜索和AI搜索",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo"},
+    {n:"seo-audit",t:1,r:"claude-seo",d:"全站SEO审计利器：15个专项子代理并行，爬取500+页面，输出健康评分+优先级修复方案",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-audit"},
+    {n:"seo-technical",t:1,r:"claude-seo",d:"技术SEO全面排查：robots.txt、sitemap、canonical、重定向、抓取预算、HTTPS、Core Web Vitals",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-technical"},
+    {n:"seo-content",t:1,r:"claude-seo",d:"内容质量E-E-A-T分析：检测Google最看重的经验、专业、权威、信任度四大维度，告诉你内容哪里不够好",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-content"},
+    {n:"seo-content-brief",t:1,r:"claude-seo",d:"SEO内容简报自动生成：关键词+SERP分析+标题建议+字数建议+内链策略，写手拿到就能写",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-content-brief"},
+    {n:"seo-backlinks",t:1,r:"claude-seo",d:"外链全面分析：引用域名、锚文本分布、毒链接检测、竞争对手外链差距，搞清你的链接画像",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-backlinks"},
+    {n:"seo-competitor-pages",t:1,r:"claude-seo",d:"竞品对比页策略：分析竞品落地页，自动生成"Alternatives/VS"类高意图流量页面内容方案",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-competitor-pages"},
+    {n:"seo-schema",t:1,r:"claude-seo",d:"Schema结构化数据：审计现有标记+自动生成JSON-LD（Article/Product/FAQ/HowTo/LocalBusiness）",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-schema"},
+    {n:"seo-local",t:1,r:"claude-seo",d:"本地SEO优化：Google Business Profile优化、引用审计、评价策略、NAP一致性检查",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-local"},
+    {n:"seo-geo",t:1,r:"claude-seo",d:"AI搜索/GEO优化：针对ChatGPT/Perplexity/Google AI Overviews/Claude优化内容引用就绪度",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-geo"},
+    {n:"seo-cluster",t:1,r:"claude-seo",d:"主题集群策略：规划Pillar Page+Cluster内容+内链架构，建立语义相关性，提升整站权重",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-cluster"},
+    {n:"seo-dataforseo",t:1,r:"claude-seo",d:"DataForSEO API对接：SERP数据获取、关键词研究、排名追踪、竞品指标查询，数据驱动的SEO",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-dataforseo"},
+    {n:"seo-drift",t:1,r:"claude-seo",d:"SEO漂移监控：追踪排名/关键词/内容随时间的变化，及时发现排名下滑并定位原因",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-drift"},
+    {n:"seo-flow",t:1,r:"claude-seo",d:"SEO工作流自动化：端到端SEO流程编排，多步骤任务链，流程标准化，让SEO工作系统化",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-flow"},
+    {n:"seo-google",t:1,r:"claude-seo",d:"Google专属优化：Search Console数据分析、算法更新影响评估、SERP特性定向优化",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-google"},
+    {n:"seo-hreflang",t:1,r:"claude-seo",d:"Hreflang多语言SEO：多语言多地区站点配置、Canonical设置、地理定向策略，国际站必备",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-hreflang"},
+    {n:"seo-maps",t:1,r:"claude-seo",d:"Google Maps本地SEO：地图排名优化、GBP帖子管理、评价运营、本地引用建设",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-maps"},
+    {n:"seo-page",t:1,r:"claude-seo",d:"单页SEO精修：Title/Meta/H1-H6/正文/图片/内链/Schema逐项优化，一页一页做到完美",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-page"},
+    {n:"seo-plan",t:1,r:"claude-seo",d:"SEO战略路线图：3/6/12个月计划、资源配置、里程碑追踪、KPI预测，让SEO有方向有节奏",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-plan"},
+    {n:"seo-programmatic",t:1,r:"claude-seo",d:"程序化SEO：模板驱动页面批量生成、数据库驱动内容策略、规模化SEO打法",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-programmatic"},
+    {n:"seo-sitemap",t:1,r:"claude-seo",d:"Sitemap策略：XML/HTML站点地图规划、抓取预算优化、优先级/更新频率设置、索引状态分析",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-sitemap"},
+    {n:"seo-sxo",t:1,r:"claude-seo",d:"SXO搜索体验优化：SEO+UX双管齐下，从搜索排名到页面体验全链路提升",u:"https://github.com/AgriciDaniel/claude-seo/tree/main/skills/seo-sxo"},
+    {n:"seogeo-alert-manager",t:1,r:"seo-geo",d:"SEO/GEO监控告警：设置排名/流量/技术/竞品变动阈值，异常自动通知，第一时间响应变化",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-backlink-analyzer",t:1,r:"seo-geo",d:"外链画像分析：外部引用域名、锚文本分布、毒链接识别、竞品链接差距，完整外链诊断",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-competitor-analysis",t:1,r:"seo-geo",d:"竞品SEO对标：对比关键词、内容、外链、AI引用、流量份额，输出行动矩阵",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-content-gap-analysis",t:1,r:"seo-geo",d:"内容缺口分析：跟竞品对比，找出你缺少的话题、关键词和内容机会",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-content-quality-auditor",t:1,r:"seo-geo",d:"80项CORE-EEAT内容质量评分：含一票否决检查和修复方案，确保每篇内容达标再发布",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-content-refresher",t:1,r:"seo-geo",d:"内容刷新策略：评估内容衰减度、排序刷新优先级、输出包含GEO优化的更新计划",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-domain-authority-auditor",t:1,r:"seo-geo",d:"40项CITE域名权威评分：TRUSTED/CAUTIOUS/UNTRUSTED三档判定，知道你的站在搜索引擎眼里有多可信",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-entity-optimizer",t:1,r:"seo-geo",d:"知识图谱实体优化：构建Knowledge Graph、Wikidata、sameAs等AI识别信号，让搜索引擎理解你是谁",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-geo-content-optimizer",t:1,r:"seo-geo",d:"GEO内容就绪优化：提升在ChatGPT/Perplexity/AI Overviews/Gemini/Claude中被引用的概率",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-internal-linking-optimizer",t:1,r:"seo-geo",d:"内链架构优化：分析链接结构、权重流向、锚文本、抓取深度，输出优先级修复清单",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-keyword-research",t:1,r:"seo-geo",d:"关键词研究决策：综合搜索量、难度、意图和主题集群，给每个词排优先级",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-memory-management",t:1,r:"seo-geo",d:"SEO记忆生命周期管理：热缓存/活跃/归档三档分级，隐私清理，让AI记住重要的忘掉过时的",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-meta-tags-optimizer",t:1,r:"seo-geo",d:"元标签优化：优化Title/Description/Open Graph/Twitter Cards，同时给出A/B测试变体方案",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-on-page-seo-auditor",t:1,r:"seo-geo",d:"页面级SEO审计：标题/Meta/H标签/关键词/链接/图片逐项打分+优先级修复建议",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-performance-reporter",t:1,r:"seo-geo",d:"SEO绩效报告：自动生成流量/排名/权威度/内容进度多维报告，给老板和客户看的专业报表",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-rank-tracker",t:1,r:"seo-geo",d:"排名追踪器：监测关键词排名和SERP位置变化，含AI搜索结果检查，知道你在哪丢了排名",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-schema-markup-generator",t:1,r:"seo-geo",d:"Schema标记生成：一键生成FAQ/HowTo/Article/Product/LocalBusiness的JSON-LD富媒体标记",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-seo-content-writer",t:1,r:"seo-geo",d:"SEO内容撰写：根据关键词/标题大纲/SERP特征自动撰写文章和落地页，带证据引用边界",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-serp-analysis",t:1,r:"seo-geo",d:"SERP全面分析：识别SERP特征/布局/排名因子/搜索意图/AI Overviews/精选摘要机会",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"seogeo-technical-seo-checker",t:1,r:"seo-geo",d:"技术SEO全面检查：可抓取性/索引状态/Core Web Vitals/robots/sitemap/canonical/重定向/迁移",u:"https://github.com/aaron-he-zhu/seo-geo-claude-skills"},
+    {n:"mktg-ai-seo",t:1,r:"marketingskills",d:"AI搜索引擎优化：针对LLM引用和生成式引擎优化内容，让AI也推荐你的产品",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/ai-seo"},
+    {n:"aimktg-ai-discoverability-audit",t:2,r:"ai-marketing",d:"AI可见度审计：检查你的品牌在ChatGPT/Perplexity/Claude/Gemini中的出现情况和引用质量",u:"https://github.com/BrianRWagner/ai-marketing-claude-code-skills/tree/main/ai-discoverability-audit"},
+    {n:"audit-website-aeo",t:1,r:"gtm-engineer",d:"网站AEO/GEO可发现性审计：爬取全站+16项确定性检查+6维度评估，A-F评分+修复优先级",u:"https://github.com/onvoyage-ai/gtm-engineer-skills/tree/main/audit-website-aeo"},
+    {n:"create-geo-charts",t:1,r:"gtm-engineer",d:"GEO数据可视化：生成AI引擎可解析的SVG/HTML图表，带JSON-LD和数据表，方便AI引用你的数据",u:"https://github.com/onvoyage-ai/gtm-engineer-skills/tree/main/create-geo-charts"},
+    {n:"audit-content-geo",t:1,r:"gtm-engineer",d:"内容GEO发布前核查：自动检测虚假统计数据、死链、错误引用，确保内容经得起AI和用户的检验",u:"https://github.com/onvoyage-ai/gtm-engineer-skills/tree/main/audit-content"},
+    {n:"gemini-optimizer",t:1,r:"notfair",d:"Gemini交叉验证：用Google Gemini对分析结果做第二意见审核，用不同AI互相验证决策",u:"https://github.com/nowork-studio/NotFair/tree/main/gemini"}
+  ]},
+  {id:"cro",icon:"🧪",title:"CRO & 增长",tag:"tag-cro",desc:"转化率优化、A/B测试、定价策略、用户激活——把流量变成客户，让每一分广告费都花在刀刃上",skills:[
+    {n:"mktg-cro",t:1,r:"marketingskills",d:"全链路转化率优化：首页→落地页→定价页→线索捕获→结算页→App内页面，逐环节提升转化",u:"https://github.com/coreyhaines31/marketingskills"},
+    {n:"mktg-pricing",t:1,r:"marketingskills",d:"定价策略智囊：帮你做定价决策、套餐设计、商业模式选择，找到用户愿意付也让你利润最大化的价格",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/pricing-strategy"},
+    {n:"mktg-launch",t:1,r:"marketingskills",d:"产品发布全案：新品上市、功能发布、公告活动策划，从预热到引爆的完整发布策略",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/launch-strategy"},
+    {n:"mktg-ab-testing",t:1,r:"marketingskills",d:"A/B测试体系搭建：实验设计、样本量计算、统计显著性判断、结果解读，科学驱动增长",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/ab-test-setup"},
+    {n:"mktg-marketing-psychology",t:1,r:"marketingskills",d:"营销心理学武器库：70+个心智模型、认知偏误、行为经济学原理，让营销文案和设计自带说服力",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/marketing-psychology"},
+    {n:"mktg-onboarding",t:1,r:"marketingskills",d:"新用户激活优化：优化注册后首次体验、用户激活路径、Time-to-Value，让新用户快速体验核心价值",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/onboarding-cro"},
+    {n:"mktg-lead-magnets",t:1,r:"marketingskills",d:"线索磁铁设计：帮你创建门控内容、内容升级、免费工具、邮件课程等获客诱饵",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/lead-magnets"},
+    {n:"mktg-signup",t:1,r:"marketingskills",d:"注册流程优化：优化注册/开户/试用激活全流程，减少每一步流失",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/signup-flow-cro"},
+    {n:"aimktg-homepage-audit",t:2,r:"ai-marketing",d:"首页/落地页全面转化审计：打分+问题定位+CRO优化建议，告诉你首页哪里在漏单",u:"https://github.com/BrianRWagner/ai-marketing-claude-code-skills/tree/main/homepage-audit"},
+    {n:"aimktg-positioning-basics",t:2,r:"ai-marketing",d:"品牌定位和价值主张梳理：确定ICP理想客户画像、核心信息、差异化卖点，让品牌定位不再模糊",u:"https://github.com/BrianRWagner/ai-marketing-claude-code-skills/tree/main/positioning-basics"},
+    {n:"founder-cro-optimization",t:2,r:"founder",d:"创始人级CRO审计：找出转化漏洞→设计实验→跑通验证→提升漏斗指标",u:"https://github.com/ognjengt/founder-skills/tree/main/skills/cro-optimization"},
+    {n:"founder-lead-magnet-generator",t:2,r:"founder",d:"线索磁铁生成器：根据你的受众自动设计指南/计算器/工具/测评等获客内容",u:"https://github.com/ognjengt/founder-skills/tree/main/skills/lead-magnet-generator"},
+    {n:"founder-pricing-strategist",t:2,r:"founder",d:"定价策略顾问：选价值度量指标、设计套餐层级、对标竞品定价",u:"https://github.com/ognjengt/founder-skills/tree/main/skills/pricing-strategist"},
+    {n:"founder-product-hunt-launch-plan",t:2,r:"founder",d:"Product Hunt发布全攻略：发布前筹备→发布日执行→发布后优化，完整上线流程",u:"https://github.com/ognjengt/founder-skills/tree/main/skills/product-hunt-launch-plan"},
+    {n:"founder-viral-hook-creator",t:2,r:"founder",d:"病毒钩子生成器：设计让人停下滑动的标题、社交媒体钩子和内容角度",u:"https://github.com/ognjengt/founder-skills/tree/main/skills/viral-hook-creator"},
+    {n:"founder-brand-copywriter",t:2,r:"founder",d:"品牌语调系统：帮你建立品牌声音、口号、价值主张，全渠道统一品牌表达",u:"https://github.com/ognjengt/founder-skills/tree/main/skills/brand-copywriter"},
+    {n:"pricing-strategist",t:1,r:"claude-skills",d:"专业定价模型：Van Westendorp支付意愿分析、Good/Better/Best层级设计、订阅/用量/免费模式选择",u:"https://github.com/alirezarezvani/claude-skills/tree/main/commercial/skills/pricing-strategist"},
+    {n:"experiment-designer",t:1,r:"claude-skills",d:"产品实验设计：可测试假设→样本量估算→统计严谨性保障→A/B结果解读，科学做增长的必备方法",u:"https://github.com/alirezarezvani/claude-skills/tree/main/product-team/skills/experiment-designer"}
+  ]},
+  {id:"ops",icon:"📦",title:"运营 & 供应链",tag:"tag-ops",desc:"Shopify店铺运营、SOP流程化、产品需求文档——把重复工作自动化，让团队按流程高效运转",skills:[
+    {n:"chompute-shopify-skills",t:3,r:"chompute",d:"27个Shopify生产级Skill套件：购物车召回、库存预测、商品系列管理、SEO/Sitemap、折扣、交叉销售、主题备份，开源MIT协议",u:"https://github.com/dragonfruit-ai/skills"},
+    {n:"shopify-skill-hub",t:3,r:"shopify-hub",d:"驴嫂Selofy Shopify AI工具集：微信→Shopify博客、产品SERP/SEO审计优化、AI Agent店铺管理，6万+粉丝验证",u:"https://github.com/ivsao/shopify-skill-hub"},
+    {n:"founder-sop-creator",t:2,r:"founder",d:"SOP标准化流程生成：帮你把零散操作文档化→流程化→可复制，规模化运营的基石",u:"https://github.com/ognjengt/founder-skills/tree/main/skills/sop-creator"},
+    {n:"founder-prd-generator",t:2,r:"founder",d:"产品需求文档自动生成：结构化PRD、干系人审批就绪、里程碑规划，让产品开发有章可循",u:"https://github.com/ognjengt/founder-skills/tree/main/skills/prd-generator"},
+    {n:"customer-success-manager",t:1,r:"claude-skills",d:"客户成功管理：客户健康度加权评分、流失风险预测、扩展机会识别，SaaS和DTC的客户运营利器",u:"https://github.com/alirezarezvani/claude-skills/tree/main/business-growth/skills/customer-success-manager"}
+  ]},
+  {id:"data",icon:"📊",title:"数据 & 分析",tag:"tag-data",desc:"GA4分析、转化追踪、归因建模、服务端埋点——把数据变成可执行的洞察，不再拍脑袋做决策",skills:[
+    {n:"mktg-analytics",t:1,r:"marketingskills",d:"数据分析体系搭建：GA4/Google Analytics配置审计、转化追踪设置、埋点方案，让数据采集准确可靠",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/analytics"},
+    {n:"mktg-revops",t:1,r:"marketingskills",d:"营收运营体系：线索生命周期管理、线索评分模型、自动分配规则、市场到销售的完整交接流程",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/revops"},
+    {n:"ads-attribution",t:1,r:"claude-ads",d:"跨平台归因健康检查：AdAttributionKit/GA4模型/Meta归因/去重逻辑，搞清楚到底哪个渠道在真正驱动转化",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-attribution"},
+    {n:"ads-server-side-tracking",t:1,r:"claude-ads",d:"服务端追踪审计：sGTM配置/Meta CAPI/Conversions API/事件去重/第一方数据方案，告别客户端追踪丢失",u:"https://github.com/AgriciDaniel/claude-ads/tree/main/skills/ads-server-side-tracking"}
+  ]},
+  {id:"util",icon:"🛠",title:"效率 & 策略",tag:"tag-util",desc:"GTM策略、AI内容去味、一键生成HTML课程、Prompt优化——让AI帮你省时间、提质量、降成本",skills:[
+    {n:"founder-go-to-market-plan",t:2,r:"founder",d:"GTM策略三选一：根据你的阶段、产品和市场，通过诊断性问题定位后给出3套最佳上市策略方案",u:"https://github.com/ognjengt/founder-skills/tree/main/skills/go-to-market-plan"},
+    {n:"founder-strategic-planning",t:2,r:"founder",d:"增长战略优先级排序：通过诊断性问题找瓶颈，输出对增长影响最大的3个优先行动",u:"https://github.com/ognjengt/founder-skills/tree/main/skills/strategic-planning"},
+    {n:"aimktg-de-ai-ify",t:2,r:"ai-marketing",d:"AI味去除器：从1000+篇AI vs人类文章训练出来，自动删除AI腔调，还原真人写作风格",u:"https://github.com/BrianRWagner/ai-marketing-claude-code-skills/tree/main/de-ai-ify"},
+    {n:"aimktg-voice-extractor",t:2,r:"ai-marketing",d:"写作风格提取器：分析你的样本文案，提取写作DNA，训练AI用你的风格和语调写内容",u:"https://github.com/BrianRWagner/ai-marketing-claude-code-skills/tree/main/voice-extractor"},
+    {n:"aimktg-social-card-gen",t:2,r:"ai-marketing",d:"社交媒体卡片批量生成：一个素材自动生成Twitter/LinkedIn/Reddit多平台适配的内容变体",u:"https://github.com/BrianRWagner/ai-marketing-claude-code-skills/tree/main/social-card-gen"},
+    {n:"aimktg-go-mode",t:2,r:"ai-marketing",d:"目标自主执行模式：给它一个目标→出方案→你确认→自动执行→出报告，你只管方向盘，Claude负责开",u:"https://github.com/BrianRWagner/ai-marketing-claude-code-skills/tree/main/go-mode"},
+    {n:"mktg-directory-submissions",t:1,r:"marketingskills",d:"创业目录批量提交：帮你把产品提交到Startup/SaaS/AI/MCP各类导航站，获取外链和曝光",u:"https://github.com/coreyhaines31/marketingskills/tree/main/skills/directory-submissions"},
+    {n:"product-strategist",t:1,r:"claude-skills",d:"产品总监工具箱：OKR拆解、季度规划、产品愿景文档、竞品格局、团队扩展方案，产品人的AI副驾驶",u:"https://github.com/alirezarezvani/claude-skills/tree/main/product-team/skills/product-strategist"},
+    {n:"caveman",t:1,r:"caveman",d:"Token消耗暴降65%：用精简的'原始人语法'写Prompt，大幅降低AI使用成本，全网75K⭐最火Claude Skill",u:"https://github.com/JuliusBrussee/caveman"},
+    {n:"prompt-master",t:1,r:"prompt-master",d:"零浪费Prompt生成器：智能编写精准提示词，自动保留上下文和记忆，不浪费Token和额度",u:"https://github.com/nidhinjs/prompt-master"},
+    {n:"dev-browser",t:1,r:"dev-browser",d:"给Claude Code装个真实浏览器：AI自主控制浏览器截图/点击/填表，爬虫测试自动化一站搞定",u:"https://github.com/SawyerHood/dev-browser"},
+    {n:"qiaomu-anything-to-notebooklm",t:1,r:"qiaomu",d:"万能内容→NotebookLM转换器：公众号/网页/YouTube/PDF/Markdown→播客/PPT/思维导图/测验",u:"https://github.com/joeseesun/qiaomu-anything-to-notebooklm"},
+    {n:"codebase-to-course",t:1,r:"codebase-course",d:"代码库秒变HTML教程：让非技术人员也能看懂代码，一键生成美观的交互式单页学习课程",u:"https://github.com/zarazhangrui/codebase-to-course"},
+    {n:"claude-code-everything",t:1,r:"claude-everything",d:"Claude Code完全指南：Prompt/Hooks/Workflows/MCP全覆盖，从入门到精通的中文教程",u:"https://github.com/wesammustafa/Claude-Code-Everything-You-Need-to-Know"},
+    {n:"learning-opportunities",t:1,r:"learning-opp",d:"AI编程刻意练习：辅助编码的同时理解原理、积累经验，不是无脑Copy而是真正学会",u:"https://github.com/DrCatHicks/learning-opportunities"},
+    {n:"keep-codex-fast",t:1,r:"keep-codex-fast",d:"Codex性能维护：备份优先的安全清理机制，保持Codex快速、干净、可随时恢复",u:"https://github.com/vibeforge1111/keep-codex-fast"},
+    {n:"claude-office-skills",t:2,r:"office-skills",d:"办公文档自动化：PPT/Word/Excel/PDF创建与编辑，快速生成报告、提案和数据表",u:"https://github.com/tfriedel/claude-office-skills"},
+    {n:"claude-forge",t:2,r:"claude-forge",d:"Claude Code oh-my-zsh式插件框架：11个Agent+36条命令+15个技能+6层安全Hook，5分钟搞定",u:"https://github.com/sangrokjung/claude-forge"}
+  ]},
+  {id:"devtools",icon:"⚡",title:"AI 编码必装",tag:"tag-devtools",desc:"Karpathy编码指南、Superpowers方法论、Agent Skills体系——全球顶级开发者验证的Claude Code最佳实践",skills:[
+    {n:"karpathy-guidelines",t:1,r:"karpathy",d:"Karpathy LLM编码避坑指南：一个CLAUDE.md文件即刻改善AI编码行为、减少低级错误，179K⭐公认必装",u:"https://github.com/forrestchang/andrej-karpathy-skills/tree/main/skills/karpathy-guidelines"},
+    {n:"using-superpowers",t:1,r:"superpowers",d:"Superpowers开发方法论总入口：TDD+系统调试+子代理并行+验证驱动，Claude Code业界标配工作流",u:"https://github.com/obra/superpowers/tree/main/skills/using-superpowers"},
+    {n:"brainstorming",t:1,r:"superpowers",d:"结构化头脑风暴：将模糊想法转化为可执行计划和明确规格，不跳步不猜测",u:"https://github.com/obra/superpowers/tree/main/skills/brainstorming"},
+    {n:"writing-plans",t:1,r:"superpowers",d:"编写可执行计划：从想法到详细实施步骤，让AI知道每一步该做什么而非靠猜",u:"https://github.com/obra/superpowers/tree/main/skills/writing-plans"},
+    {n:"executing-plans",t:1,r:"superpowers",d:"按计划逐步执行：AI每完成一步验证结果后再继续，不跳步、不偷工减料",u:"https://github.com/obra/superpowers/tree/main/skills/executing-plans"},
+    {n:"test-driven-development",t:1,r:"superpowers",d:"TDD测试驱动开发标准流程：红→绿→重构循环，先写测试再实现代码",u:"https://github.com/obra/superpowers/tree/main/skills/test-driven-development"},
+    {n:"systematic-debugging",t:1,r:"superpowers",d:"系统化调试方法论：差分诊断法科学定位Bug根因，告别靠直觉猜Bug的时代",u:"https://github.com/obra/superpowers/tree/main/skills/systematic-debugging"},
+    {n:"subagent-driven-development",t:1,r:"superpowers",d:"子代理驱动开发：把独立任务分派给并行子代理处理，多个任务同时进行大幅缩短开发周期",u:"https://github.com/obra/superpowers/tree/main/skills/subagent-driven-development"},
+    {n:"dispatching-parallel-agents",t:1,r:"superpowers",d:"并行子代理调度策略：同时运行多个子代理处理无依赖任务，完成后自动汇总合并",u:"https://github.com/obra/superpowers/tree/main/skills/dispatching-parallel-agents"},
+    {n:"verification-before-completion",t:1,r:"superpowers",d:"完成前强制验证：确保代码可运行、测试全部通过、无遗漏步骤再报告完成",u:"https://github.com/obra/superpowers/tree/main/skills/verification-before-completion"},
+    {n:"writing-skills",t:1,r:"superpowers",d:"自定义Skill编写指南：封装你的最佳实践为Skill，教AI按你的标准完成特定类型任务",u:"https://github.com/obra/superpowers/tree/main/skills/writing-skills"},
+    {n:"using-git-worktrees",t:1,r:"superpowers",d:"Git Worktree并行分支开发：干净隔离多个分支同时工作，告别stash和多clone的混乱",u:"https://github.com/obra/superpowers/tree/main/skills/using-git-worktrees"},
+    {n:"finishing-a-development-branch",t:1,r:"superpowers",d:"开发分支收尾规范：Review→测试→合并→清理四步走，标准化的分支完成流程",u:"https://github.com/obra/superpowers/tree/main/skills/finishing-a-development-branch"},
+    {n:"receiving-code-review",t:1,r:"superpowers",d:"接收Code Review的正确姿势：有效处理反馈、识别过度工程、保持PR范围聚焦",u:"https://github.com/obra/superpowers/tree/main/skills/receiving-code-review"},
+    {n:"requesting-code-review",t:1,r:"superpowers",d:"发起Code Review规范：清晰PR描述、自检清单、确认变更意图，让Review更高效",u:"https://github.com/obra/superpowers/tree/main/skills/requesting-code-review"},
+    {n:"gstack",t:1,r:"gstack",d:"YC CEO Garry Tan的全套Claude Code配置：23种AI角色+浏览器自动化+GPT Brain记忆系统，硅谷大佬同款",u:"https://github.com/garrytan/gstack"},
+    {n:"using-agent-skills",t:1,r:"agent-skills",d:"Agent Skills生产力体系入口：Google Chrome负责人Addy Osmani的个人开发方法论",u:"https://github.com/addyosmani/agent-skills/tree/main/skills/using-agent-skills"},
+    {n:"planning-and-task-breakdown",t:1,r:"agent-skills",d:"任务规划与拆解：把大需求拆成可执行的小步骤，每个步骤有明确的完成标准",u:"https://github.com/addyosmani/agent-skills/tree/main/skills/planning-and-task-breakdown"},
+    {n:"incremental-implementation",t:1,r:"agent-skills",d:"增量式实现：每次只改一小步，验证后再继续，避免大爆炸式变更导致大面积Bug",u:"https://github.com/addyosmani/agent-skills/tree/main/skills/incremental-implementation"},
+    {n:"code-review-and-quality",t:1,r:"agent-skills",d:"自动化代码审查：安全漏洞、代码异味、测试覆盖、最佳实践，一网打尽的AI Code Review",u:"https://github.com/addyosmani/agent-skills/tree/main/skills/code-review-and-quality"},
+    {n:"code-simplification",t:1,r:"agent-skills",d:"代码简化术：移除冗余代码、降低圈复杂度、提升可读性，遵循YAGNI原则不写多余代码",u:"https://github.com/addyosmani/agent-skills/tree/main/skills/code-simplification"},
+    {n:"debugging-and-error-recovery",t:1,r:"agent-skills",d:"调试与错误恢复系统：差分诊断→二分法定位→根因分析→修复验证，全流程科学化",u:"https://github.com/addyosmani/agent-skills/tree/main/skills/debugging-and-error-recovery"},
+    {n:"context-engineering",t:1,r:"agent-skills",d:"上下文工程优化：最大化利用Claude Code的上下文窗口，让长对话保持高质量输出",u:"https://github.com/addyosmani/agent-skills/tree/main/skills/context-engineering"},
+    {n:"idea-refine",t:1,r:"agent-skills",d:"想法精炼器：通过深度追问和结构化思考，把模糊需求一步步转化为明确可执行的技术方案",u:"https://github.com/addyosmani/agent-skills/tree/main/skills/idea-refine"},
+    {n:"shipping-and-launch",t:1,r:"agent-skills",d:"发布上线检查清单：回滚方案、监控就绪、灰度策略、发布后验证，确保每次上线都稳",u:"https://github.com/addyosmani/agent-skills/tree/main/skills/shipping-and-launch"},
+    {n:"git-workflow-and-versioning",t:1,r:"agent-skills",d:"Git规范工作流：分支策略、Commit规范、版本管理、发布流程标准化",u:"https://github.com/addyosmani/agent-skills/tree/main/skills/git-workflow-and-versioning"},
+    {n:"spec-driven-development",t:1,r:"agent-skills",d:"规格驱动开发：先写规格文档→对齐需求→按规格实现→验证一致性，避免需求偏差",u:"https://github.com/addyosmani/agent-skills/tree/main/skills/spec-driven-development"},
+    {n:"source-driven-development",t:1,r:"agent-skills",d:"源码驱动开发：先研究项目现有代码风格和模式，保持一致的风格写新代码",u:"https://github.com/addyosmani/agent-skills/tree/main/skills/source-driven-development"},
+    {n:"frontend-ui-engineering",t:1,r:"agent-skills",d:"前端UI工程化：组件设计原则、状态管理、无障碍访问、响应式布局、性能优化一站式指导",u:"https://github.com/addyosmani/agent-skills/tree/main/skills/frontend-ui-engineering"},
+    {n:"documentation-and-adrs",t:1,r:"agent-skills",d:"文档与ADR自动化：架构决策记录、技术文档、README、API文档自动生成和维护",u:"https://github.com/addyosmani/agent-skills/tree/main/skills/documentation-and-adrs"}
+  ]}
+];
+
+// ═══ Render ═══
+(function(){
+var elSections=document.getElementById("sections");
+var elSearch=document.getElementById("search");
+var elFilters=document.getElementById("filters");
+var elHint=document.getElementById("hint");
+var elToast=document.getElementById("toast");
+var elBtt=document.getElementById("btt");
+var elClear=document.getElementById("searchClear");
+var elQlist=document.getElementById("qlist");
+var activeCat="all", animFrame;
+
+// Build quality model repo tags
+REPOS.forEach(function(r){
+  var a=document.createElement("a");
+  a.href=r.url; a.target="_blank"; a.className="qtag t"+r.tier;
+  a.innerHTML=(r.tier===1?"🥇":r.tier===2?"🥈":"🥉")+" "+r.name+" <strong>"+r.stars+"⭐</strong>";
+  elQlist.appendChild(a);
+});
+
+function countTiers(arr){
+  var t1=0,t2=0,t3=0;
+  arr.forEach(function(s){if(s.t===1)t1++;if(s.t===2)t2++;if(s.t===3)t3++;});
+  return {t1:t1,t2:t2,t3:t3};
+}
+
+function render(){
+  var q=elSearch.value.trim().toLowerCase();
+  var total=0, t1=0, t2=0, t3=0;
+  var html="";
+
+  S.forEach(function(cat){
+    var filtered=cat.skills.slice();
+    if(activeCat==="tier1") filtered=filtered.filter(function(s){return s.t===1;});
+    else if(activeCat==="tier2") filtered=filtered.filter(function(s){return s.t===2;});
+    else if(activeCat==="tier3") filtered=filtered.filter(function(s){return s.t===3;});
+    else if(activeCat!=="all"&&cat.id!==activeCat) return;
+    if(q) filtered=filtered.filter(function(s){return s.n.toLowerCase().indexOf(q)>=0||s.d.toLowerCase().indexOf(q)>=0;});
+    if(filtered.length===0) return;
+
+    total+=filtered.length;
+    var c=countTiers(filtered); t1+=c.t1; t2+=c.t2; t3+=c.t3;
+
+    html+='<div class="cat-group"><div class="cat-header"><span class="cat-title">'+cat.icon+' '+cat.title+'</span><span class="cat-count">'+filtered.length+' skills</span></div><div class="cat-desc">'+(cat.desc||"")+'</div><div class="cat-grid">';
+
+    filtered.forEach(function(s){
+      var repo=rm[s.r]||{};
+      var starTag=s.r&&repo.url?'<a class="repo-link" href="'+repo.url+'" target="_blank" onclick="event.stopPropagation()" title="Source: '+(repo.name||s.r)+'">'+(repo.stars||"?")+'⭐</a>':'';
+      var tierCls=s.t===1?"t1":s.t===2?"t2":s.t===3?"t3":"";
+      var tierLabel=s.t===1?"🥇 金牌":s.t===2?"🥈 银牌":s.t===3?"🥉 铜牌":"";
+      html+='<a class="card '+tierCls+'" href="'+s.u+'" target="_blank">'+
+        '<div class="card-name">'+s.n+'</div>'+
+        '<div class="card-desc">'+(s.d||"")+'</div>'+
+        '<div class="card-meta"><span class="card-tag '+cat.tag+'">'+cat.title+'</span>'+starTag+(s.t?'<span class="tier-badge">'+tierLabel+'</span>':'')+'</div>'+
+      '</a>';
+    });
+
+    html+='</div></div>';
+  });
+
+  elSections.innerHTML=html||'<div class="empty"><div class="empty-icon">🔍</div><div class="empty-text">没有找到匹配的 Skill</div></div>';
+  elHint.textContent=total+" skills";
+  document.getElementById("totalN").textContent=total||"—";
+  document.getElementById("t1n").textContent=t1||"—";
+  document.getElementById("t2n").textContent=t2||"—";
+  document.getElementById("t3n").textContent=t3||"—";
+  document.getElementById("q1n").textContent=t1||"—";
+  document.getElementById("q2n").textContent=t2||"—";
+  document.getElementById("q3n").textContent=t3||"—";
+}
+
+function updateFilters(){
+  elFilters.querySelectorAll(".filter-tab").forEach(function(b){
+    if(b.dataset.cat===activeCat) b.classList.add("on");
+    else b.classList.remove("on");
+  });
+}
+
+elSearch.addEventListener("input",function(){
+  if(this.value){elClear.classList.add("show")}else{elClear.classList.remove("show")}
+  cancelAnimationFrame(animFrame);
+  animFrame=requestAnimationFrame(render);
+});
+
+elClear.addEventListener("click",function(){
+  elSearch.value="";elClear.classList.remove("show");activeCat="all";updateFilters();render();elSearch.focus();
+});
+
+elFilters.addEventListener("click",function(e){
+  var tab=e.target.closest(".filter-tab");
+  if(!tab) return;
+  activeCat=tab.dataset.cat;
+  updateFilters();
+  render();
+});
+
+window.addEventListener("scroll",function(){
+  if(window.scrollY>400) elBtt.classList.add("on");
+  else elBtt.classList.remove("on");
+});
+elBtt.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"});});
+
+updateFilters();
+render();
+})();
+</script>
+</body>
+</html>
