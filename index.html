@@ -263,36 +263,6 @@ body{
 /* ── shared ── */
 .tool-tag{font-size:10px;padding:3px 8px;border-radius:5px;background:var(--bg-alt);color:var(--text3);font-weight:500}
 
-/* ═══════════════════════════ Skills Section ═══════════════════════════ */
-.skills-section{padding:48px 24px 64px}
-.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-.skill-card{
-  display:flex;align-items:center;gap:12px;
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius-xs);padding:11px 16px;
-  transition:all .2s;text-decoration:none;color:inherit;cursor:pointer;
-}
-.skill-card:hover{border-color:var(--accent);box-shadow:var(--shadow-hover);transform:translateY(-1px)}
-.skill-body{flex:1;min-width:0;display:flex;align-items:baseline;gap:8px}
-.skill-name{
-  font-size:13px;font-weight:600;font-family:var(--font-display);
-  letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  color:var(--text);
-}
-.skill-desc{font-size:11px;color:var(--text3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex-shrink:1}
-.skill-star{
-  flex-shrink:0;font-size:11px;font-weight:600;color:var(--amber);
-  display:flex;align-items:center;gap:2px;white-space:nowrap;min-width:42px;justify-content:flex-end;
-}
-.skill-star.no-star{color:var(--text3);font-weight:400;font-size:10px}
-
-@media(max-width:900px){
-  .skills-grid{grid-template-columns:1fr}
-  .skill-desc{display:none}
-}
-@media(max-width:600px){
-  .skill-name{font-size:12px}
-}
 /* ═══════════════════════════ Footer ═══════════════════════════ */
 .footer{padding:32px 24px;border-top:1px solid var(--border);text-align:center}
 .footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:24px;font-size:13px;color:var(--text3);flex-wrap:wrap}
@@ -370,16 +340,6 @@ body{
       </div>
     </section>
 
-    <!-- ═══ 火箭叔精选 Skill ═══ -->
-    <section class="skills-section" id="skillsSection">
-      <div class="section-inner">
-        <div class="section-eyebrow">🧰 火箭叔精选 Skill</div>
-        <div class="section-title">开源 AI 工具精选集</div>
-        <div class="section-desc">精选 GitHub 优质开源项目，覆盖 AI Agent、内容处理、浏览器自动化、微信生态等领域的实用工具。</div>
-        <div class="skills-grid" id="skillsGrid"></div>
-      </div>
-    </section>
-
     <footer class="footer">
       <div class="footer-inner">
         <img class="nav-mark" src="avatar.jpg" alt="Chris" style="width:22px;height:22px">
@@ -407,13 +367,14 @@ body{
 	  { id:"ai-support",      icon:"🎧", name:"AI 客服系统",       desc:"AI 自动处理客服邮件：分类、回复、跟进，不用一封封手动回", tags:["客服","自动化","邮件"], url:"https://ai-customer-support-web-nine.vercel.app/", external:true },
 	  { id:"workbench",       icon:"🛠", name:"AI 营销工作台",     desc:"营销工作总控台：管理任务流程、看数据报表、自动执行重复工作", tags:["工作流","报表","自动化"], url:"https://ai-marketing-workbench.vercel.app/", external:true },
 	  { id:"wechat-ai",       icon:"💬", name:"WeChat AI 助手",    desc:"微信公众号 AI 智能助手：文章分析、知识管理、自动回复", tags:["微信","AI","公众号"], url:"https://wechat-ai.chrisgao1219.com/", external:true },
-	  { id:"skills-gallery",  icon:"🧰", name:"Skills Gallery",   desc:"140+ 个现成的 AI 营销技能模板，拿来就用，按品类分类查找", tags:["Claude","开源"], url:"https://chrisgao1219.github.io/skills-gallery/", external:true },
+	  { id:"rocketshu-skills", icon:"🧰", name:"火箭叔精选 Skill", desc:"精选 33 个 GitHub 优质开源项目，覆盖 AI Agent、内容处理、浏览器自动化、微信生态等领域", tags:["GitHub","开源","AI工具"], url:"/rocketshu-skills.html" },
+		  { id:"skills-gallery",  icon:"🧰", name:"Skills Gallery",   desc:"140+ 个现成的 AI 营销技能模板，拿来就用，按品类分类查找", tags:["Claude","开源"], url:"https://chrisgao1219.github.io/skills-gallery/", external:true },
 	];
 
 // Slice
 const HERO    = TOOLS[0];          // Chrisgao Chrome
 const PRIORITY = TOOLS.slice(1, 5); // 邮件营销, Affiliate, VOC, SEO
-const MORE    = TOOLS.slice(5);     // 其余 7 个
+const MORE    = TOOLS.slice(5).filter(t => t.id !== "rocketshu-skills");     // 排除已有 hero 卡片的
 
 // Unique tools for dropdown (dedup by id)
 const seen = new Set();
@@ -438,6 +399,18 @@ html += `<div class="hero-card" onclick="${link(HERO)}">
     <div class="hero-name">${HERO.name}</div>
     <div class="hero-desc">${HERO.desc}</div>
     <div class="hero-tags">${tags(HERO)}</div>
+  </div>
+  <div class="hero-arrow">进入 &rarr;</div>
+</div>`;
+
+// Hero 2: 火箭叔精选 Skill
+const SKILL_HERO = TOOLS.find(t => t.id === "rocketshu-skills");
+html += `<div class="hero-card" onclick="window.location.href='${SKILL_HERO.url}'" style="margin-top:-20px">
+  <div class="hero-icon">${SKILL_HERO.icon}</div>
+  <div class="hero-body">
+    <div class="hero-name">${SKILL_HERO.name}</div>
+    <div class="hero-desc">${SKILL_HERO.desc}</div>
+    <div class="hero-tags">${tags(SKILL_HERO)}</div>
   </div>
   <div class="hero-arrow">进入 &rarr;</div>
 </div>`;
@@ -484,59 +457,12 @@ document.addEventListener("click", e => {
 function openTool(id) {
   const tool = UNIQUE.find(t => t.id === id) || TOOLS.find(t => t.id === id);
   if (!tool) return;
-  window.open(tool.url, "_blank", "noopener");
+  if (tool.url.startsWith('/')) {
+    window.location.href = tool.url;
+  } else {
+    window.open(tool.url, "_blank", "noopener");
+  }
 }
-
-// ═══ 火箭叔精选 Skill ═══
-const SKILLS = [
-  { repo:"nousresearch/hermes-agent",           stars:"222K",  desc:"AI Agent 框架" },
-  { repo:"yt-dlp/yt-dlp",                       stars:"181K",  desc:"视频下载终极神器" },
-  { repo:"microsoft/markitdown",                stars:"170K",  desc:"文件转 Markdown" },
-  { repo:"clash-verge-rev/clash-verge-rev",     stars:"134K",  desc:"网络代理工具" },
-  { repo:"opendatalab/mineru",                  stars:"76K",   desc:"PDF/Office 转 Markdown" },
-  { repo:"Panniantong/agent-reach",             stars:"62K",   desc:"Agent 全网触达" },
-  { repo:"ChromeDevTools/chrome-devtools-mcp",  stars:"48K",   desc:"Chrome 调试 MCP" },
-  { repo:"vercel-labs/agent-browser",           stars:"39K",   desc:"浏览器 Agent" },
-  { repo:"Chanzhaoyu/chatgpt-web",              stars:"31K",   desc:"ChatGPT 网页版" },
-  { repo:"GaiZhenbiao/ChuanhuChatGPT",          stars:"15K",   desc:"川虎 ChatGPT" },
-  { repo:"wechat-article/wechat-article-exporter",stars:"12.5K",desc:"公众号文章批量导出" },
-  { repo:"s0md3v/roop",                         stars:"3.5K",  desc:"AI 换脸工具" },
-  { repo:"iBigQiang/feedgrab",                  stars:"582",   desc:"通用内容抓取" },
-  { repo:"joeseesun/qiaomu-wx-video",           stars:"83",    desc:"视频号下载" },
-  { repo:"mymark21/tt-bridge",                  stars:"4",     desc:"浏览器控制" },
-  { repo:"wenmengjie82/meng-wx-history-summarize",stars:"1",   desc:"微信历史总结" },
-  { repo:"noique/cross-border-ecommerce-skills",stars:"",     desc:"跨境电商 Skills 集合" },
-  { repo:"Fei-Away/Codex-Dream-Skin",           stars:"",     desc:"Codex Dream Skin 主题" },
-  { repo:"zarazhangrui/beautiful-html-templates",stars:"",    desc:"精美 HTML 模板集合" },
-  { repo:"zarazhangrui/frontend-slides",        stars:"",     desc:"前端幻灯片工具" },
-  { repo:"googleanalytics/google-analytics-mcp",stars:"",     desc:"Google Analytics MCP" },
-  { repo:"dontbesilent2025/dbskill",            stars:"",     desc:"通用 Claude Skill" },
-  { repo:"BlueMatthew/WechatExporter",          stars:"",     desc:"微信聊天记录导出" },
-  { repo:"godly-devotion/MochiDiffusion",       stars:"",     desc:"Mac 端 AI 图片生成" },
-  { repo:"zongjianpeng/jd_maota",              stars:"",     desc:"京东茅台抢购助手" },
-  { repo:"hwchase17/langchainjs",               stars:"",     desc:"LangChain JavaScript SDK" },
-  { repo:"sunner/ChatALL",                      stars:"",     desc:"同时向多个 AI 提问" },
-  { repo:"chathub-dev/chathub",                 stars:"",     desc:"多平台聊天聚合" },
-  { repo:"Chanzhaoyu/chatgpt-web-plus",         stars:"",     desc:"ChatGPT 网页增强版" },
-  { repo:"xcanwin/KeepChatGPT",                 stars:"",     desc:"保持 ChatGPT 连接稳定" },
-  { repo:"fuergaosi233/wechat-chatgpt",         stars:"",     desc:"微信接入 ChatGPT" },
-  { repo:"ourongxing/chatgpt-vercel",           stars:"",     desc:"Vercel 一键部署 ChatGPT" },
-  { repo:"liaokongVFX/LangChain-Chinese-Getting-Started-Guide",stars:"",desc:"LangChain 中文入门教程" },
-];
-
-(function renderSkills() {
-  let html = '';
-  SKILLS.forEach(s => {
-    const starHtml = s.stars
-      ? `<span class="skill-star">⭐${s.stars}</span>`
-      : `<span class="skill-star no-star">—</span>`;
-    html += `<a class="skill-card" href="https://github.com/${s.repo}" target="_blank" rel="noopener" title="${s.repo}">
-      <div class="skill-body"><span class="skill-name">${s.repo}</span><span class="skill-desc">${s.desc}</span></div>
-      ${starHtml}
-    </a>`;
-  });
-  document.getElementById("skillsGrid").innerHTML = html;
-})();
 </script>
 </body>
 </html>
