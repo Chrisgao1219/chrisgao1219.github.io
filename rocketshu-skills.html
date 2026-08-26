@@ -155,7 +155,7 @@ body{
   <div class="hero-inner">
     <h1>开源 AI 工具 <em>精选集</em></h1>
     <p>精选 GitHub 优质开源项目，覆盖 AI Agent、内容处理、浏览器自动化、微信生态等领域。点击卡片直达仓库。</p>
-    <div class="hero-stat">📦 共收录 <strong>33</strong> 个精选项目</div>
+    <div class="hero-stat">📦 共收录 <strong>110</strong> 个精选项目</div>
   </div>
 </section>
 
@@ -173,83 +173,632 @@ body{
 <script>
 const CATEGORIES = [
   {
-    icon:"🌐", name:"浏览器自动化", desc:"让 AI 替你操控浏览器——自动打开网页、点击按钮、填写表单、抓取数据，把重复操作全部自动化",
-    skills:[
-      { repo:"ChromeDevTools/chrome-devtools-mcp",  stars:"48K",   desc:"让 AI 直接操控 Chrome 开发者工具：审查元素、监控网络请求、执行 JS、性能分析，自动化测试与网页抓取利器" },
-      { repo:"vercel-labs/agent-browser",           stars:"39K",   desc:"Vercel 出品：AI 驱动的浏览器 Agent，可以像真人一样浏览网页、点击按钮、填写表单、截图和抓取数据" },
-      { repo:"mymark21/tt-bridge",                  stars:"4",     desc:"浏览器控制桥接工具：打通浏览器扩展与外部应用的通信通道，实现跨进程自动化操控网页和浏览器行为" },
+    "icon": "🌐",
+    "name": "浏览器自动化",
+    "desc": "让 AI 替你操控浏览器——自动打开网页、点击按钮、填写表单、抓取数据，把重复操作全部自动化",
+    "skills": [
+      {
+        "repo": "ChromeDevTools/chrome-devtools-mcp",
+        "stars": "48K",
+        "desc": "让 AI 直接操控 Chrome 开发者工具：审查元素、监控网络请求、执行 JS、性能分析，自动化测试与网页抓取利器"
+      },
+      {
+        "repo": "vercel-labs/agent-browser",
+        "stars": "39K",
+        "desc": "Vercel 出品：AI 驱动的浏览器 Agent，可以像真人一样浏览网页、点击按钮、填写表单、截图和抓取数据"
+      },
+      {
+        "repo": "mymark21/tt-bridge",
+        "stars": "4",
+        "desc": "浏览器控制桥接工具：打通浏览器扩展与外部应用的通信通道，实现跨进程自动化操控网页和浏览器行为"
+      },
+      {
+        "repo": "zzhan111/multi-agents-browser",
+        "stars": "1",
+        "desc": "把真实浏览器变成多 AI Agent 共享的 API：提供 CLI + MCP Server + Windows 托盘守护进程，让多个 AI 代理安全地复用同一个浏览器。"
+      },
+      {
+        "repo": "noique/tt-bridge-hardened",
+        "stars": "",
+        "desc": "tt-bridge 的安全加固版：本地鉴权、防 CSRF、会话隔离并附带测试，适合对安全性要求更高的场景。"
+      }
     ]
   },
   {
-    icon:"🤖", name:"AI Agent 智能体", desc:"能自主思考、规划、执行任务的 AI 代理——你只需下达目标，它自己想办法完成",
-    skills:[
-      { repo:"nousresearch/hermes-agent",           stars:"222K",  desc:"高质量 AI Agent 训练数据集与模型，支持工具调用、结构化推理和函数执行，是构建自主 Agent 的基石" },
-      { repo:"Panniantong/agent-reach",             stars:"62K",   desc:"AI Agent 全网触达引擎：自动搜索、浏览网页、采集信息，像真人一样在互联网上自主完成调研任务" },
+    "icon": "🤖",
+    "name": "AI Agent 智能体",
+    "desc": "能自主思考、规划、执行任务的 AI 代理——你只需下达目标，它自己想办法完成",
+    "skills": [
+      {
+        "repo": "nousresearch/hermes-agent",
+        "stars": "222K",
+        "desc": "高质量 AI Agent 训练数据集与模型，支持工具调用、结构化推理和函数执行，是构建自主 Agent 的基石"
+      },
+      {
+        "repo": "Panniantong/agent-reach",
+        "stars": "62K",
+        "desc": "AI Agent 全网触达引擎：自动搜索、浏览网页、采集信息，像真人一样在互联网上自主完成调研任务"
+      },
+      {
+        "repo": "anthropics/skills",
+        "stars": "172K",
+        "desc": "Anthropic 官方发布的 Agent Skills 公开库，内含 frontend-design 等开箱即用的技能包，是给 AI Agent 装「技能」的权威来源。"
+      },
+      {
+        "repo": "MemPalace/mempalace",
+        "stars": "58.6K",
+        "desc": "开源 AI 记忆系统：给 Agent 提供长期记忆，评测领先且完全免费，把对话历史与偏好沉淀为可复用的记忆库。"
+      },
+      {
+        "repo": "garrytan/gstack",
+        "stars": "130K",
+        "desc": "复刻 Garry Tan 的 Claude Code 工作流：23 个定制工具分别扮演 CEO、设计师、工程经理、发布经理、文档工程师和 QA。"
+      },
+      {
+        "repo": "cft0808/edict",
+        "stars": "16.4K",
+        "desc": "三省六部制 · OpenClaw 多智能体编排系统：9 个专职 AI Agent，带实时看板、模型配置与完整审计日志。"
+      },
+      {
+        "repo": "wanikua/danghuangshang",
+        "stars": "2.7K",
+        "desc": "开源多智能体协作系统：参考东方治理思想，用 OpenClaw 部署并协调多个专职 AI Agent 分工协作。"
+      },
+      {
+        "repo": "nyldn/claude-octopus",
+        "stars": "4K",
+        "desc": "让多个 AI 模型并行处理同一研究/设计/编码任务，发货前先互相挑刺暴露分歧，减少低级错误。"
+      },
+      {
+        "repo": "mvanhorn/last30days-skill",
+        "stars": "59.3K",
+        "desc": "全网话题调研 Skill：自动检索 Reddit、X、YouTube、HN、Polymarket 等平台近 30 天的讨论，合成有依据的总结报告。"
+      },
+      {
+        "repo": "boshen99/skillforge",
+        "stars": "3",
+        "desc": "元认知框架：从任意意图出发，用「搜索到完成」七步法自动推导出可复用的 AI Agent Skill。"
+      },
+      {
+        "repo": "pandazki/pneuma-skills",
+        "stars": "154",
+        "desc": "人与代码 Agent 的共创基础设施：可视化环境、技能库、持续学习与分发，让人机协作更顺畅。"
+      },
+      {
+        "repo": "ultraworkers/claw-code",
+        "stars": "195K",
+        "desc": "完全由 AI Agent 自主开发与维护的开源项目（Rust 编写），展示「无人工干预」的 Agent 管理样本（原 instructkr/claw-code）。"
+      }
     ]
   },
   {
-    icon:"📥", name:"下载与内容采集", desc:"从各大平台下载视频、导出文章、抓取数据——把互联网上想要的内容变成你自己的素材库",
-    skills:[
-      { repo:"yt-dlp/yt-dlp",                       stars:"181K",  desc:"万能视频下载器，支持 YouTube/B站/抖音等数千网站，可选分辨率与格式，支持字幕提取和播放列表批量下载" },
-      { repo:"wechat-article/wechat-article-exporter",stars:"12.5K",desc:"一键批量导出微信公众号文章为 PDF/HTML/Markdown，自动下载文中图片，做知识库沉淀和竞品分析的必备工具" },
-      { repo:"iBigQiang/feedgrab",                  stars:"582",   desc:"通用内容抓取器：从 RSS、网页、API 等多种来源提取结构化数据，支持自定义规则，做信息聚合和舆情监控" },
-      { repo:"joeseesun/qiaomu-wx-video",           stars:"83",    desc:"微信视频号视频下载工具：粘贴视频号链接即可下载高清无水印视频，方便素材收集和内容存档" },
+    "icon": "📥",
+    "name": "下载与内容采集",
+    "desc": "从各大平台下载视频、导出文章、抓取数据——把互联网上想要的内容变成你自己的素材库",
+    "skills": [
+      {
+        "repo": "yt-dlp/yt-dlp",
+        "stars": "181K",
+        "desc": "万能视频下载器，支持 YouTube/B站/抖音等数千网站，可选分辨率与格式，支持字幕提取和播放列表批量下载"
+      },
+      {
+        "repo": "wechat-article/wechat-article-exporter",
+        "stars": "12.5K",
+        "desc": "一键批量导出微信公众号文章为 PDF/HTML/Markdown，自动下载文中图片，做知识库沉淀和竞品分析的必备工具"
+      },
+      {
+        "repo": "iBigQiang/feedgrab",
+        "stars": "582",
+        "desc": "通用内容抓取器：从 RSS、网页、API 等多种来源提取结构化数据，支持自定义规则，做信息聚合和舆情监控"
+      },
+      {
+        "repo": "joeseesun/qiaomu-wx-video",
+        "stars": "83",
+        "desc": "微信视频号视频下载工具：粘贴视频号链接即可下载高清无水印视频，方便素材收集和内容存档"
+      }
     ]
   },
   {
-    icon:"💬", name:"微信生态", desc:"公众号内容管理、聊天记录导出与分析、AI 智能回复——让微信变成你的效率工具",
-    skills:[
-      { repo:"BlueMatthew/WechatExporter",          stars:"",     desc:"微信聊天记录完整导出工具：支持文字、图片、语音、视频全类型消息，输出 HTML/TXT 格式，保留原始时间线和联系人" },
-      { repo:"fuergaosi233/wechat-chatgpt",         stars:"",     desc:"微信接入 ChatGPT：在微信里使用 AI 自动回复消息，支持私聊和群聊场景，可设置关键词触发和上下文记忆" },
-      { repo:"wenmengjie82/meng-wx-history-summarize",stars:"1",   desc:"微信聊天记录智能分析与总结：自动提取群聊/私聊中的关键信息、待办事项、重要决策，再也不用爬楼翻记录" },
+    "icon": "💬",
+    "name": "微信生态",
+    "desc": "公众号内容管理、聊天记录导出与分析、AI 智能回复——让微信变成你的效率工具",
+    "skills": [
+      {
+        "repo": "BlueMatthew/WechatExporter",
+        "stars": "",
+        "desc": "微信聊天记录完整导出工具：支持文字、图片、语音、视频全类型消息，输出 HTML/TXT 格式，保留原始时间线和联系人"
+      },
+      {
+        "repo": "fuergaosi233/wechat-chatgpt",
+        "stars": "",
+        "desc": "微信接入 ChatGPT：在微信里使用 AI 自动回复消息，支持私聊和群聊场景，可设置关键词触发和上下文记忆"
+      },
+      {
+        "repo": "wenmengjie82/meng-wx-history-summarize",
+        "stars": "1",
+        "desc": "微信聊天记录智能分析与总结：自动提取群聊/私聊中的关键信息、待办事项、重要决策，再也不用爬楼翻记录"
+      },
+      {
+        "repo": "qiye45/wechatDownload",
+        "stars": "9.1K",
+        "desc": "微信公众号文章批量下载工具：支持评论与合集下载，保存为 html/mhtml/md/pdf/docx/csv，含图片视频音频，支持 MCP/Skill 调用。"
+      },
+      {
+        "repo": "cooderl/wewe-rss",
+        "stars": "9.7K",
+        "desc": "更优雅的微信公众号订阅方式：基于微信读书，支持私有化部署，一键生成公众号 RSS。（仓库已归档，仍可访问）"
+      },
+      {
+        "repo": "ttttmr/Wechat2RSS",
+        "stars": "1.6K",
+        "desc": "微信公众号转 RSS 工具：把公众号变成可订阅的 RSS 源，方便集中阅读与自动化采集。"
+      },
+      {
+        "repo": "tmwgsicp/wechat-download-api",
+        "stars": "1K",
+        "desc": "开源公众号文章获取 / RSS 订阅 API：整号文章一键导出 7 种格式（MD/HTML/Word/PDF/EPUB/Excel/JSON），IP 代理池反风控，支持 MCP 接入。"
+      },
+      {
+        "repo": "huohuoer/wechat-cli",
+        "stars": "2K",
+        "desc": "查询本地微信数据的 CLI 工具：聊天记录、联系人、会话、收藏等，专为 LLM 集成设计。"
+      },
+      {
+        "repo": "hicccc77/WeFlow",
+        "stars": "13.9K",
+        "desc": "本地微信聊天记录导出与年度报告应用：把微信数据变成可视化的年度总结。"
+      },
+      {
+        "repo": "jackwener/wx-cli",
+        "stars": "",
+        "desc": "微信命令行工具（查询本地微信数据）。⚠️ 该仓库已因版权投诉被 GitHub 下架，链接暂无法访问，留作圈内记录。"
+      }
     ]
   },
   {
-    icon:"📄", name:"文档格式转换", desc:"把 PDF、Office、图片等格式转成 Markdown 或结构化文本，为 AI 分析和知识库建好数据基础",
-    skills:[
-      { repo:"microsoft/markitdown",                stars:"170K",  desc:"微软出品：将 Office 文档、PDF、图片、网页一键转成干净的 Markdown，为 AI 处理准备好结构化素材" },
-      { repo:"opendatalab/mineru",                  stars:"76K",   desc:"高精度 PDF/Office 转 Markdown，保留表格、公式、图片和排版结构，RAG 知识库和数据分析的文档预处理利器" },
+    "icon": "📄",
+    "name": "文档格式转换",
+    "desc": "把 PDF、Office、图片等格式转成 Markdown 或结构化文本，为 AI 分析和知识库建好数据基础",
+    "skills": [
+      {
+        "repo": "microsoft/markitdown",
+        "stars": "170K",
+        "desc": "微软出品：将 Office 文档、PDF、图片、网页一键转成干净的 Markdown，为 AI 处理准备好结构化素材"
+      },
+      {
+        "repo": "opendatalab/mineru",
+        "stars": "76K",
+        "desc": "高精度 PDF/Office 转 Markdown，保留表格、公式、图片和排版结构，RAG 知识库和数据分析的文档预处理利器"
+      }
     ]
   },
   {
-    icon:"🤖", name:"ChatGPT 增强工具", desc:"自部署、多开对比、防断连、一键上云——让 ChatGPT 更好用、更稳定、更自由的周边生态",
-    skills:[
-      { repo:"Chanzhaoyu/chatgpt-web",              stars:"31K",   desc:"自部署 ChatGPT 网页客户端，支持多轮对话、历史记录管理、自定义 API Key，数据完全掌握在自己手里" },
-      { repo:"GaiZhenbiao/ChuanhuChatGPT",          stars:"15K",   desc:"川虎 ChatGPT：功能丰富的 AI 聊天界面，支持多模型切换、插件扩展、Markdown/LaTeX 渲染和文件上传分析" },
-      { repo:"sunner/ChatALL",                      stars:"",     desc:"同时向 ChatGPT、Claude、Gemini、文心一言等多个 AI 提问，并排对比各家的回答质量，一次提问多方验证" },
-      { repo:"Chanzhaoyu/chatgpt-web-plus",         stars:"",     desc:"ChatGPT 网页增强版：在开源 web 客户端基础上增加了提示词库、对话导出、角色预设、多 API Key 管理等高级功能" },
-      { repo:"ourongxing/chatgpt-vercel",           stars:"",     desc:"Vercel 一键部署 ChatGPT 网页版：无需服务器、无需数据库，3 分钟拥有自己的 ChatGPT 站点，支持自定义域名和 API Key" },
-      { repo:"xcanwin/KeepChatGPT",                 stars:"",     desc:"ChatGPT 防断连浏览器扩展：自动检测并修复网络错误、防止掉线、抑制报错弹窗，让长时间 AI 对话稳定不中断" },
-      { repo:"chathub-dev/chathub",                 stars:"",     desc:"聊天 Hub：一个界面统一接入多个 AI 对话平台，集中管理不同 AI 的对话历史，无需在多个网页间来回切换" },
+    "icon": "🤖",
+    "name": "ChatGPT 增强工具",
+    "desc": "自部署、多开对比、防断连、一键上云——让 ChatGPT 更好用、更稳定、更自由的周边生态",
+    "skills": [
+      {
+        "repo": "Chanzhaoyu/chatgpt-web",
+        "stars": "31K",
+        "desc": "自部署 ChatGPT 网页客户端，支持多轮对话、历史记录管理、自定义 API Key，数据完全掌握在自己手里"
+      },
+      {
+        "repo": "GaiZhenbiao/ChuanhuChatGPT",
+        "stars": "15K",
+        "desc": "川虎 ChatGPT：功能丰富的 AI 聊天界面，支持多模型切换、插件扩展、Markdown/LaTeX 渲染和文件上传分析"
+      },
+      {
+        "repo": "sunner/ChatALL",
+        "stars": "",
+        "desc": "同时向 ChatGPT、Claude、Gemini、文心一言等多个 AI 提问，并排对比各家的回答质量，一次提问多方验证"
+      },
+      {
+        "repo": "Chanzhaoyu/chatgpt-web-plus",
+        "stars": "",
+        "desc": "ChatGPT 网页增强版：在开源 web 客户端基础上增加了提示词库、对话导出、角色预设、多 API Key 管理等高级功能"
+      },
+      {
+        "repo": "ourongxing/chatgpt-vercel",
+        "stars": "",
+        "desc": "Vercel 一键部署 ChatGPT 网页版：无需服务器、无需数据库，3 分钟拥有自己的 ChatGPT 站点，支持自定义域名和 API Key"
+      },
+      {
+        "repo": "xcanwin/KeepChatGPT",
+        "stars": "",
+        "desc": "ChatGPT 防断连浏览器扩展：自动检测并修复网络错误、防止掉线、抑制报错弹窗，让长时间 AI 对话稳定不中断"
+      },
+      {
+        "repo": "chathub-dev/chathub",
+        "stars": "",
+        "desc": "聊天 Hub：一个界面统一接入多个 AI 对话平台，集中管理不同 AI 的对话历史，无需在多个网页间来回切换"
+      },
+      {
+        "repo": "ChatAnyTeam/ChatAny",
+        "stars": "6.5K",
+        "desc": "一键拥有你自己的 ChatGPT + 众多 AI 网页服务聚合入口，一个入口用遍主流 AI（原 Licoy/ChatGPT-Midjourney）。"
+      }
     ]
   },
   {
-    icon:"🎨", name:"AI 图像与视频", desc:"AI 生成图片、换脸、修图——无需专业软件，用 AI 一句话就能出图",
-    skills:[
-      { repo:"s0md3v/roop",                         stars:"3.5K",  desc:"一键 AI 换脸工具：支持图片、视频和实时摄像头画面中人脸的替换，无需训练模型，即开即用" },
-      { repo:"godly-devotion/MochiDiffusion",       stars:"",     desc:"Mac 原生 Stable Diffusion AI 绘图客户端：SwiftUI 精美界面，无需联网，本地运行保护隐私，支持多种模型和参数调节" },
+    "icon": "🎨",
+    "name": "AI 图像与视频",
+    "desc": "AI 生成图片、换脸、修图——无需专业软件，用 AI 一句话就能出图",
+    "skills": [
+      {
+        "repo": "s0md3v/roop",
+        "stars": "3.5K",
+        "desc": "一键 AI 换脸工具：支持图片、视频和实时摄像头画面中人脸的替换，无需训练模型，即开即用"
+      },
+      {
+        "repo": "godly-devotion/MochiDiffusion",
+        "stars": "",
+        "desc": "Mac 原生 Stable Diffusion AI 绘图客户端：SwiftUI 精美界面，无需联网，本地运行保护隐私，支持多种模型和参数调节"
+      },
+      {
+        "repo": "OpenTalker/SadTalker",
+        "stars": "14K",
+        "desc": "CVPR 2023 项目：用一张照片 + 一段音频，生成说话的数字人视频（Audio-Driven Talking Face Animation）。"
+      },
+      {
+        "repo": "AppleResearcher/Nano-Banana-Flow",
+        "stars": "76",
+        "desc": "为 Google Gemini 打造的批量生图 Chrome 插件：批量输入提示词，自动调用 Nano Banana Pro 连续生图并自动下载保存，PPT 素材效率神器。"
+      },
+      {
+        "repo": "novicezk/midjourney-proxy",
+        "stars": "5.3K",
+        "desc": "代理 Midjourney 的 Discord 频道，以 API 形式调用 AI 绘图，方便集成到自己的产品与工作流。"
+      },
+      {
+        "repo": "luoluoluo22/jianying-editor-skill",
+        "stars": "2.9K",
+        "desc": "让 Agent 自动化操作剪映（CapCut 中文版）完成视频剪辑的 Skill，批量处理视频素材。"
+      },
+      {
+        "repo": "iam567/LifeManga",
+        "stars": "347",
+        "desc": "iOS SwiftUI 开源 App：用 OpenAI 图像模型把生活照片转成漫画风格，本地 AI 艺术创作。"
+      },
+      {
+        "repo": "hero8152/Infinite-Canvas",
+        "stars": "2.9K",
+        "desc": "支持 ComfyUI / API / ModelScope 调用的无限画布工具，用于 AI 图像创作与流程可视化。"
+      },
+      {
+        "repo": "helloianneo/ian-xiaohei-illustrations",
+        "stars": "10.2K",
+        "desc": "中文「小黑」怪诞风格正文配图生成 Skill：16:9 白底手绘 + 少量红橙蓝批注，适合公众号/文章配图（Codex Skill）。"
+      },
+      {
+        "repo": "heygen-com/hyperframes",
+        "stars": "42.6K",
+        "desc": "写 HTML 就能渲染视频：HeyGen 出品、为 AI Agent 设计的新一代视频制作方式。"
+      },
+      {
+        "repo": "wiltodelta/remove-ai-watermarks",
+        "stars": "5.3K",
+        "desc": "去除图片/视频中的可见与隐形 AI 水印及来源元数据：支持 SynthID、C2PA、EXIF、IPTC、XMP 等，Python 库 + CLI。"
+      }
     ]
   },
   {
-    icon:"🛠", name:"开发提效工具", desc:"框架、教程、模板、MCP 集成——提升开发效率，降低 AI 应用开发门槛",
-    skills:[
-      { repo:"hwchase17/langchainjs",               stars:"",     desc:"LangChain 官方 JavaScript/TypeScript SDK：构建 LLM 应用的标准框架，支持链式调用、向量数据库、Agent 编排等核心能力" },
-      { repo:"liaokongVFX/LangChain-Chinese-Getting-Started-Guide",stars:"",desc:"LangChain 中文入门教程：从环境搭建到项目实战，配套完整代码示例和中文讲解，零基础也能学会构建 LLM 应用" },
-      { repo:"zarazhangrui/beautiful-html-templates",stars:"",    desc:"精美 HTML 模板合集：涵盖登录页、落地页、Dashboard、个人主页等多种场景，设计现代、代码干净、即拿即用" },
-      { repo:"zarazhangrui/frontend-slides",        stars:"",     desc:"用前端技术（HTML/CSS/JS）制作演示幻灯片，比 PPT 更灵活自由，支持代码高亮、交互动画和响应式布局" },
-      { repo:"googleanalytics/google-analytics-mcp",stars:"",     desc:"MCP 服务器让 AI 直连 Google Analytics：自动查询网站流量、用户行为、转化率，生成数据洞察报告，告别手动拉报表" },
-      { repo:"dontbesilent2025/dbskill",            stars:"",     desc:"通用 Claude Skill 工具包：集成文件处理、网页抓取、数据转换等常用功能，一个 Skill 搞定日常重复性 AI 任务" },
-      { repo:"Fei-Away/Codex-Dream-Skin",           stars:"",     desc:"Codex Dream Skin：梦幻配色的 VS Code 精美主题皮肤，护眼暗色 + 精致图标，让每天写代码都有仪式感" },
+    "icon": "🛠",
+    "name": "开发提效工具",
+    "desc": "框架、教程、模板、MCP 集成——提升开发效率，降低 AI 应用开发门槛",
+    "skills": [
+      {
+        "repo": "hwchase17/langchainjs",
+        "stars": "",
+        "desc": "LangChain 官方 JavaScript/TypeScript SDK：构建 LLM 应用的标准框架，支持链式调用、向量数据库、Agent 编排等核心能力"
+      },
+      {
+        "repo": "liaokongVFX/LangChain-Chinese-Getting-Started-Guide",
+        "stars": "",
+        "desc": "LangChain 中文入门教程：从环境搭建到项目实战，配套完整代码示例和中文讲解，零基础也能学会构建 LLM 应用"
+      },
+      {
+        "repo": "zarazhangrui/beautiful-html-templates",
+        "stars": "",
+        "desc": "精美 HTML 模板合集：涵盖登录页、落地页、Dashboard、个人主页等多种场景，设计现代、代码干净、即拿即用"
+      },
+      {
+        "repo": "zarazhangrui/frontend-slides",
+        "stars": "",
+        "desc": "用前端技术（HTML/CSS/JS）制作演示幻灯片，比 PPT 更灵活自由，支持代码高亮、交互动画和响应式布局"
+      },
+      {
+        "repo": "googleanalytics/google-analytics-mcp",
+        "stars": "",
+        "desc": "MCP 服务器让 AI 直连 Google Analytics：自动查询网站流量、用户行为、转化率，生成数据洞察报告，告别手动拉报表"
+      },
+      {
+        "repo": "dontbesilent2025/dbskill",
+        "stars": "",
+        "desc": "通用 Claude Skill 工具包：集成文件处理、网页抓取、数据转换等常用功能，一个 Skill 搞定日常重复性 AI 任务"
+      },
+      {
+        "repo": "Fei-Away/Codex-Dream-Skin",
+        "stars": "",
+        "desc": "Codex Dream Skin：梦幻配色的 VS Code 精美主题皮肤，护眼暗色 + 精致图标，让每天写代码都有仪式感"
+      },
+      {
+        "repo": "multica-ai/andrej-karpathy-skills",
+        "stars": "207K",
+        "desc": "根据 Andrej Karpathy 对 LLM 编码陷阱的观察整理的一份 CLAUDE.md，直接改善 Claude Code 的编码行为，全网最大星 Skill。"
+      },
+      {
+        "repo": "farion1231/cc-switch",
+        "stars": "129K",
+        "desc": "跨平台桌面 All-in-One 助手：一键切换 Claude Code、Codex、OpenCode、OpenClaw、Grok Build 等多个 AI 编码工具（仅官方站点 ccswitch.io）。"
+      },
+      {
+        "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+        "stars": "121K",
+        "desc": "为专业 UI/UX 设计提供设计智能的 AI Skill，跨多平台构建专业界面，建站与页面设计的「外挂」。"
+      },
+      {
+        "repo": "eze-is/web-access",
+        "stars": "8.7K",
+        "desc": "给 Claude Code 装上完整联网能力的 Skill：三层通道调度 + 浏览器 CDP + 并行分治，搜网、读网页、抓数据一把梭。"
+      },
+      {
+        "repo": "vogtsw/boss-skills",
+        "stars": "241",
+        "desc": "老板.skills：把老板「炼」进 token，让 AI 随时以老板视角给出决策建议，把生产力解放留给自己。"
+      },
+      {
+        "repo": "Backtthefuture/huangshu",
+        "stars": "266",
+        "desc": "黄叔开源的 Skill 集合，涵盖内容创作、运营等常用 AI Agent 技能包。"
+      },
+      {
+        "repo": "larksuite/cli",
+        "stars": "16.8K",
+        "desc": "飞书官方 CLI 工具：面向人与 AI Agent，200+ 命令覆盖消息、文档、多维表格、日历、邮件、任务等核心业务，还带 20+ Agent Skill。"
+      },
+      {
+        "repo": "chenhg5/cc-connect",
+        "stars": "15.2K",
+        "desc": "把本地 AI 编码 Agent（Claude Code、Cursor、Codex 等）桥接到飞书/钉钉/企业微信/Slack/Telegram 等消息平台，随时随地对话。"
+      },
+      {
+        "repo": "Wangnov/codex-app-mirror",
+        "stars": "2.8K",
+        "desc": "Codex 桌面应用官方镜像：每 15 分钟探测、SHA256 可校验、国内直连下载，Mac 支持增量更新。"
+      },
+      {
+        "repo": "BigPizzaV3/CodexPlusPlus",
+        "stars": "29.6K",
+        "desc": "CodexApp 增强工具：让 Codex 更好用、更顺手，面向日常编码场景的体验优化。"
+      },
+      {
+        "repo": "msrbuilds/elementor-mcp",
+        "stars": "648",
+        "desc": "把 WordPress + Elementor 变成 MCP 服务器：200+ AI 就绪工具，用自然语言建站、改版、管理页面。"
+      },
+      {
+        "repo": "wk240/oh-my-prompt",
+        "stars": "59",
+        "desc": "提示词管理 Chrome 扩展：告别复制粘贴，在任意平台一键插入你的提示词，无需离开创作界面。"
+      },
+      {
+        "repo": "git-for-windows/git",
+        "stars": "9.4K",
+        "desc": "Windows 版 Git：官方 Windows 定制发行版，自带 Git Bash 终端，含官方安装包。"
+      },
+      {
+        "repo": "zbezj/HEU_KMS_Activator",
+        "stars": "43.2K",
+        "desc": "知名的 Windows/Office 激活工具（KMS）。仅供个人技术研究，请遵守软件使用许可。"
+      },
+      {
+        "repo": "lizecheng2021-maker/IntelFlow",
+        "stars": "3",
+        "desc": "AI 驱动的每日情报引擎：多源采集、深度分析、自动发布，自托管 + Web UI，适合做竞品与行业监控。"
+      },
+      {
+        "repo": "nashsu/llm_wiki",
+        "stars": "16.8K",
+        "desc": "把文档自动变成互联知识库的跨平台桌面应用：不做传统 RAG，而是增量构建持久 Wiki，长期记忆更靠谱。"
+      },
+      {
+        "repo": "op7418/guizang-ppt-skill",
+        "stars": "24.9K",
+        "desc": "生成精美 HTML 幻灯片的 Agent Skill：杂志编辑式 / Swiss 排版、图像提示、社媒封面，带 WebGL 低功耗演示运行时。"
+      },
+      {
+        "repo": "Open-Less/openless",
+        "stars": "3.3K",
+        "desc": "按住快捷键说话，松开即得润色后的文字：开源的 AI 语音输入工具，支持 macOS 与 Windows，任何 App 都能用。"
+      },
+      {
+        "repo": "lijigang/ljg-skills",
+        "stars": "7.2K",
+        "desc": "李继刚（lijigang）的 Skills 合集，含 ljg-present 等演示类 Skill（源站链接指向 SKILL.md 文档）。"
+      },
+      {
+        "repo": "unnoo/zsxq-skill",
+        "stars": "263",
+        "desc": "知识星球（zsxq）相关的 Agent Skill，方便把星球内容接入 AI 工作流。"
+      },
+      {
+        "repo": "wpsoul/greenlight-vibe",
+        "stars": "37",
+        "desc": "WordPress 相关建站 Skill（源站圈内分享，具体能力以仓库为准）。"
+      },
+      {
+        "repo": "teng-lin/notebooklm-py",
+        "stars": "18.9K",
+        "desc": "Google NotebookLM 的非官方 Python API 与 Agent Skill：通过 Python、CLI 和 Claude Code 等 Agent 完全编程式访问 NotebookLM，还能调用网页版没暴露的能力。"
+      },
+      {
+        "repo": "zarazhangrui/lark-coding-agent-bridge",
+        "stars": "2.3K",
+        "desc": "把飞书/Lark 消息桥接到本地 Claude Code 或 Codex CLI 的机器人：流式卡片、按对话分会话、支持多工作区（原 feishu-claude-code-bridge）。"
+      }
     ]
   },
   {
-    icon:"🛒", name:"电商与生活", desc:"跨境电商运营工具和生活实用助手，涵盖选品分析、营销自动化、购物抢购、网络工具",
-    skills:[
-      { repo:"clash-verge-rev/clash-verge-rev",     stars:"134K",  desc:"跨平台网络代理客户端，图形化界面支持多协议规则分流，一键切换节点，内置系统代理和 TUN 模式" },
-      { repo:"noique/cross-border-ecommerce-skills",stars:"",     desc:"跨境电商专属 Claude Skills 集合：红人开发、竞品分析、邮件营销、SEO 等场景的 Prompt 模板和自动化工作流" },
-      { repo:"zongjianpeng/jd_maota",              stars:"",     desc:"京东茅台抢购助手：自动监控库存状态、模拟下单流程，在茅台放货瞬间自动提交订单，大幅提升抢购成功率" },
+    "icon": "🛒",
+    "name": "电商与生活",
+    "desc": "跨境电商运营工具和生活实用助手，涵盖选品分析、营销自动化、购物抢购、网络工具",
+    "skills": [
+      {
+        "repo": "clash-verge-rev/clash-verge-rev",
+        "stars": "134K",
+        "desc": "跨平台网络代理客户端，图形化界面支持多协议规则分流，一键切换节点，内置系统代理和 TUN 模式"
+      },
+      {
+        "repo": "noique/cross-border-ecommerce-skills",
+        "stars": "",
+        "desc": "跨境电商专属 Claude Skills 集合：红人开发、竞品分析、邮件营销、SEO 等场景的 Prompt 模板和自动化工作流"
+      },
+      {
+        "repo": "zongjianpeng/jd_maota",
+        "stars": "",
+        "desc": "京东茅台抢购助手：自动监控库存状态、模拟下单流程，在茅台放货瞬间自动提交订单，大幅提升抢购成功率"
+      },
+      {
+        "repo": "coolqoo/1click-ecom-detailpage",
+        "stars": "293",
+        "desc": "一键生成高转化跨境电商主图与商品详情页的 AI Agent Skill，产品图片与文案自动化。"
+      },
+      {
+        "repo": "afadtc/afa-dtc-skills",
+        "stars": "149",
+        "desc": "独立站全链路增长顾问 Skill 系统（作者：1 亿美刀站长阿发）：覆盖诊断、选品、品牌、广告投放、CRO、留存、运营与规模化增长。"
+      },
+      {
+        "repo": "luotwo/BSC-Amazon-OPC-Agent-OS",
+        "stars": "23",
+        "desc": "BSC OPC Agent OS V3.3：亚马逊产品运营 AI 工具集。"
+      },
+      {
+        "repo": "zach22-1999/amazon-skills",
+        "stars": "161",
+        "desc": "亚马逊卖家开源 Agent Skills：产品调研、功能验证、Listing 审计、广告搜索词分析、CVR 诊断。"
+      },
+      {
+        "repo": "ivan51769/blues19-amazon-ai-image-label-tool",
+        "stars": "4",
+        "desc": "Windows 工具：为商品图片写入 Amazon AI 人物 XMP 元数据标签，合规标注 AI 生成内容。"
+      },
+      {
+        "repo": "SamHeee/yt-kol-workflow",
+        "stars": "2",
+        "desc": "YouTube KOL 开发工作流 CLI：自动化网红开发与建联，跨境营销提效。"
+      },
+      {
+        "repo": "zhupeixu/reddit-scout",
+        "stars": "14",
+        "desc": "从 Reddit 真实讨论中挖掘跨境电商选品机会的 Claude Code Skill，自动生成深度分析报告。"
+      },
+      {
+        "repo": "evolution-foundation/evolution-api",
+        "stars": "9.4K",
+        "desc": "开源 WhatsApp 集成 API：把 WhatsApp 变成可编程的通信通道，适合海外客户沟通与营销自动化。"
+      },
+      {
+        "repo": "amzn/selling-partner-api-docs",
+        "stars": "1.5K",
+        "desc": "亚马逊 SP-API（Selling Partner API）官方开发文档：对接亚马逊后台数据与流程自动化的必查资料。（仓库已归档，仍可访问）"
+      },
+      {
+        "repo": "getlantern/download",
+        "stars": "17.8K",
+        "desc": "蓝灯 Lantern 官方版本下载渠道（网络加速工具）。请仅在合法合规场景使用。（仓库已归档，仍可访问）"
+      },
+      {
+        "repo": "mguozhen/voc-amazon-reviews",
+        "stars": "33",
+        "desc": "电商评论分析器（agent-native VOC）：6 个 MCP 工具，输入 ASIN 或 CSV 即可做评论分析，配黑金仪表盘，由 Shulex VOC OpenAPI 支撑（覆盖 10 个市场）。"
+      },
+      {
+        "repo": "Robin3910/dtc_presentation",
+        "stars": "",
+        "desc": "DTC 电商 Presentation 模板/素材（MDX 格式，源站圈内分享）。"
+      },
+      {
+        "repo": "LetsGo666/LetsGo_1",
+        "stars": "998",
+        "desc": "源站圈内分享仓库（GitHub 未提供有效简介，以仓库实际内容为准）。"
+      },
+      {
+        "repo": "LetsGo666/LetsGo_3",
+        "stars": "82",
+        "desc": "源站圈内分享仓库（GitHub 未提供有效简介，以仓库实际内容为准）。"
+      },
+      {
+        "repo": "LetsgoNetwork/LetsGo_2",
+        "stars": "134",
+        "desc": "源站圈内分享仓库（GitHub 未提供有效简介，以仓库实际内容为准）。"
+      }
     ]
   },
+  {
+    "icon": "🔍",
+    "name": "SEO 与数据分析",
+    "desc": "用数据驱动决策：SEO 审计、搜索流量洞察、网站分析与市场调研，跨境打法的数据弹药库",
+    "skills": [
+      {
+        "repo": "AminForou/mcp-gsc",
+        "stars": "1.4K",
+        "desc": "用 Claude 分析 Google Search Console 数据的 MCP 服务器：SEO 从业者直连搜索词、流量与洞察。"
+      },
+      {
+        "repo": "JeffLi1993/seo-audit-skill",
+        "stars": "733",
+        "desc": "SEO 审计 Agent Skill：一键生成新手级 SEO 审计与高级技术 SEO 报告，适配 OpenClaw、Claude Code 等。"
+      },
+      {
+        "repo": "Openpanel-dev/openpanel",
+        "stars": "6.8K",
+        "desc": "开源网站/产品分析平台：Mixpanel 的开源替代，支持自托管，完全掌控用户行为数据。"
+      },
+      {
+        "repo": "komako-workshop/digital-oracle",
+        "stars": "796",
+        "desc": "回答宏观问题的 AI Agent Skill：从 13 个金融数据源（Polymarket、Kalshi、CFTC、SEC 等）挖掘概率，给出房价、黄金、BTC、地缘政治等的概率估计。"
+      }
+    ]
+  },
+  {
+    "icon": "📚",
+    "name": "学习与资料",
+    "desc": "AI 时代的学习资料与教程：从 Claude Code 入门到 Agent 系统设计，还有副业玩法与思维模型",
+    "skills": [
+      {
+        "repo": "bojieli/ai-agent-book",
+        "stars": "42K",
+        "desc": "《深入理解 AI Agent：设计原理与工程实践》开源主仓库：全书正文、PDF 与配套代码，系统学习 Agent 开发的必读书。"
+      },
+      {
+        "repo": "kjfx/AI",
+        "stars": "107",
+        "desc": "Claude Code 零基础入门教程，含大陆地区使用教程，边看边动手。"
+      },
+      {
+        "repo": "bleedline/aimoneyhunter",
+        "stars": "18K",
+        "desc": "AI 副业赚钱大集合：从 AI 工具出发的副业项目指南，中英双语，学会利用 AI 赚取额外收益。"
+      },
+      {
+        "repo": "anneheartrecord/duanyongping-perspective",
+        "stars": "11",
+        "desc": "段永平.skill：把段永平的投资哲学与商业思维蒸馏成可运行的 AI Skill，提炼 5 个核心心智模型与 7 条决策启发式。"
+      },
+      {
+        "repo": "Renhuai123/ziwei-doushu",
+        "stars": "3.7K",
+        "desc": "紫微斗数开源排盘引擎：基于倪海厦《天纪》体系，含完整排盘算法、四化系统、格局知识库与古籍原文数据。"
+      },
+      {
+        "repo": "ivan51769/AI-Skill",
+        "stars": "8",
+        "desc": "个人 AI Skill 集合仓库（源站圈内分享，以仓库实际内容为准）。"
+      }
+    ]
+  }
 ];
 
 (function render() {
