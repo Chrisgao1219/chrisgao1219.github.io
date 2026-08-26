@@ -931,7 +931,9 @@ const CATEGORIES = [
 
     hint.textContent = searchQuery.trim()
       ? `找到 ${shown} / ${TOTAL} 个`
-      : `共 ${TOTAL} 个精选项目`;
+      : (activeCategory === 'all'
+          ? `共 ${TOTAL} 个精选项目`
+          : `「${activeCategory}」${shown} 个 / 共 ${TOTAL} 个`);
 
     container.innerHTML = html;
   }
