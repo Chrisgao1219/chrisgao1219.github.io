@@ -130,6 +130,42 @@ body{
 .skill-arrow{font-size:14px;color:var(--text3);flex-shrink:0;transition:transform .2s}
 .skill-card:hover .skill-arrow{transform:translateX(3px);color:var(--accent)}
 
+/* ═══════ Content container ═══════ */
+.section{padding:0}
+.section-inner{max-width:1200px;margin:0 auto;padding:28px 24px 60px}
+
+/* ═══════ Filter Bar (借鉴自跨境博主导航) ═══════ */
+.controls{
+  position:sticky;top:var(--nav-h);z-index:900;
+  background:rgba(250,250,249,.92);
+  backdrop-filter:blur(12px) saturate(180%);-webkit-backdrop-filter:blur(12px) saturate(180%);
+  border-bottom:1px solid var(--border);
+  padding:12px 0;
+}
+.controls-inner{max-width:1200px;margin:0 auto;padding:0 24px}
+.filter-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.filter-label{font-size:13px;font-weight:600;color:var(--text2);white-space:nowrap}
+.filter-pill{
+  font-size:12.5px;font-weight:600;padding:5px 14px;border-radius:999px;
+  border:1.5px solid var(--border);background:var(--surface);color:var(--text2);
+  cursor:pointer;transition:all .2s ease;white-space:nowrap;user-select:none;
+}
+.filter-pill:hover{border-color:var(--accent);color:var(--accent)}
+.filter-pill.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.filter-pill .count{font-size:11px;margin-left:2px;opacity:.72}
+.search-row{display:flex;gap:10px;margin-top:10px;align-items:center}
+.search-input{
+  flex:1;font-size:14px;padding:8px 14px;border:1.5px solid var(--border);
+  border-radius:10px;outline:none;background:var(--surface);
+  color:var(--text);transition:border-color .2s ease;
+}
+.search-input:focus{border-color:var(--accent)}
+.search-input::placeholder{color:var(--text3)}
+.result-hint{font-size:13px;color:var(--text2);white-space:nowrap}
+/* 空状态 */
+.empty-state{padding:70px 20px;text-align:center;color:var(--text3)}
+.empty-state .icon{font-size:44px;margin-bottom:12px}
+
 /* ═══════ Footer ═══════ */
 .footer{padding:32px 24px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--text3)}
 
@@ -158,6 +194,19 @@ body{
     <div class="hero-stat">📦 共收录 <strong>110</strong> 个精选项目</div>
   </div>
 </section>
+
+<div class="controls">
+  <div class="controls-inner">
+    <div class="filter-bar" id="filterBar">
+      <span class="filter-label">分类筛选</span>
+      <button class="filter-pill active" data-cat="all">全部<span class="count" id="countAll"></span></button>
+    </div>
+    <div class="search-row">
+      <input type="text" class="search-input" id="searchInput" placeholder="搜索仓库名或简介…">
+      <span class="result-hint" id="resultHint"></span>
+    </div>
+  </div>
+</div>
 
 <section class="section">
   <div class="section-inner">
@@ -801,21 +850,69 @@ const CATEGORIES = [
   }
 ];
 
-(function render() {
-  let html = '';
-  CATEGORIES.forEach(cat => {
-    html += `<div class="cat-group">
+(function () {
+  const TOTAL = CATEGORIES.reduce((s, c) => s + c.skills.length, 0);
+  let activeCategory = 'all';
+  let searchQuery = '';
+
+  // ===== 分类筛选按钮 =====
+  function buildFilterBar() {
+    const bar = document.getElementById('filterBar');
+    document.getElementById('countAll').textContent = '(' + TOTAL + ')';
+
+    CATEGORIES.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-pill';
+      btn.dataset.cat = cat.name;
+      btn.innerHTML = cat.name + '<span class="count">' + cat.skills.length + '</span>';
+      btn.addEventListener('click', () => {
+        bar.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        activeCategory = cat.name;
+        render();
+      });
+      bar.appendChild(btn);
+    });
+
+    bar.querySelector('[data-cat="all"]').addEventListener('click', () => {
+      bar.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      bar.querySelector('[data-cat="all"]').classList.add('active');
+      activeCategory = 'all';
+      render();
+    });
+  }
+
+  // ===== 渲染（分类 + 搜索 组合过滤） =====
+  function render() {
+    const container = document.getElementById('skillsGroups');
+    const hint = document.getElementById('resultHint');
+    const q = searchQuery.trim().toLowerCase();
+
+    let html = '';
+    let shown = 0;
+
+    CATEGORIES
+      .filter(cat => activeCategory === 'all' || cat.name === activeCategory)
+      .forEach(cat => {
+        const skills = q
+          ? cat.skills.filter(s => (s.repo + ' ' + s.desc).toLowerCase().includes(q))
+          : cat.skills;
+        if (skills.length === 0) return;
+        shown += skills.length;
+
+        html += `<div class="cat-group">
       <div class="cat-header">
         <span class="cat-title">${cat.icon} ${cat.name}</span>
-        <span class="cat-count">${cat.skills.length} 个</span>
+        <span class="cat-count">${skills.length} 个</span>
       </div>
       <div class="cat-desc">${cat.desc}</div>
       <div class="cat-grid">`;
-    cat.skills.forEach(s => {
-      const starHtml = s.stars
-        ? `<span class="skill-star">⭐ ${s.stars}</span>`
-        : `<span class="skill-star no-star">—</span>`;
-      html += `<a class="skill-card" href="https://github.com/${s.repo}" target="_blank" rel="noopener" title="在 GitHub 打开 ${s.repo}">
+
+        skills.forEach(s => {
+          const starHtml = s.stars
+            ? `<span class="skill-star">⭐ ${s.stars}</span>`
+            : `<span class="skill-star no-star">—</span>`;
+          html += `<a class="skill-card" href="https://github.com/${s.repo}" target="_blank" rel="noopener" title="在 GitHub 打开 ${s.repo}">
         <div class="skill-body">
           <div class="skill-name">${s.repo}</div>
           <div class="skill-desc">${s.desc}</div>
@@ -823,10 +920,32 @@ const CATEGORIES = [
         ${starHtml}
         <span class="skill-arrow">&rarr;</span>
       </a>`;
-    });
-    html += `</div></div>`;
+        });
+
+        html += `</div></div>`;
+      });
+
+    if (shown === 0) {
+      html = `<div class="empty-state"><div class="icon">🔍</div><p>没有找到匹配的 Skill，换个关键词试试</p></div>`;
+    }
+
+    hint.textContent = searchQuery.trim()
+      ? `找到 ${shown} / ${TOTAL} 个`
+      : `共 ${TOTAL} 个精选项目`;
+
+    container.innerHTML = html;
+  }
+
+  // ===== 搜索（防抖 200ms） =====
+  const searchInput = document.getElementById('searchInput');
+  let timer;
+  searchInput.addEventListener('input', () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { searchQuery = searchInput.value; render(); }, 200);
   });
-  document.getElementById("skillsGroups").innerHTML = html;
+
+  buildFilterBar();
+  render();
 })();
 </script>
 </body>
