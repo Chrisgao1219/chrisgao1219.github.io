@@ -149,26 +149,24 @@ body{
 }
 .section-desc{font-size:16px;color:var(--text2);max-width:560px;line-height:1.7;margin-bottom:44px}
 
-/* ═══════════════════════════ Stack（文字工具清单）═══════════════════════════ */
-.stack-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.stack-card{
-  display:flex;flex-direction:column;gap:14px;
+/* ═══════════════════════════ Tools（重点工具卡片）═══════════════════════════ */
+.tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.tool-card{
+  display:flex;flex-direction:column;gap:10px;
   background:var(--surface);border:1px solid var(--border);
-  border-left:4px solid var(--accent);border-radius:var(--radius);
-  padding:24px 28px;
+  border-radius:var(--radius);padding:20px 22px;
+  text-decoration:none;color:inherit;
+  transition:all .25s cubic-bezier(.4,0,.2,1);
 }
-.stack-cat{display:flex;align-items:center;gap:10px}
-.stack-cat-icon{font-size:22px;line-height:1}
-.stack-cat-name{font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:-.01em}
-.stack-tools{display:flex;flex-wrap:wrap;gap:8px}
-.stack-tag{
-  display:inline-flex;align-items:center;
-  font-size:13px;font-weight:500;color:var(--text);
-  background:var(--bg-alt);border:1px solid var(--border);
-  padding:6px 14px;border-radius:999px;
-}
-a.stack-tag{text-decoration:none;transition:all .2s}
-a.stack-tag:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-subtle)}
+.tool-link{cursor:pointer}
+.tool-link:hover{border-color:var(--accent);box-shadow:var(--shadow-hover);transform:translateY(-2px)}
+.tool-big{grid-column:1/-1;flex-direction:row;align-items:center;gap:20px;padding:26px 32px}
+.tool-med{grid-column:span 2}
+.tool-card-top{display:flex;align-items:center;gap:12px;min-width:0}
+.tool-card-body{flex:1;min-width:0}
+.tool-icon{font-size:24px;line-height:1;flex-shrink:0}
+.tool-name{font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:-.01em}
+.tool-card-desc{font-size:13px;color:var(--text2);line-height:1.5}
 .stack-note{
   margin-top:20px;font-size:13px;color:var(--text3);
   text-align:center;
@@ -183,7 +181,9 @@ a.stack-tag:hover{border-color:var(--accent);color:var(--accent);background:var(
 
 /* ═══════════════════════════ Responsive ═══════════════════════════ */
 @media(max-width:900px){
-  .stack-grid{grid-template-columns:1fr}
+  .tools-grid{grid-template-columns:repeat(2,1fr)}
+  .tool-big{grid-column:1/-1}
+  .tool-med{grid-column:span 2}
   .hero{padding:72px 16px 40px}
   .footer-inner{gap:16px}
 }
@@ -192,7 +192,9 @@ a.stack-tag:hover{border-color:var(--accent);color:var(--accent);background:var(
   .hero h1{font-size:30px}
   .section{padding:48px 16px}
   .nav-logo span:not(.nav-mark){display:none}
-  .stack-card{padding:20px}
+  .tools-grid{grid-template-columns:1fr}
+  .tool-med{grid-column:1/-1}
+  .tool-big{flex-direction:column;align-items:flex-start}
 }
 </style>
 </head>
@@ -227,39 +229,42 @@ a.stack-tag:hover{border-color:var(--accent);color:var(--accent);background:var(
     <div class="section-inner">
       <div class="section-eyebrow">Tool Stack</div>
       <div class="section-title">我的 AI 工具体系</div>
-      <div class="section-desc">按运营环节组织，从获客、转化到复购与口碑，每个环节都有 AI 帮手。</div>
+      <div class="section-desc">重点工具一览，常用工具可直接进入。</div>
 
-      <div class="stack-grid">
+      <div class="tools-grid">
 
-        <div class="stack-card">
-          <div class="stack-cat"><span class="stack-cat-icon">🧰</span><span class="stack-cat-name">浏览器自动化</span></div>
-          <div class="stack-tools">
-            <a class="stack-tag" href="https://chrisgao1219.com/chrisgao-chrome.html" target="_blank" rel="noopener">Chrisgao Chrome</a>
+        <a class="tool-card tool-big tool-link" href="https://chrisgao1219.com/chrisgao-chrome.html" target="_blank" rel="noopener">
+          <span class="tool-icon">🧰</span>
+          <div class="tool-card-body">
+            <div class="tool-name">Chrisgao Chrome</div>
+            <div class="tool-card-desc">让 AI 替你上网干活——自动搜索、填表、抓数据，像真人操作一样</div>
           </div>
+        </a>
+
+        <a class="tool-card tool-med tool-link" href="https://chrisgao1219.com/rocketshu-skills.html" target="_blank" rel="noopener">
+          <div class="tool-card-top"><span class="tool-icon">🧰</span><span class="tool-name">火箭叔精选 Skill</span></div>
+          <div class="tool-card-desc">110 个优质开源项目，分类筛选 + 搜索</div>
+        </a>
+
+        <a class="tool-card tool-med tool-link" href="https://chrisgao1219.com/wechat-bloggers.html" target="_blank" rel="noopener">
+          <div class="tool-card-top"><span class="tool-icon">📮</span><span class="tool-name">跨境公众号导航</span></div>
+          <div class="tool-card-desc">33 个跨境优质公众号，微信搜索即可关注</div>
+        </a>
+
+        <div class="tool-card">
+          <div class="tool-card-top"><span class="tool-icon">📧</span><span class="tool-name">邮件营销看板</span></div>
         </div>
 
-        <div class="stack-card">
-          <div class="stack-cat"><span class="stack-cat-icon">📈</span><span class="stack-cat-name">营销与增长</span></div>
-          <div class="stack-tools">
-            <span class="stack-tag">邮件营销看板</span>
-            <span class="stack-tag">Affiliate 数据大屏</span>
-          </div>
+        <div class="tool-card">
+          <div class="tool-card-top"><span class="tool-icon">👥</span><span class="tool-name">Affiliate 数据大屏</span></div>
         </div>
 
-        <div class="stack-card">
-          <div class="stack-cat"><span class="stack-cat-icon">🔎</span><span class="stack-cat-name">SEO 与内容</span></div>
-          <div class="stack-tools">
-            <span class="stack-tag">SEO 命令中心</span>
-            <a class="stack-tag" href="https://chrisgao1219.com/rocketshu-skills.html" target="_blank" rel="noopener">火箭叔精选 Skill</a>
-            <a class="stack-tag" href="https://chrisgao1219.com/wechat-bloggers.html" target="_blank" rel="noopener">跨境公众号导航</a>
-          </div>
+        <div class="tool-card">
+          <div class="tool-card-top"><span class="tool-icon">🔎</span><span class="tool-name">SEO 命令中心</span></div>
         </div>
 
-        <div class="stack-card">
-          <div class="stack-cat"><span class="stack-cat-icon">📊</span><span class="stack-cat-name">情报与监控</span></div>
-          <div class="stack-tools">
-            <span class="stack-tag">VOC 竞品情报</span>
-          </div>
+        <div class="tool-card">
+          <div class="tool-card-top"><span class="tool-icon">⭐</span><span class="tool-name">VOC 竞品情报</span></div>
         </div>
 
       </div>
