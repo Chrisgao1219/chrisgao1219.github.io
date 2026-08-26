@@ -14,8 +14,8 @@
     --text2: #6b7280;
     --border: #e5e7eb;
     --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
-    --shadow-hover: 0 10px 25px rgba(0,0,0,.1), 0 4px 10px rgba(0,0,0,.06);
     --radius: 14px;
+    --accent: #0d9488;
   }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
@@ -33,35 +33,62 @@
     background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.2);
     font-size: 13px; opacity: .85;
   }
-  .count-note {
-    margin-top: 10px; font-size: 13px; opacity: .65;
+  .count-note { margin-top: 10px; font-size: 13px; opacity: .65; }
+
+  /* ===== 筛选栏 ===== */
+  .controls {
+    position: sticky; top: 0; z-index: 900;
+    background: rgba(245,246,250,.92);
+    backdrop-filter: blur(12px) saturate(180%); -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
   }
+  .controls-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .filter-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .filter-label { font-size: 13px; font-weight: 600; color: var(--text2); white-space: nowrap; }
+  .filter-pill {
+    font-size: 12.5px; font-weight: 600; padding: 5px 14px; border-radius: 999px;
+    border: 1.5px solid var(--border); background: var(--card-bg); color: var(--text2);
+    cursor: pointer; transition: all .2s ease; white-space: nowrap; user-select: none;
+  }
+  .filter-pill:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-pill.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .filter-pill .count { font-size: 11px; margin-left: 2px; opacity: .72; }
+  .result-hint { font-size: 13px; color: var(--text2); white-space: nowrap; margin-top: 8px; }
+
+  /* ===== 卡片网格 ===== */
   .grid {
-    max-width: 1200px; margin: 0 auto; padding: 30px 24px 56px;
+    max-width: 1200px; margin: 0 auto; padding: 26px 24px 56px;
     display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px;
   }
   .card {
     background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow);
-    padding: 22px;
-    display: flex; flex-direction: column; gap: 12px;
-    border: 1px solid transparent;
+    padding: 22px; display: flex; flex-direction: column; gap: 12px; border: 1px solid transparent;
   }
-  .card-top { display: flex; align-items: center; gap: 10px; min-width: 0; }
-  .account-name {
-    font-size: 16px; font-weight: 700; flex: 1; min-width: 0;
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  .card-top { display: flex; align-items: center; gap: 14px; min-width: 0; }
+  .avatar {
+    width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0; overflow: hidden;
+    background: linear-gradient(135deg, #ccfbf1, #a7f3d0); color: #0d9488;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 700;
   }
-  .nickname { font-size: 12px; color: var(--text2); flex-shrink: 0; max-width: 40%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .name-group { min-width: 0; flex: 1; }
+  .account-name { font-size: 16px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .blogger-meta { font-size: 12.5px; color: var(--text2); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .cat-tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .card-desc {
     font-size: 13.5px; color: #4b5563; line-height: 1.6;
     display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
   }
+  .empty-state { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text2); }
+  .empty-state .icon { font-size: 44px; margin-bottom: 12px; }
+
   .footer {
     text-align: center; padding: 24px 20px 40px; font-size: 13px; color: #8b95a5;
     border-top: 1px solid var(--border);
   }
-  .footer a { color: #0d9488; text-decoration: none; font-weight: 600; }
+  .footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
   .footer a:hover { text-decoration: underline; }
   @media (max-width: 768px) {
     .header { padding: 40px 20px 38px; }
@@ -80,251 +107,98 @@
   </div>
 </header>
 
-<main class="grid">
-<div class="card">
-    <div class="card-top">
-      <div class="account-name">跨境老登火箭叔Alex</div>
-      <span class="nickname">@火箭叔Alex</span>
+<div class="controls">
+  <div class="controls-inner">
+    <div class="filter-bar" id="filterBar">
+      <span class="filter-label">领域筛选</span>
+      <button class="filter-pill active" data-cat="all">全部<span class="count" id="countAll"></span></button>
     </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span></div>
-    <p class="card-desc">泛知识记录生活，任何领域都是小白，不专业，仅仅是个人的一些思考感悟</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">跨境大白说</div>
-      <span class="nickname">@大白</span>
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span></div>
-    <p class="card-desc">10年亚马逊操盘手·大白Lily
-白帽打法｜新品&amp;品牌全链路｜跨境干货｜AI创作
-爱徒步，爱分享，欢迎交流，资料可私</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">西西酱的amz日记</div>
-      <span class="nickname">@西西酱</span>
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span></div>
-    <p class="card-desc">大家好，我是来自四川成都的川妹子一枚，2018年入行，亚马逊美国站高级运营，亿级业绩操盘手，努力成长中。。。</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">AMZ运营加油站</div>
-      <span class="nickname">@于新</span>
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span></div>
-    <p class="card-desc">亚马逊运营加油站⛽️，运营之路不零单！8年经验亿级实战操盘手。欢迎交流 Ai商业化落地，创业、选品、广告、品牌化、组织建设，工厂转型。</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">坂田河马跨境日记</div>
-      
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfeff;color:#0891b2">海外红人&amp;社媒运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fef2f2;color:#dc2626">站外推广</span></div>
-    <p class="card-desc">1.亚马逊亿级卖家
-2.河马跨境社群创办人
-3.河马跨境茶局线下活动发起人
-为业绩3000万以上的卖家、做运营和做开发的朋友们组局、交流、建联</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">出海指南</div>
-      
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f0fdfa;color:#0d9488">联盟营销</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fff7ed;color:#ea580c">SEO/内容营销</span></div>
-    <p class="card-desc">出海指南是主要针对亚马逊/独立站以及其他三方平台的工具导航栏,涵盖亚马逊,关键词,网红营销,联盟营销,SEO等常用工具以及出海干货集锦,欢迎关注</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">必胜哥的三板斧</div>
-      
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span></div>
-    <p class="card-desc">对世界复仇一般的勤奋，让昨天的自己仰视今天的自己。</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">VAE运营乐享圈</div>
-      
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span></div>
-    <p class="card-desc">亿级操盘手，10年亚马逊经验，全能型选手，累计回复运营问题超过1万条，擅长精细化运营，listing优化，关键词，广告，市场调研，申诉，风控等等。</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">一味君</div>
-      
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span></div>
-    <p class="card-desc">有趣有料的一味君团队，分享亚马逊的点点滴滴</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">流浪的运营日记</div>
-      <span class="nickname">@流浪的运营笔记</span>
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span></div>
-    <p class="card-desc">亚马逊运营学习总结</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">AMZ边缘懒人</div>
-      <span class="nickname">@AMZ边缘浪人</span>
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span></div>
-    <p class="card-desc">用诗意语言剖析亚马逊背后的深意，不定期分享创意感悟，将复杂策略化作生活中的美丽诗行，启迪心灵共鸣。</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">希声碎碎念</div>
-      
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span></div>
-    <p class="card-desc">跨境电商创业者 分享跨境电商入门知识与干货</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">AMZ小麦成长记</div>
-      
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span></div>
-    <p class="card-desc">亚马逊跨境8年实战老兵，半年多来已输出数十万字运营与广告实战经验内容。聚焦行业趋势与 AI+运营落地，沉淀方法论、案例与思考，欢迎交流，共同成长！</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">Tim外贸AI笔记</div>
-      <span class="nickname">@Tim</span>
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span></div>
-    <p class="card-desc">在ai时代，做个真实的人</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">跨境Emma</div>
-      
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfdf5;color:#059669">独立站/DTC</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span></div>
-    <p class="card-desc">深耕独立站多年, 专注网站运营、Google 投放、喜欢研究好用的工具插件和 AI 新玩法。 热爱羽毛球和户外徒步，这里分享一些实战经验，记录生活日常~</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">兵哥说独立站</div>
-      
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfdf5;color:#059669">独立站/DTC</span></div>
-    <p class="card-desc">独立站急诊科，6年助力7个品牌独立站销售额增长超10倍，连续90天ROI超10。关注我，获取免费一对一咨询名额</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">Ada的出海手记</div>
-      <span class="nickname">@Ada</span>
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfdf5;color:#059669">独立站/DTC</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span></div>
-    <p class="card-desc">记录工作生活里的碎碎念、突发奇想和小感悟</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">蕾蕾跨境笔记</div>
-      <span class="nickname">@蕾蕾</span>
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfdf5;color:#059669">独立站/DTC</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fef2f2;color:#dc2626">站外推广</span></div>
-    <p class="card-desc">跨境电商出海笔记，外贸B2C，品牌营销，品牌推广，EDM邮件营销</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">跨境理发师Tonny</div>
-      <span class="nickname">@Tonny</span>
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfdf5;color:#059669">独立站/DTC</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f0fdfa;color:#0d9488">联盟营销</span></div>
-    <p class="card-desc">分享品牌出海，跨境电商的一些见解</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">跨境品牌说</div>
-      <span class="nickname">@是珂仔</span>
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfdf5;color:#059669">独立站/DTC</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fef2f2;color:#dc2626">站外推广</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f0fdfa;color:#0d9488">联盟营销</span></div>
-    <p class="card-desc">从流量玩家到品牌掌柜。</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">Terry的美妙工作流</div>
-      <span class="nickname">@Terry</span>
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fff7ed;color:#ea580c">SEO/内容营销</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfdf5;color:#059669">独立站/DTC</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span></div>
-    <p class="card-desc">Claude Code｜AI自动化｜AI提效
-AI 工作流实战分享，深圳线下训练营
-绿泡泡🌏：terryworkflow</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">SEO小平</div>
-      
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fff7ed;color:#ea580c">SEO/内容营销</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span></div>
-    <p class="card-desc">死磕谷歌SEO的隔壁老王，10年独立站优化经验，熟练掌握Google SEO排名算法，熟悉B2B，B2C优化排名。成功跑通AI纯血小语种SEO赛道，积极探索AI工具在外贸行业和跨境电商的运用。</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">赛门快跑</div>
-      <span class="nickname">@赛门</span>
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fff7ed;color:#ea580c">SEO/内容营销</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span></div>
-    <p class="card-desc">《AI重塑生意经》作者，15年跨境数字营销经验，专注于谷歌SEO，AIGC爱好者和实践者，痴迷于分享“有点用”的干货和资讯！</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">Affiliate Wayne</div>
-      
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f0fdfa;color:#0d9488">联盟营销</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfdf5;color:#059669">独立站/DTC</span></div>
-    <p class="card-desc">恩师@朴素之道 我是韦恩，专注于联盟营销(affiliate marketing)。帮老板挣了好多个亿，出过一份力。亚马逊+独立站代运营合作交流+V：AffWayne</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">下班后8小时</div>
-      <span class="nickname">@南溪</span>
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f0fdfa;color:#0d9488">联盟营销</span></div>
-    <p class="card-desc">善用下班后的这段时间，你可以做到以下几件事。更美满的人生：花时间用心跟家人朋友共处，为一辈子的情感打下基础 ；更丰富的心灵：利用下班时间阅读，灵修，丰富自己的心灵生活；更富有：兼职赚取第二份薪水，或者进修，积累人脉，为下一份工作或创业做准备</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">卡卡推广笔记</div>
-      <span class="nickname">@卡卡</span>
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f0fdfa;color:#0d9488">联盟营销</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfeff;color:#0891b2">海外红人&amp;社媒运营</span></div>
-    <p class="card-desc">公众号专注于跨境联盟营销，红人推广等推广干货分享。</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">S姐联盟营销</div>
-      <span class="nickname">@S姐</span>
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f0fdfa;color:#0d9488">联盟营销</span></div>
-    <p class="card-desc">一名深耕于出海品牌独立站&amp;亚马逊联盟营销十多年的实战派选手(+v: Sarah151105)，熟悉各大联盟平台，擅长各个发展阶段的品牌联盟增长项目，推荐客户成功有酬谢</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">雪球站外</div>
-      
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fef2f2;color:#dc2626">站外推广</span></div>
-    <p class="card-desc">一个有温度的品牌出海人聚集地</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">C姐说品牌</div>
-      <span class="nickname">@C姐</span>
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfeff;color:#0891b2">海外红人&amp;社媒运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fef2f2;color:#dc2626">站外推广</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfdf5;color:#059669">独立站/DTC</span></div>
-    <p class="card-desc">伍灿，80后二宝妈，8年出海品牌营销经验，现超级个体创业者，擅长亚马逊站外推广，网红营销，海外社交媒体运营。感恩遇见，一起成长！</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">外贸小巨熊</div>
-      <span class="nickname">@Kimi</span>
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfeff;color:#0891b2">海外红人&amp;社媒运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f0fdfa;color:#0d9488">联盟营销</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fef2f2;color:#dc2626">站外推广</span></div>
-    <p class="card-desc">专注海外营销，擅长海外社媒运营，KOL红人营销，联盟营销，PR，FB/谷歌广告等，业余时间总结和发布</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">大美出海Talk</div>
-      <span class="nickname">@大美</span>
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfeff;color:#0891b2">海外红人&amp;社媒运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f0fdfa;color:#0d9488">联盟营销</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fef2f2;color:#dc2626">站外推广</span></div>
-    <p class="card-desc">Hi，我是大美，9年甲方品牌出海经验，专注红人营销、社媒运营和联盟营销。🇬🇧在英国生活过一段时间，也收获了新的视角和经验，欢迎常来～</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">先智先觉出海合规及增长实战派</div>
-      
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fdf2f8;color:#be185d">财税/合规</span></div>
-    <p class="card-desc">跨境电商财税合规及增长咨询 10 年经验，遥遥领先并高维战略角度实施，服务近千家过亿客户，早期投资多个成功项目，自营品牌出海数千万规模，布局实体店+亚马逊+Tiktok+独立站+冷门高端平台，始终在一线与时俱进的实战派，链接资源超多！</p>
-  </div><div class="card">
-    <div class="card-top">
-      <div class="account-name">陈饮冰</div>
-      
-    </div>
-    <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f7fee7;color:#65a30d">产品开发</span></div>
-    <p class="card-desc">写作是为了让自己搞懂跨境电商，顺便力所能及地帮助志同道合的朋友。</p>
+    <div class="result-hint" id="resultHint"></div>
   </div>
-</main>
+</div>
+
+<main class="grid" id="cardGrid"></main>
 
 <footer class="footer">
   <p>Chrisgao AI &copy; 2026 · <a href="/">返回首页</a></p>
 </footer>
 
+<script>
+const BLOGGERS = [{"name":"Affiliate Wayne","nickname":"Affiliate Wayne","avatar":"avatar_images/affiliatewayne_883ik.png","description":"恩师@朴素之道 我是韦恩，专注于联盟营销(affiliate marketing)。帮老板挣了好多个亿，出过一份力。亚马逊+独立站代运营合作交流+V：AffWayne","categories":["联盟营销","亚马逊运营","独立站/DTC"]},{"name":"下班后8小时","nickname":"南溪","avatar":"avatar_images/nanxi_tokxw.png","description":"善用下班后的这段时间，你可以做到以下几件事。更美满的人生：花时间用心跟家人朋友共处，为一辈子的情感打下基础 ；更丰富的心灵：利用下班时间阅读，灵修，丰富自己的心灵生活；更富有：兼职赚取第二份薪水，或者进修，积累人脉，为下一份工作或创业做准备","categories":["联盟营销"]},{"name":"跨境Emma","nickname":"跨境Emma","avatar":"avatar_images/kuaemma_yplyh.png","description":"深耕独立站多年, 专注网站运营、Google 投放、喜欢研究好用的工具插件和 AI 新玩法。 热爱羽毛球和户外徒步，这里分享一些实战经验，记录生活日常~","categories":["独立站/DTC","AI学习应用"]},{"name":"跨境老登火箭叔Alex","nickname":"火箭叔Alex","avatar":"avatar_images/huojianshu_lisuu.png","description":"泛知识记录生活，任何领域都是小白，不专业，仅仅是个人的一些思考感悟","categories":["亚马逊运营","AI学习应用"]},{"name":"跨境大白说","nickname":"大白","avatar":"avatar_images/kuajingdabaishuo_23066.png","description":"10年亚马逊操盘手·大白Lily\n白帽打法｜新品&品牌全链路｜跨境干货｜AI创作\n爱徒步，爱分享，欢迎交流，资料可私","categories":["亚马逊运营","AI学习应用"]},{"name":"西西酱的amz日记","nickname":"西西酱","avatar":"avatar_images/xixijiang_g5gid.png","description":"大家好，我是来自四川成都的川妹子一枚，2018年入行，亚马逊美国站高级运营，亿级业绩操盘手，努力成长中。。。","categories":["亚马逊运营"]},{"name":"AMZ运营加油站","nickname":"于新","avatar":"avatar_images/yuxin_7eda1.png","description":"亚马逊运营加油站⛽️，运营之路不零单！8年经验亿级实战操盘手。欢迎交流 Ai商业化落地，创业、选品、广告、品牌化、组织建设，工厂转型。","categories":["亚马逊运营","AI学习应用"]},{"name":"Terry的美妙工作流","nickname":"Terry","avatar":"avatar_images/terry_k1ji4.png","description":"Claude Code｜AI自动化｜AI提效\nAI 工作流实战分享，深圳线下训练营\n绿泡泡🌏：terryworkflow","categories":["SEO/内容营销","独立站/DTC","AI学习应用"]},{"name":"SEO小平","nickname":"SEO小平","avatar":"avatar_images/seoxiaoping_imimh.png","description":"死磕谷歌SEO的隔壁老王，10年独立站优化经验，熟练掌握Google SEO排名算法，熟悉B2B，B2C优化排名。成功跑通AI纯血小语种SEO赛道，积极探索AI工具在外贸行业和跨境电商的运用。","categories":["SEO/内容营销","AI学习应用"]},{"name":"兵哥说独立站","nickname":"兵哥说独立站","avatar":"avatar_images/bingge_faza3.png","description":"独立站急诊科，6年助力7个品牌独立站销售额增长超10倍，连续90天ROI超10。关注我，获取免费一对一咨询名额","categories":["独立站/DTC"]},{"name":"赛门快跑","nickname":"赛门","avatar":"avatar_images/saimen_qa194.png","description":"《AI重塑生意经》作者，15年跨境数字营销经验，专注于谷歌SEO，AIGC爱好者和实践者，痴迷于分享“有点用”的干货和资讯！","categories":["SEO/内容营销","AI学习应用"]},{"name":"C姐说品牌","nickname":"C姐","avatar":"avatar_images/cjshuopinpai_2ol4b.png","description":"伍灿，80后二宝妈，8年出海品牌营销经验，现超级个体创业者，擅长亚马逊站外推广，网红营销，海外社交媒体运营。感恩遇见，一起成长！","categories":["海外红人&社媒运营","站外推广","独立站/DTC"]},{"name":"Ada的出海手记","nickname":"Ada","avatar":"avatar_images/adachuhaishouji_o63vs.png","description":"记录工作生活里的碎碎念、突发奇想和小感悟","categories":["独立站/DTC","AI学习应用"]},{"name":"卡卡推广笔记","nickname":"卡卡","avatar":"avatar_images/kakatuiguangbiji_qryna.png","description":"公众号专注于跨境联盟营销，红人推广等推广干货分享。","categories":["联盟营销","海外红人&社媒运营"]},{"name":"外贸小巨熊","nickname":"Kimi","avatar":"avatar_images/waimaoxiaojuxiong_6wsns.png","description":"专注海外营销，擅长海外社媒运营，KOL红人营销，联盟营销，PR，FB/谷歌广告等，业余时间总结和发布","categories":["海外红人&社媒运营","联盟营销","站外推广"]},{"name":"蕾蕾跨境笔记","nickname":"蕾蕾","avatar":"avatar_images/leileikuajingbiji_hja2f.png","description":"跨境电商出海笔记，外贸B2C，品牌营销，品牌推广，EDM邮件营销","categories":["独立站/DTC","AI学习应用","站外推广"]},{"name":"跨境理发师Tonny","nickname":"Tonny","avatar":"avatar_images/kuajinglifashi_hpego.png","description":"分享品牌出海，跨境电商的一些见解","categories":["独立站/DTC","亚马逊运营","联盟营销"]},{"name":"大美出海Talk","nickname":"大美","avatar":"avatar_images/dameichuhai_btzq6.png","description":"Hi，我是大美，9年甲方品牌出海经验，专注红人营销、社媒运营和联盟营销。🇬🇧在英国生活过一段时间，也收获了新的视角和经验，欢迎常来～","categories":["海外红人&社媒运营","联盟营销","站外推广"]},{"name":"跨境品牌说","nickname":"是珂仔","avatar":"avatar_images/kuajingpinpaishuo_gd7qo.png","description":"从流量玩家到品牌掌柜。","categories":["独立站/DTC","站外推广","联盟营销"]},{"name":"坂田河马跨境日记","nickname":"坂田河马跨境日记","avatar":"avatar_images/bantianhema_g03q9.png","description":"1.亚马逊亿级卖家\n2.河马跨境社群创办人\n3.河马跨境茶局线下活动发起人\n为业绩3000万以上的卖家、做运营和做开发的朋友们组局、交流、建联","categories":["亚马逊运营","海外红人&社媒运营","站外推广"]},{"name":"出海指南","nickname":"出海指南","avatar":"avatar_images/chuhai_lwpa9.png","description":"出海指南是主要针对亚马逊/独立站以及其他三方平台的工具导航栏,涵盖亚马逊,关键词,网红营销,联盟营销,SEO等常用工具以及出海干货集锦,欢迎关注","categories":["亚马逊运营","联盟营销","SEO/内容营销"]},{"name":"Tim外贸AI笔记","nickname":"Tim","avatar":"avatar_images/timwaimao_0asq5.png","description":"在ai时代，做个真实的人","categories":["AI学习应用"]},{"name":"S姐联盟营销","nickname":"S姐","avatar":"avatar_images/s_h6mxs.png","description":"一名深耕于出海品牌独立站&亚马逊联盟营销十多年的实战派选手(+v: Sarah151105)，熟悉各大联盟平台，擅长各个发展阶段的品牌联盟增长项目，推荐客户成功有酬谢","categories":["联盟营销"]},{"name":"必胜哥的三板斧","nickname":"必胜哥的三板斧","avatar":"avatar_images/bishenge_rx740.png","description":"对世界复仇一般的勤奋，让昨天的自己仰视今天的自己。","categories":["亚马逊运营"]},{"name":"VAE运营乐享圈","nickname":"VAE运营乐享圈","avatar":"avatar_images/vae_ssa6o.png","description":"亿级操盘手，10年亚马逊经验，全能型选手，累计回复运营问题超过1万条，擅长精细化运营，listing优化，关键词，广告，市场调研，申诉，风控等等。","categories":["亚马逊运营"]},{"name":"一味君","nickname":"一味君","avatar":"avatar_images/yiweijun_xdmg2.png","description":"有趣有料的一味君团队，分享亚马逊的点点滴滴","categories":["亚马逊运营"]},{"name":"流浪的运营日记","nickname":"流浪的运营笔记","avatar":"avatar_images/liulang_7l1s9.png","description":"亚马逊运营学习总结","categories":["亚马逊运营"]},{"name":"AMZ边缘懒人","nickname":"AMZ边缘浪人","avatar":"avatar_images/amzby_nxgm4.png","description":"用诗意语言剖析亚马逊背后的深意，不定期分享创意感悟，将复杂策略化作生活中的美丽诗行，启迪心灵共鸣。","categories":["亚马逊运营"]},{"name":"先智先觉出海合规及增长实战派","nickname":"先智先觉出海合规及增长实战派","avatar":"avatar_images/xzxj_rdv3e.png","description":"跨境电商财税合规及增长咨询 10 年经验，遥遥领先并高维战略角度实施，服务近千家过亿客户，早期投资多个成功项目，自营品牌出海数千万规模，布局实体店+亚马逊+Tiktok+独立站+冷门高端平台，始终在一线与时俱进的实战派，链接资源超多！","categories":["财税/合规"]},{"name":"陈饮冰","nickname":"陈饮冰","avatar":"avatar_images/chenyinbing_063ri.png","description":"写作是为了让自己搞懂跨境电商，顺便力所能及地帮助志同道合的朋友。","categories":["产品开发"]},{"name":"雪球站外","nickname":"雪球站外","avatar":"avatar_images/xueqiu_7txce.png","description":"一个有温度的品牌出海人聚集地","categories":["站外推广"]},{"name":"希声碎碎念","nickname":"希声碎碎念","avatar":"avatar_images/xisheng_ldw7z.png","description":"跨境电商创业者 分享跨境电商入门知识与干货","categories":["亚马逊运营"]},{"name":"AMZ小麦成长记","nickname":"AMZ小麦成长记","avatar":"avatar_images/amz_5wptx.png","description":"亚马逊跨境8年实战老兵，半年多来已输出数十万字运营与广告实战经验内容。聚焦行业趋势与 AI+运营落地，沉淀方法论、案例与思考，欢迎交流，共同成长！","categories":["亚马逊运营"]}];
+const CATEGORIES = ["亚马逊运营","AI学习应用","独立站/DTC","SEO/内容营销","联盟营销","站外推广","海外红人&社媒运营","供应链/物流","财税/合规","产品开发"];
+const CAT_COLORS = {"亚马逊运营":["#eff6ff","#2563eb"],"AI学习应用":["#f5f3ff","#7c3aed"],"独立站/DTC":["#ecfdf5","#059669"],"SEO/内容营销":["#fff7ed","#ea580c"],"联盟营销":["#f0fdfa","#0d9488"],"站外推广":["#fef2f2","#dc2626"],"供应链/物流":["#fefce8","#ca8a04"],"财税/合规":["#fdf2f8","#be185d"],"海外红人&社媒运营":["#ecfeff","#0891b2"],"产品开发":["#f7fee7","#65a30d"]};
+const DEFAULT_COLOR = ["#f3f4f6","#6b7280"];
+
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function getCats(b) { return (b.categories && b.categories.length) ? b.categories : []; }
+
+let activeCategory = 'all';
+const TOTAL = BLOGGERS.length;
+
+function buildFilterBar() {
+  const bar = document.getElementById('filterBar');
+  document.getElementById('countAll').textContent = '(' + TOTAL + ')';
+  CATEGORIES.forEach(cat => {
+    const count = BLOGGERS.filter(b => getCats(b).includes(cat)).length;
+    const btn = document.createElement('button');
+    btn.className = 'filter-pill';
+    btn.dataset.cat = cat;
+    btn.innerHTML = cat + '<span class="count">' + count + '</span>';
+    btn.addEventListener('click', () => {
+      bar.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      activeCategory = cat;
+      render();
+    });
+    bar.appendChild(btn);
+  });
+  bar.querySelector('[data-cat="all"]').addEventListener('click', () => {
+    bar.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    bar.querySelector('[data-cat="all"]').classList.add('active');
+    activeCategory = 'all';
+    render();
+  });
+}
+
+function tagHTML(cat) {
+  const c = CAT_COLORS[cat] || DEFAULT_COLOR;
+  return '<span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:' + c[0] + ';color:' + c[1] + '">' + esc(cat) + '</span>';
+}
+
+function render() {
+  const grid = document.getElementById('cardGrid');
+  const hint = document.getElementById('resultHint');
+  const list = activeCategory === 'all'
+    ? BLOGGERS
+    : BLOGGERS.filter(b => getCats(b).includes(activeCategory));
+
+  hint.textContent = activeCategory === 'all'
+    ? '共 ' + TOTAL + ' 个公众号，微信搜索名称即可关注'
+    : '「' + activeCategory + '」' + list.length + ' 个 / 共 ' + TOTAL + ' 个';
+
+  if (list.length === 0) {
+    grid.innerHTML = '<div class="empty-state"><div class="icon">📭</div><p>该领域暂无公众号</p></div>';
+    return;
+  }
+
+  grid.innerHTML = list.map(b => {
+    const avatarHtml = b.avatar
+      ? '<img src="' + esc(b.avatar) + '" alt="' + esc(b.name) + '" loading="lazy">'
+      : esc((b.nickname || b.name).charAt(0));
+    const meta = (b.nickname && b.nickname !== b.name)
+      ? '<div class="blogger-meta">@' + esc(b.nickname) + '</div>'
+      : '';
+    return '<div class="card">'
+      + '<div class="card-top"><div class="avatar">' + avatarHtml + '</div>'
+      + '<div class="name-group"><div class="account-name">' + esc(b.name) + '</div>' + meta + '</div></div>'
+      + '<div class="cat-tags">' + getCats(b).map(tagHTML).join('') + '</div>'
+      + '<p class="card-desc">' + esc(b.description) + '</p>'
+      + '</div>';
+  }).join('');
+}
+
+buildFilterBar();
+render();
+</script>
 </body>
 </html>
