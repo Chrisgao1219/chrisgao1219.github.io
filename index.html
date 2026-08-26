@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="Chrisgao AI — 跨境电商 AI 营销工作台。12 大 AI 工具覆盖浏览器自动化、红人营销、SEO、竞品分析、VOC 口碑、价格追踪全链路。">
+<meta name="description" content="Chrisgao AI — 跨境电商 AI 营销工具体系。自建多款 AI 工具，覆盖浏览器自动化、红人营销、SEO、竞品分析、VOC 口碑、价格追踪全链路。">
 <title>Chrisgao AI — 跨境电商智能营销</title>
 <style>
 /* ═══════════════════════════ Design Tokens ═══════════════════════════ */
@@ -92,51 +92,8 @@ body{
   border:2px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.06);
 }
 .nav-right{display:flex;align-items:center;gap:8px}
-.nav-pill{
-  padding:7px 16px;border-radius:20px;font-size:13px;font-weight:500;
-  border:1px solid var(--border);background:var(--surface);
-  color:var(--text2);cursor:pointer;font-family:var(--font-body);
-  transition:all .2s;
-}
-.nav-pill:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
 .nav-github{color:var(--text2);transition:color .2s;display:flex;align-items:center;padding:4px}
 .nav-github:hover{color:var(--accent)}
-
-/* Tool Switcher */
-.tool-switch{position:relative}
-.tool-switch-btn{
-  display:flex;align-items:center;gap:6px;
-  padding:7px 16px;border-radius:20px;
-  border:1px solid var(--border);background:var(--surface);
-  font-size:13px;font-weight:500;color:var(--text);
-  cursor:pointer;font-family:var(--font-body);
-  transition:all .2s;
-}
-.tool-switch-btn:hover{border-color:var(--border-v);box-shadow:var(--shadow-card)}
-.tool-switch-btn .arrow{font-size:9px;color:var(--text3);transition:transform .2s}
-.tool-switch.open .tool-switch-btn .arrow{transform:rotate(180deg)}
-.tool-switch-btn .current-tool{max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-
-.dropdown{
-  position:absolute;top:calc(100% + 8px);right:0;
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius);box-shadow:var(--shadow-lg);
-  min-width:260px;max-height:420px;overflow-y:auto;
-  display:none;z-index:1001;padding:6px;
-}
-.tool-switch.open .dropdown{display:block}
-.dropdown-item{
-  display:flex;align-items:center;gap:10px;
-  padding:9px 12px;cursor:pointer;font-size:13px;color:var(--text);
-  transition:all .12s;border:none;background:none;width:100%;text-align:left;
-  font-family:var(--font-body);border-radius:var(--radius-xs);
-}
-.dropdown-item:hover{background:var(--bg-alt)}
-.dropdown-item.active{background:var(--accent-subtle);color:var(--accent);font-weight:600}
-.dropdown-item .dot{font-size:16px;width:20px;text-align:center;flex-shrink:0}
-
-/* ═══════════════════════════ Viewport ═══════════════════════════ */
-.viewport{margin-top:var(--nav-h)}
 
 /* ═══════════════════════════ Hero ═══════════════════════════ */
 .hero{
@@ -168,26 +125,21 @@ body{
 }
 .hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),#14b8a6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero p{
-  font-size:17px;color:var(--text2);max-width:500px;margin:0 auto 38px;line-height:1.7;
+  font-size:17px;color:var(--text2);max-width:560px;margin:0 auto;line-height:1.7;
 }
-.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:38px}
 .btn{
   display:inline-flex;align-items:center;gap:8px;
   padding:13px 30px;border-radius:var(--radius-xs);font-size:15px;font-weight:600;
   text-decoration:none;transition:all .25s;cursor:pointer;
   border:none;font-family:var(--font-body);
 }
-.btn-primary{
-  background:linear-gradient(135deg,var(--accent),#14b8a6);color:#fff;
-  box-shadow:0 2px 10px rgba(13,148,136,.25);
-}
-.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(13,148,136,.35)}
 .btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}
 .btn-ghost:hover{border-color:var(--text3);color:var(--text)}
 
 /* ═══════════════════════════ Section ═══════════════════════════ */
 .section{padding:64px 24px}
-.section-inner{max-width:1200px;margin:0 auto}
+.section-inner{max-width:1080px;margin:0 auto}
 .section-eyebrow{
   font-family:var(--font-body);font-size:12px;font-weight:700;color:var(--accent);
   text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;
@@ -197,71 +149,30 @@ body{
   font-size:clamp(28px,4vw,38px);font-weight:800;
   letter-spacing:-.04em;line-height:1.14;margin-bottom:10px;
 }
-.section-desc{font-size:16px;color:var(--text2);max-width:520px;line-height:1.7;margin-bottom:44px}
+.section-desc{font-size:16px;color:var(--text2);max-width:560px;line-height:1.7;margin-bottom:44px}
 
-/* ═══════════════════════════ Tool Section ═══════════════════════════ */
-.section-label{
-  font-family:var(--font-display);font-size:13px;font-weight:600;color:var(--accent);
-  text-transform:uppercase;letter-spacing:.05em;margin-bottom:14px;
-}
-
-/* ── Hero card (Chrisgao Chrome) ── */
-.hero-card{
-  display:flex;align-items:center;gap:32px;
-  background:linear-gradient(135deg,var(--surface) 60%,var(--accent-subtle));
-  border:1px solid var(--border);border-radius:var(--radius);
-  padding:32px 36px;margin-bottom:44px;cursor:pointer;
-  transition:all .3s cubic-bezier(.4,0,.2,1);
-  text-decoration:none;color:inherit;
-}
-.hero-card:hover{border-color:var(--accent);box-shadow:var(--shadow-hover);transform:translateY(-2px)}
-.hero-icon{flex-shrink:0}
-.hero-icon img{width:56px;height:56px;border-radius:12px;object-fit:cover;display:block}
-.hero-body{flex:1;min-width:0}
-.hero-name{font-family:var(--font-display);font-size:22px;font-weight:800;letter-spacing:-.03em;margin-bottom:4px}
-.hero-desc{font-size:14px;color:var(--text2);line-height:1.6}
-.hero-tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
-.hero-tags .tool-tag{font-size:11px;padding:4px 10px}
-.hero-arrow{font-size:13px;font-weight:600;color:var(--accent);flex-shrink:0;display:flex;align-items:center;gap:4px;transition:gap .2s}
-.hero-card:hover .hero-arrow{gap:10px}
-
-/* ── Priority grid (2x2) ── */
-.prio-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:44px}
-.prio-card{
-  display:flex;align-items:flex-start;gap:20px;
+/* ═══════════════════════════ Stack（文字工具清单）═══════════════════════════ */
+.stack-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stack-card{
+  display:flex;flex-direction:column;gap:14px;
   background:var(--surface);border:1px solid var(--border);
   border-left:4px solid var(--accent);border-radius:var(--radius);
-  padding:24px 28px;cursor:pointer;
-  transition:all .25s cubic-bezier(.4,0,.2,1);
-  text-decoration:none;color:inherit;
+  padding:24px 28px;
 }
-.prio-card:hover{border-color:var(--accent);box-shadow:var(--shadow-hover);transform:translateX(4px)}
-.prio-icon{font-size:30px;flex-shrink:0;line-height:1;margin-top:2px}
-.prio-icon img{width:40px;height:40px;border-radius:8px;object-fit:cover;display:block}
-.prio-body{flex:1;min-width:0}
-.prio-name{font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:3px}
-.prio-desc{font-size:13px;color:var(--text2);line-height:1.55;margin-bottom:8px}
-.prio-tags{display:flex;gap:5px;flex-wrap:wrap}
-
-/* ── More list (horizontal compact) ── */
-.more-list{display:flex;flex-direction:column;gap:8px}
-.more-card{
-  display:flex;align-items:center;gap:18px;
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius-sm);padding:15px 22px;cursor:pointer;
-  transition:all .2s;text-decoration:none;color:inherit;
+.stack-cat{display:flex;align-items:center;gap:10px}
+.stack-cat-icon{font-size:22px;line-height:1}
+.stack-cat-name{font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:-.01em}
+.stack-tools{display:flex;flex-wrap:wrap;gap:8px}
+.stack-tag{
+  display:inline-flex;align-items:center;
+  font-size:13px;font-weight:500;color:var(--text);
+  background:var(--bg-alt);border:1px solid var(--border);
+  padding:6px 14px;border-radius:999px;
 }
-.more-card:hover{border-color:var(--border-v);box-shadow:var(--shadow-card);transform:translateX(3px)}
-.more-icon{font-size:22px;flex-shrink:0;width:30px;text-align:center}
-.more-icon img{width:26px;height:26px;border-radius:6px;object-fit:cover;display:block}
-.more-body{flex:1;display:flex;align-items:baseline;gap:10px;min-width:0}
-.more-name{font-size:14px;font-weight:600;white-space:nowrap}
-.more-desc{font-size:12px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.more-arrow{font-size:12px;color:var(--text3);flex-shrink:0;transition:transform .2s}
-.more-card:hover .more-arrow{transform:translateX(3px);color:var(--accent)}
-
-/* ── shared ── */
-.tool-tag{font-size:10px;padding:3px 8px;border-radius:5px;background:var(--bg-alt);color:var(--text3);font-weight:500}
+.stack-note{
+  margin-top:20px;font-size:13px;color:var(--text3);
+  text-align:center;
+}
 
 /* ═══════════════════════════ Footer ═══════════════════════════ */
 .footer{padding:32px 24px;border-top:1px solid var(--border);text-align:center}
@@ -272,25 +183,16 @@ body{
 
 /* ═══════════════════════════ Responsive ═══════════════════════════ */
 @media(max-width:900px){
-  .prio-grid{grid-template-columns:1fr}
-  .hero-card{flex-direction:column;align-items:flex-start;gap:20px}
-  .hero-arrow{display:none}
-  .footer-inner{gap:16px}
+  .stack-grid{grid-template-columns:1fr}
   .hero{padding:72px 16px 40px}
+  .footer-inner{gap:16px}
 }
 @media(max-width:600px){
-  .prio-grid{grid-template-columns:1fr}
-  .more-name{font-size:13px}
-  .more-desc{display:none}
-  .hero-card{padding:24px}
-  .hero-icon img{width:44px;height:44px}
-  .hero-name{font-size:18px}
-  .footer-inner{gap:12px}
   .hero{padding:64px 16px 40px}
   .hero h1{font-size:30px}
   .section{padding:48px 16px}
   .nav-logo span:not(.nav-mark){display:none}
-  .dropdown{right:auto;left:0}
+  .stack-card{padding:20px}
 }
 </style>
 </head>
@@ -300,18 +202,11 @@ body{
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <div class="nav-left">
-      <button class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到首页">
+      <button class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">
         <img class="nav-mark" src="avatar.jpg" alt="Chris"> <span>Chrisgao AI</span>
       </button>
     </div>
     <div class="nav-right">
-      <div class="tool-switch" id="toolSwitch">
-        <button class="tool-switch-btn" onclick="toggleDropdown()" aria-label="切换工具">
-          <span class="current-tool" id="currentToolLabel">工具</span>
-          <span class="arrow">&#9660;</span>
-        </button>
-        <div class="dropdown" id="dropdown"></div>
-      </div>
       <a href="https://github.com/Chrisgao1219" target="_blank" rel="noopener" class="nav-github" title="GitHub">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
       </a>
@@ -321,148 +216,85 @@ body{
 
 <!-- ═══ Main ═══ -->
 <div class="viewport">
-  <!-- HOME -->
-  <div id="homeView">
-    <section class="hero">
-      <div class="hero-inner">
-        <div class="hero-badge"><span class="live"></span>12 个 AI 工作台，覆盖跨境全链路</div>
-        <h1>跨境电商的 <em>AI</em> 驾驶舱</h1>
-        <p>从浏览器自动化到红人营销，从 SEO 分析到竞品监控——覆盖独立站运营全链路。</p>
-        <div class="hero-actions">
-          <a href="#tools" class="btn btn-primary">探索全部工具 ↓</a>
-        </div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge"><span class="live"></span>13 款自建 AI 工具，覆盖跨境全链路</div>
+      <h1>跨境电商的 <em>AI</em> 驾驶舱</h1>
+      <p>从浏览器自动化到红人营销，从 SEO 分析到竞品监控——围绕独立站运营，自建了一套覆盖全链路的 AI 工具体系。</p>
+      <div class="hero-actions">
+        <a href="#stack" class="btn btn-ghost">查看工具清单</a>
       </div>
-    </section>
-
-    <section class="section" id="tools">
-      <div class="section-inner">
-        <div class="tool-grid" id="toolGrid"></div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        <img class="nav-mark" src="avatar.jpg" alt="Chris" style="width:22px;height:22px">
-        <span>Chrisgao AI</span>
-        <span class="footer-sep">|</span>
-        <a href="https://github.com/Chrisgao1219" target="_blank" rel="noopener">GitHub</a>
-        <span class="footer-sep">|</span>
-        <span>&copy; 2026</span>
-      </div>
-    </footer>
-  </div>
-</div>
-
-<script>
-// ═══ Tool Registry ═══
-	const TOOLS = [
-	  { id:"chrisgao-chrome",  icon:'<img src="chrisgao-chrome-icon.jpg" alt="">', name:"Chrisgao Chrome",  desc:"让 AI 替你上网干活——自动搜索、填表、抓数据，像真人操作一样。隐身窗口，不影响你", tags:["浏览器自动化","AI 操控","无需编程"], url:"/chrisgao-chrome.html" },
-	  { id:"email-dash",      icon:"📧", name:"邮件营销看板",     desc:"自动分析品牌邮件，一键生成营销策略、邮件序列、文案和设计稿", tags:["邮件","自动化","策略"], url:"https://email-dashboard-roan.vercel.app/", external:true },
-	  { id:"affiliate",       icon:"👥", name:"Affiliate 数据大屏",desc:"找红人、发邮件、追效果，一条龙搞定。40+ 外联目标实时追踪", tags:["KOL","飞书"], url:"https://chrisgao1219-kol-affiliate.hf.space/", external:true },
-	  { id:"trustpilot",      icon:"⭐", name:"VOC 竞品情报",     desc:"自动监控品牌评价和 Reddit 讨论，一眼看出用户喜欢什么、讨厌什么", tags:["口碑","监控"], url:"https://voc-intel-dashboard.vercel.app/", external:true },
-	  { id:"seo-center",      icon:"🔎", name:"SEO 命令中心",     desc:"18 个 SEO 工具一站搞定：挖关键词、分析竞品、出内容方案、追踪排名", tags:["SEO","关键词","AI"], url:"https://ai-seo-command-center.vercel.app/", external:true },
-	  { id:"inventory",       icon:"📦", name:"库存/订单看板",     desc:"多品牌库存和销量实时监控，自动同步订单，缺货第一时间知道", tags:["库存","实时"], url:"https://meepo-sales-dashboard.vercel.app", external:true },
-	  { id:"price-tracker",   icon:"📊", name:"价格追踪",         desc:"竞品价格实时监控，汇率自动换算，价格变动趋势分析", tags:["监控","汇率"], url:"https://chrisgao1219-price-tracker.hf.space/", external:true },
-	  { id:"competitor",      icon:"🔍", name:"竞品对比看板",     desc:"把竞品的评分、口碑、用户评价全聚合到一个页面，随时对比", tags:["竞品","评分"], url:"https://chrisgao1219-competitor-dashboard.hf.space/", external:true },
-	  { id:"ai-support",      icon:"🎧", name:"AI 客服系统",       desc:"AI 自动处理客服邮件：分类、回复、跟进，不用一封封手动回", tags:["客服","自动化","邮件"], url:"https://ai-customer-support-web-nine.vercel.app/", external:true },
-	  { id:"workbench",       icon:"🛠", name:"AI 营销工作台",     desc:"营销工作总控台：管理任务流程、看数据报表、自动执行重复工作", tags:["工作流","报表","自动化"], url:"https://ai-marketing-workbench.vercel.app/", external:true },
-	  { id:"wechat-ai",       icon:"💬", name:"WeChat AI 助手",    desc:"微信公众号 AI 智能助手：文章分析、知识管理、自动回复", tags:["微信","AI","公众号"], url:"https://wechat-ai.chrisgao1219.com/", external:true },
-	  { id:"rocketshu-skills", icon:"🧰", name:"火箭叔精选 Skill", desc:"精选 33 个 GitHub 优质开源项目，覆盖 AI Agent、内容处理、浏览器自动化、微信生态等领域", tags:["GitHub","开源","AI工具"], url:"/rocketshu-skills.html" },
-		  { id:"skills-gallery",  icon:"🧰", name:"Skills Gallery",   desc:"140+ 个现成的 AI 营销技能模板，拿来就用，按品类分类查找", tags:["Claude","开源"], url:"https://chrisgao1219.github.io/skills-gallery/", external:true },
-	];
-
-// Slice
-const HERO    = TOOLS[0];          // Chrisgao Chrome
-const PRIORITY = TOOLS.slice(1, 5); // 邮件营销, Affiliate, VOC, SEO
-const MORE    = TOOLS.slice(5).filter(t => t.id !== "rocketshu-skills");     // 排除已有 hero 卡片的
-
-// Unique tools for dropdown (dedup by id)
-const seen = new Set();
-const UNIQUE = TOOLS.filter(t => { if (seen.has(t.id)) return false; seen.add(t.id); return true; });
-
-function link(t) {
-  return t.external
-    ? `window.open('${t.url}','_blank','noopener')`
-    : `openTool('${t.id}')`;
-}
-function tags(t) {
-  return (t.tags||[]).map(g => `<span class="tool-tag">${g}</span>`).join('');
-}
-
-// ═══ Render ═══
-let html = '';
-
-// Hero: Chrisgao Chrome
-html += `<div class="hero-card" onclick="${link(HERO)}">
-  <div class="hero-icon">${HERO.icon}</div>
-  <div class="hero-body">
-    <div class="hero-name">${HERO.name}</div>
-    <div class="hero-desc">${HERO.desc}</div>
-    <div class="hero-tags">${tags(HERO)}</div>
-  </div>
-  <div class="hero-arrow">进入 &rarr;</div>
-</div>`;
-
-// Hero 2: 火箭叔精选 Skill
-const SKILL_HERO = TOOLS.find(t => t.id === "rocketshu-skills");
-html += `<div class="hero-card" onclick="window.location.href='${SKILL_HERO.url}'" style="margin-top:-20px">
-  <div class="hero-icon">${SKILL_HERO.icon}</div>
-  <div class="hero-body">
-    <div class="hero-name">${SKILL_HERO.name}</div>
-    <div class="hero-desc">${SKILL_HERO.desc}</div>
-    <div class="hero-tags">${tags(SKILL_HERO)}</div>
-  </div>
-  <div class="hero-arrow">进入 &rarr;</div>
-</div>`;
-
-// Priority 4 (2x2)
-html += '<div class="section-label">核心工具</div><div class="prio-grid">';
-PRIORITY.forEach(t => {
-  html += `<div class="prio-card" onclick="${link(t)}">
-    <div class="prio-icon">${t.icon}</div>
-    <div class="prio-body">
-      <div class="prio-name">${t.name}</div>
-      <div class="prio-desc">${t.desc}</div>
-      <div class="prio-tags">${tags(t)}</div>
     </div>
-  </div>`;
-});
-html += '</div>';
+  </section>
 
-// More list
-html += '<div class="section-label">更多工具</div><div class="more-list">';
-MORE.forEach(t => {
-  html += `<div class="more-card" onclick="${link(t)}">
-    <div class="more-icon">${t.icon}</div>
-    <div class="more-body"><span class="more-name">${t.name}</span><span class="more-desc">${t.desc}</span></div>
-    <div class="more-arrow">&rarr;</div>
-  </div>`;
-});
-html += '</div>';
+  <section class="section" id="stack">
+    <div class="section-inner">
+      <div class="section-eyebrow">Tool Stack</div>
+      <div class="section-title">我的 AI 工具体系</div>
+      <div class="section-desc">按运营环节组织，从获客、转化到复购与口碑，每个环节都有 AI 帮手。</div>
 
-document.getElementById("toolGrid").innerHTML = html;
+      <div class="stack-grid">
 
-// ═══ Render Dropdown ═══
-document.getElementById("dropdown").innerHTML = UNIQUE.map(t =>
-  `<button class="dropdown-item" onclick="openTool('${t.id}')"><span class="dot">${t.icon}</span> ${t.name}</button>`
-).join("");
+        <div class="stack-card">
+          <div class="stack-cat"><span class="stack-cat-icon">🧰</span><span class="stack-cat-name">浏览器自动化</span></div>
+          <div class="stack-tools">
+            <span class="stack-tag">Chrisgao Chrome</span>
+          </div>
+        </div>
 
-function toggleDropdown() {
-  document.getElementById("toolSwitch").classList.toggle("open");
-}
-document.addEventListener("click", e => {
-  if (!e.target.closest(".tool-switch")) document.getElementById("toolSwitch").classList.remove("open");
-});
+        <div class="stack-card">
+          <div class="stack-cat"><span class="stack-cat-icon">📈</span><span class="stack-cat-name">营销与增长</span></div>
+          <div class="stack-tools">
+            <span class="stack-tag">邮件营销看板</span>
+            <span class="stack-tag">AI 营销工作台</span>
+            <span class="stack-tag">Affiliate 数据大屏</span>
+            <span class="stack-tag">WeChat AI 助手</span>
+          </div>
+        </div>
 
-function openTool(id) {
-  const tool = UNIQUE.find(t => t.id === id) || TOOLS.find(t => t.id === id);
-  if (!tool) return;
-  if (tool.url.startsWith('/')) {
-    window.location.href = tool.url;
-  } else {
-    window.open(tool.url, "_blank", "noopener");
-  }
-}
-</script>
+        <div class="stack-card">
+          <div class="stack-cat"><span class="stack-cat-icon">🔎</span><span class="stack-cat-name">SEO 与内容</span></div>
+          <div class="stack-tools">
+            <span class="stack-tag">SEO 命令中心</span>
+            <span class="stack-tag">Skills Gallery</span>
+            <span class="stack-tag">火箭叔精选 Skill</span>
+          </div>
+        </div>
+
+        <div class="stack-card">
+          <div class="stack-cat"><span class="stack-cat-icon">📊</span><span class="stack-cat-name">情报与监控</span></div>
+          <div class="stack-tools">
+            <span class="stack-tag">VOC 竞品情报</span>
+            <span class="stack-tag">竞品对比看板</span>
+            <span class="stack-tag">价格追踪</span>
+            <span class="stack-tag">库存/订单看板</span>
+          </div>
+        </div>
+
+        <div class="stack-card">
+          <div class="stack-cat"><span class="stack-cat-icon">🎧</span><span class="stack-cat-name">客户与客服</span></div>
+          <div class="stack-tools">
+            <span class="stack-tag">AI 客服系统</span>
+          </div>
+        </div>
+
+      </div>
+      <p class="stack-note">以上工具为个人自研、内部使用，不对外提供公测入口。</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <img class="nav-mark" src="avatar.jpg" alt="Chris" style="width:22px;height:22px">
+      <span>Chrisgao AI</span>
+      <span class="footer-sep">|</span>
+      <a href="https://github.com/Chrisgao1219" target="_blank" rel="noopener">GitHub</a>
+      <span class="footer-sep">|</span>
+      <span>&copy; 2026</span>
+    </div>
+  </footer>
+
+</div>
 </body>
 </html>
