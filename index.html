@@ -150,23 +150,62 @@ body{
 .section-desc{font-size:16px;color:var(--text2);max-width:560px;line-height:1.7;margin-bottom:44px}
 
 /* ═══════════════════════════ Tools（重点工具卡片）═══════════════════════════ */
-.tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .tool-card{
-  display:flex;flex-direction:column;gap:10px;
+  display:flex;flex-direction:column;gap:12px;
   background:var(--surface);border:1px solid var(--border);
   border-radius:var(--radius);padding:20px 22px;
-  text-decoration:none;color:inherit;
-  transition:all .25s cubic-bezier(.4,0,.2,1);
+  text-decoration:none;color:inherit;position:relative;overflow:hidden;
+  transition:transform .25s cubic-bezier(.4,0,.2,1),box-shadow .25s,border-color .25s;
 }
+.tool-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);border-color:var(--border-v)}
 .tool-link{cursor:pointer}
-.tool-link:hover{border-color:var(--accent);box-shadow:var(--shadow-hover);transform:translateY(-2px)}
-.tool-big{grid-column:1/-1;flex-direction:row;align-items:center;gap:20px;padding:26px 32px}
-.tool-med{grid-column:span 2}
 .tool-card-top{display:flex;align-items:center;gap:12px;min-width:0}
 .tool-card-body{flex:1;min-width:0}
-.tool-icon{font-size:24px;line-height:1;flex-shrink:0}
+.tool-icon{
+  width:44px;height:44px;border-radius:12px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;background:var(--bg-alt);
+}
 .tool-name{font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:-.01em}
-.tool-card-desc{font-size:13px;color:var(--text2);line-height:1.5}
+.tool-card-desc{font-size:13px;color:var(--text2);line-height:1.55}
+
+/* 大卡：主推工具（渐变横幅） */
+.tool-big{
+  grid-column:1/-1;flex-direction:row;align-items:center;gap:24px;
+  padding:30px 36px;border:none;
+  background:linear-gradient(135deg,#0d9488 0%,#0f766e 60%,#115e59 100%);
+  color:#fff;
+}
+.tool-big::before{
+  content:'';position:absolute;top:-70%;right:-8%;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%);
+  pointer-events:none;
+}
+.tool-big .tool-icon{
+  width:64px;height:64px;border-radius:18px;font-size:30px;
+  background:rgba(255,255,255,.18);
+}
+.tool-big .tool-name{font-size:22px;color:#fff}
+.tool-big .tool-card-desc{color:rgba(255,255,255,.85);font-size:14px;margin-top:6px}
+.tool-big .tool-card-body,.tool-big .tool-go{position:relative}
+.tool-big .tool-go{
+  flex-shrink:0;display:inline-flex;align-items:center;gap:6px;
+  font-size:14px;font-weight:600;color:#fff;
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+  padding:9px 18px;border-radius:999px;
+  transition:all .25s;
+}
+.tool-big:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(13,148,136,.28)}
+.tool-big:hover .tool-go{background:#fff;color:#0d9488}
+
+/* 中卡 */
+.tool-med{grid-column:span 2}
+
+/* 小卡 */
+.tool-card-sm{justify-content:center;min-height:88px}
+.tool-card-sm .tool-icon{width:40px;height:40px;font-size:20px}
+
 .stack-note{
   margin-top:20px;font-size:13px;color:var(--text3);
   text-align:center;
@@ -239,32 +278,33 @@ body{
             <div class="tool-name">Chrisgao Chrome</div>
             <div class="tool-card-desc">让 AI 替你上网干活——自动搜索、填表、抓数据，像真人操作一样</div>
           </div>
+          <span class="tool-go">进入工具 &rarr;</span>
         </a>
 
         <a class="tool-card tool-med tool-link" href="https://chrisgao1219.com/rocketshu-skills.html" target="_blank" rel="noopener">
-          <div class="tool-card-top"><span class="tool-icon">🧰</span><span class="tool-name">火箭叔精选 Skill</span></div>
+          <div class="tool-card-top"><span class="tool-icon" style="background:#f5f3ff">🧰</span><span class="tool-name">火箭叔精选 Skill</span></div>
           <div class="tool-card-desc">110 个优质开源项目，分类筛选 + 搜索</div>
         </a>
 
         <a class="tool-card tool-med tool-link" href="https://chrisgao1219.com/wechat-bloggers.html" target="_blank" rel="noopener">
-          <div class="tool-card-top"><span class="tool-icon">📮</span><span class="tool-name">跨境公众号导航</span></div>
+          <div class="tool-card-top"><span class="tool-icon" style="background:#f0fdf9">📮</span><span class="tool-name">跨境公众号导航</span></div>
           <div class="tool-card-desc">33 个跨境优质公众号，微信搜索即可关注</div>
         </a>
 
-        <div class="tool-card">
-          <div class="tool-card-top"><span class="tool-icon">📧</span><span class="tool-name">邮件营销看板</span></div>
+        <div class="tool-card tool-card-sm">
+          <div class="tool-card-top"><span class="tool-icon" style="background:#eff6ff">📧</span><span class="tool-name">邮件营销看板</span></div>
         </div>
 
-        <div class="tool-card">
-          <div class="tool-card-top"><span class="tool-icon">👥</span><span class="tool-name">Affiliate 数据大屏</span></div>
+        <div class="tool-card tool-card-sm">
+          <div class="tool-card-top"><span class="tool-icon" style="background:#fff7ed">👥</span><span class="tool-name">Affiliate 数据大屏</span></div>
         </div>
 
-        <div class="tool-card">
-          <div class="tool-card-top"><span class="tool-icon">🔎</span><span class="tool-name">SEO 命令中心</span></div>
+        <div class="tool-card tool-card-sm">
+          <div class="tool-card-top"><span class="tool-icon" style="background:#ecfdf5">🔎</span><span class="tool-name">SEO 命令中心</span></div>
         </div>
 
-        <div class="tool-card">
-          <div class="tool-card-top"><span class="tool-icon">⭐</span><span class="tool-name">VOC 竞品情报</span></div>
+        <div class="tool-card tool-card-sm">
+          <div class="tool-card-top"><span class="tool-icon" style="background:#eef2ff">⭐</span><span class="tool-name">VOC 竞品情报</span></div>
         </div>
 
       </div>
