@@ -42,19 +42,16 @@
   }
   .card {
     background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow);
-    padding: 22px; cursor: pointer; text-decoration: none; color: inherit;
+    padding: 22px;
     display: flex; flex-direction: column; gap: 12px;
-    border: 1px solid transparent; transition: all .25s ease;
+    border: 1px solid transparent;
   }
-  .card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); border-color: #0d9488; }
   .card-top { display: flex; align-items: center; gap: 10px; min-width: 0; }
   .account-name {
     font-size: 16px; font-weight: 700; flex: 1; min-width: 0;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   .nickname { font-size: 12px; color: var(--text2); flex-shrink: 0; max-width: 40%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .card-arrow { font-size: 15px; color: #d0d5dd; flex-shrink: 0; transition: all .2s ease; }
-  .card:hover .card-arrow { color: #0d9488; }
   .cat-tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .card-desc {
     font-size: 13.5px; color: #4b5563; line-height: 1.6;
@@ -78,284 +75,251 @@
   <div class="header-inner">
     <h1>📮 跨境优质公众号导航</h1>
     <p>亚马逊 · 独立站 · SEO · AI · 联盟营销｜跨境从业者值得关注的公众号合集</p>
-    <div class="header-tip">📱 点击卡片或用微信搜索公众号名称即可关注</div>
+    <div class="header-tip">📱 微信搜索公众号名称即可关注</div>
     <p class="count-note">共收录 33 个公众号，信息整理自跨境圈公开分享，仅供同行参考</p>
   </div>
 </header>
 
 <main class="grid">
-<a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzAwODU2NjEzNg==" target="_blank" rel="noopener noreferrer" title="在微信中打开 跨境老登火箭叔Alex">
+<div class="card">
     <div class="card-top">
       <div class="account-name">跨境老登火箭叔Alex</div>
       <span class="nickname">@火箭叔Alex</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span></div>
     <p class="card-desc">泛知识记录生活，任何领域都是小白，不专业，仅仅是个人的一些思考感悟</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=Mzg4NjAxMDU5Mg==" target="_blank" rel="noopener noreferrer" title="在微信中打开 跨境大白说">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">跨境大白说</div>
       <span class="nickname">@大白</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span></div>
     <p class="card-desc">10年亚马逊操盘手·大白Lily
 白帽打法｜新品&amp;品牌全链路｜跨境干货｜AI创作
 爱徒步，爱分享，欢迎交流，资料可私</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzI3MTUxMjYzNQ==" target="_blank" rel="noopener noreferrer" title="在微信中打开 西西酱的amz日记">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">西西酱的amz日记</div>
       <span class="nickname">@西西酱</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span></div>
     <p class="card-desc">大家好，我是来自四川成都的川妹子一枚，2018年入行，亚马逊美国站高级运营，亿级业绩操盘手，努力成长中。。。</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=Mzg5MTYxMTM0Mg==" target="_blank" rel="noopener noreferrer" title="在微信中打开 AMZ运营加油站">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">AMZ运营加油站</div>
       <span class="nickname">@于新</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span></div>
     <p class="card-desc">亚马逊运营加油站⛽️，运营之路不零单！8年经验亿级实战操盘手。欢迎交流 Ai商业化落地，创业、选品、广告、品牌化、组织建设，工厂转型。</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzA3MzEwMzc2OQ==" target="_blank" rel="noopener noreferrer" title="在微信中打开 坂田河马跨境日记">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">坂田河马跨境日记</div>
       
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfeff;color:#0891b2">海外红人&amp;社媒运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fef2f2;color:#dc2626">站外推广</span></div>
     <p class="card-desc">1.亚马逊亿级卖家
 2.河马跨境社群创办人
 3.河马跨境茶局线下活动发起人
 为业绩3000万以上的卖家、做运营和做开发的朋友们组局、交流、建联</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzkyMTUwMDA0NA==" target="_blank" rel="noopener noreferrer" title="在微信中打开 出海指南">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">出海指南</div>
       
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f0fdfa;color:#0d9488">联盟营销</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fff7ed;color:#ea580c">SEO/内容营销</span></div>
     <p class="card-desc">出海指南是主要针对亚马逊/独立站以及其他三方平台的工具导航栏,涵盖亚马逊,关键词,网红营销,联盟营销,SEO等常用工具以及出海干货集锦,欢迎关注</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=Mzk0MjYzMTEzNA==" target="_blank" rel="noopener noreferrer" title="在微信中打开 必胜哥的三板斧">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">必胜哥的三板斧</div>
       
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span></div>
     <p class="card-desc">对世界复仇一般的勤奋，让昨天的自己仰视今天的自己。</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzkzODY0NzQ1NA==" target="_blank" rel="noopener noreferrer" title="在微信中打开 VAE运营乐享圈">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">VAE运营乐享圈</div>
       
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span></div>
     <p class="card-desc">亿级操盘手，10年亚马逊经验，全能型选手，累计回复运营问题超过1万条，擅长精细化运营，listing优化，关键词，广告，市场调研，申诉，风控等等。</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=Mzg3ODcwNTI4NA==" target="_blank" rel="noopener noreferrer" title="在微信中打开 一味君">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">一味君</div>
       
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span></div>
     <p class="card-desc">有趣有料的一味君团队，分享亚马逊的点点滴滴</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzkwNDY3NDg2Ng==" target="_blank" rel="noopener noreferrer" title="在微信中打开 流浪的运营日记">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">流浪的运营日记</div>
       <span class="nickname">@流浪的运营笔记</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span></div>
     <p class="card-desc">亚马逊运营学习总结</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=Mzk2NDg3NDMxMw==" target="_blank" rel="noopener noreferrer" title="在微信中打开 AMZ边缘懒人">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">AMZ边缘懒人</div>
       <span class="nickname">@AMZ边缘浪人</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span></div>
     <p class="card-desc">用诗意语言剖析亚马逊背后的深意，不定期分享创意感悟，将复杂策略化作生活中的美丽诗行，启迪心灵共鸣。</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzkxMzE5NDE1Ng==" target="_blank" rel="noopener noreferrer" title="在微信中打开 希声碎碎念">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">希声碎碎念</div>
       
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span></div>
     <p class="card-desc">跨境电商创业者 分享跨境电商入门知识与干货</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MjM5MzQ4NjcyMA==" target="_blank" rel="noopener noreferrer" title="在微信中打开 AMZ小麦成长记">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">AMZ小麦成长记</div>
       
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span></div>
     <p class="card-desc">亚马逊跨境8年实战老兵，半年多来已输出数十万字运营与广告实战经验内容。聚焦行业趋势与 AI+运营落地，沉淀方法论、案例与思考，欢迎交流，共同成长！</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=Mzg5NDg1NDU2Mw==" target="_blank" rel="noopener noreferrer" title="在微信中打开 Tim外贸AI笔记">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">Tim外贸AI笔记</div>
       <span class="nickname">@Tim</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span></div>
     <p class="card-desc">在ai时代，做个真实的人</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=Mzg4MjcxMzYwNw==" target="_blank" rel="noopener noreferrer" title="在微信中打开 跨境Emma">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">跨境Emma</div>
       
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfdf5;color:#059669">独立站/DTC</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span></div>
     <p class="card-desc">深耕独立站多年, 专注网站运营、Google 投放、喜欢研究好用的工具插件和 AI 新玩法。 热爱羽毛球和户外徒步，这里分享一些实战经验，记录生活日常~</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzkzODk5MzY5NQ==" target="_blank" rel="noopener noreferrer" title="在微信中打开 兵哥说独立站">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">兵哥说独立站</div>
       
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfdf5;color:#059669">独立站/DTC</span></div>
     <p class="card-desc">独立站急诊科，6年助力7个品牌独立站销售额增长超10倍，连续90天ROI超10。关注我，获取免费一对一咨询名额</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzYzMjE1ODM3OQ==" target="_blank" rel="noopener noreferrer" title="在微信中打开 Ada的出海手记">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">Ada的出海手记</div>
       <span class="nickname">@Ada</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfdf5;color:#059669">独立站/DTC</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span></div>
     <p class="card-desc">记录工作生活里的碎碎念、突发奇想和小感悟</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzU3NTc0NTM3NA==" target="_blank" rel="noopener noreferrer" title="在微信中打开 蕾蕾跨境笔记">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">蕾蕾跨境笔记</div>
       <span class="nickname">@蕾蕾</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfdf5;color:#059669">独立站/DTC</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fef2f2;color:#dc2626">站外推广</span></div>
     <p class="card-desc">跨境电商出海笔记，外贸B2C，品牌营销，品牌推广，EDM邮件营销</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=Mzk3NTU0NzExMg==" target="_blank" rel="noopener noreferrer" title="在微信中打开 跨境理发师Tonny">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">跨境理发师Tonny</div>
       <span class="nickname">@Tonny</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfdf5;color:#059669">独立站/DTC</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f0fdfa;color:#0d9488">联盟营销</span></div>
     <p class="card-desc">分享品牌出海，跨境电商的一些见解</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzU4MTcwNjc5Nw==" target="_blank" rel="noopener noreferrer" title="在微信中打开 跨境品牌说">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">跨境品牌说</div>
       <span class="nickname">@是珂仔</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfdf5;color:#059669">独立站/DTC</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fef2f2;color:#dc2626">站外推广</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f0fdfa;color:#0d9488">联盟营销</span></div>
     <p class="card-desc">从流量玩家到品牌掌柜。</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzkyMTU5MjEyMw==" target="_blank" rel="noopener noreferrer" title="在微信中打开 Terry的美妙工作流">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">Terry的美妙工作流</div>
       <span class="nickname">@Terry</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fff7ed;color:#ea580c">SEO/内容营销</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfdf5;color:#059669">独立站/DTC</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span></div>
     <p class="card-desc">Claude Code｜AI自动化｜AI提效
 AI 工作流实战分享，深圳线下训练营
 绿泡泡🌏：terryworkflow</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=Mzg4MDczMTExNg==" target="_blank" rel="noopener noreferrer" title="在微信中打开 SEO小平">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">SEO小平</div>
       
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fff7ed;color:#ea580c">SEO/内容营销</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span></div>
     <p class="card-desc">死磕谷歌SEO的隔壁老王，10年独立站优化经验，熟练掌握Google SEO排名算法，熟悉B2B，B2C优化排名。成功跑通AI纯血小语种SEO赛道，积极探索AI工具在外贸行业和跨境电商的运用。</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzAxNzg0ODY5OA==" target="_blank" rel="noopener noreferrer" title="在微信中打开 赛门快跑">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">赛门快跑</div>
       <span class="nickname">@赛门</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fff7ed;color:#ea580c">SEO/内容营销</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f5f3ff;color:#7c3aed">AI学习应用</span></div>
     <p class="card-desc">《AI重塑生意经》作者，15年跨境数字营销经验，专注于谷歌SEO，AIGC爱好者和实践者，痴迷于分享“有点用”的干货和资讯！</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzUxOTMxODI0MA==" target="_blank" rel="noopener noreferrer" title="在微信中打开 Affiliate Wayne">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">Affiliate Wayne</div>
       
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f0fdfa;color:#0d9488">联盟营销</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#eff6ff;color:#2563eb">亚马逊运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfdf5;color:#059669">独立站/DTC</span></div>
     <p class="card-desc">恩师@朴素之道 我是韦恩，专注于联盟营销(affiliate marketing)。帮老板挣了好多个亿，出过一份力。亚马逊+独立站代运营合作交流+V：AffWayne</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzA4MDgwMTk0MA==" target="_blank" rel="noopener noreferrer" title="在微信中打开 下班后8小时">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">下班后8小时</div>
       <span class="nickname">@南溪</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f0fdfa;color:#0d9488">联盟营销</span></div>
     <p class="card-desc">善用下班后的这段时间，你可以做到以下几件事。更美满的人生：花时间用心跟家人朋友共处，为一辈子的情感打下基础 ；更丰富的心灵：利用下班时间阅读，灵修，丰富自己的心灵生活；更富有：兼职赚取第二份薪水，或者进修，积累人脉，为下一份工作或创业做准备</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=Mzk0NTY0NjI2Mw==" target="_blank" rel="noopener noreferrer" title="在微信中打开 卡卡推广笔记">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">卡卡推广笔记</div>
       <span class="nickname">@卡卡</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f0fdfa;color:#0d9488">联盟营销</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfeff;color:#0891b2">海外红人&amp;社媒运营</span></div>
     <p class="card-desc">公众号专注于跨境联盟营销，红人推广等推广干货分享。</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzUxNzM4MDkyMg==" target="_blank" rel="noopener noreferrer" title="在微信中打开 S姐联盟营销">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">S姐联盟营销</div>
       <span class="nickname">@S姐</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f0fdfa;color:#0d9488">联盟营销</span></div>
     <p class="card-desc">一名深耕于出海品牌独立站&amp;亚马逊联盟营销十多年的实战派选手(+v: Sarah151105)，熟悉各大联盟平台，擅长各个发展阶段的品牌联盟增长项目，推荐客户成功有酬谢</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzkwMTI4Nzk1NQ==" target="_blank" rel="noopener noreferrer" title="在微信中打开 雪球站外">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">雪球站外</div>
       
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fef2f2;color:#dc2626">站外推广</span></div>
     <p class="card-desc">一个有温度的品牌出海人聚集地</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzkyMjI4MDcwNQ==" target="_blank" rel="noopener noreferrer" title="在微信中打开 C姐说品牌">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">C姐说品牌</div>
       <span class="nickname">@C姐</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfeff;color:#0891b2">海外红人&amp;社媒运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fef2f2;color:#dc2626">站外推广</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfdf5;color:#059669">独立站/DTC</span></div>
     <p class="card-desc">伍灿，80后二宝妈，8年出海品牌营销经验，现超级个体创业者，擅长亚马逊站外推广，网红营销，海外社交媒体运营。感恩遇见，一起成长！</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzkxNTM4NTA1OA==" target="_blank" rel="noopener noreferrer" title="在微信中打开 外贸小巨熊">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">外贸小巨熊</div>
       <span class="nickname">@Kimi</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfeff;color:#0891b2">海外红人&amp;社媒运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f0fdfa;color:#0d9488">联盟营销</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fef2f2;color:#dc2626">站外推广</span></div>
     <p class="card-desc">专注海外营销，擅长海外社媒运营，KOL红人营销，联盟营销，PR，FB/谷歌广告等，业余时间总结和发布</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzkzNjU5MzI1NQ==" target="_blank" rel="noopener noreferrer" title="在微信中打开 大美出海Talk">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">大美出海Talk</div>
       <span class="nickname">@大美</span>
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#ecfeff;color:#0891b2">海外红人&amp;社媒运营</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f0fdfa;color:#0d9488">联盟营销</span><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fef2f2;color:#dc2626">站外推广</span></div>
     <p class="card-desc">Hi，我是大美，9年甲方品牌出海经验，专注红人营销、社媒运营和联盟营销。🇬🇧在英国生活过一段时间，也收获了新的视角和经验，欢迎常来～</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzA5NTk5MjU1Nw==" target="_blank" rel="noopener noreferrer" title="在微信中打开 先智先觉出海合规及增长实战派">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">先智先觉出海合规及增长实战派</div>
       
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#fdf2f8;color:#be185d">财税/合规</span></div>
     <p class="card-desc">跨境电商财税合规及增长咨询 10 年经验，遥遥领先并高维战略角度实施，服务近千家过亿客户，早期投资多个成功项目，自营品牌出海数千万规模，布局实体店+亚马逊+Tiktok+独立站+冷门高端平台，始终在一线与时俱进的实战派，链接资源超多！</p>
-  </a><a class="card" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzkyMDUwOTY1Nw==" target="_blank" rel="noopener noreferrer" title="在微信中打开 陈饮冰">
+  </div><div class="card">
     <div class="card-top">
       <div class="account-name">陈饮冰</div>
       
-      <span class="card-arrow">↗</span>
     </div>
     <div class="cat-tags"><span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:10px;background:#f7fee7;color:#65a30d">产品开发</span></div>
     <p class="card-desc">写作是为了让自己搞懂跨境电商，顺便力所能及地帮助志同道合的朋友。</p>
-  </a>
+  </div>
 </main>
 
 <footer class="footer">
