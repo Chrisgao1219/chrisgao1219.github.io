@@ -193,6 +193,16 @@ function getCats(b) { return (b.categories && b.categories.length) ? b.categorie
 let activeCategory = 'all';
 const TOTAL = BLOGGERS.length;
 
+// 置顶公众号（按顺序排最前）：前两位为第一排，后三位为第二排
+const PINNED = ['Affiliate Wayne', '跨境老登火箭叔Alex', '下班后8小时', 'Terry的美妙工作流', 'SEO小平'];
+
+// 排序规则：置顶 > 含独立站/DTC 分类 > 其余（含亚马逊，保持原顺序）
+function bloggerRank(b) {
+  const i = PINNED.indexOf(b.name);
+  if (i >= 0) return i;
+  return 100 + (getCats(b).includes('独立站/DTC') ? 0 : 50);
+}
+
 function buildFilterBar() {
   const bar = document.getElementById('filterBar');
   document.getElementById('countAll').textContent = '(' + TOTAL + ')';
@@ -226,9 +236,10 @@ function tagHTML(cat) {
 function render() {
   const grid = document.getElementById('cardGrid');
   const hint = document.getElementById('resultHint');
-  const list = activeCategory === 'all'
+  const list = (activeCategory === 'all'
     ? BLOGGERS
-    : BLOGGERS.filter(b => getCats(b).includes(activeCategory));
+    : BLOGGERS.filter(b => getCats(b).includes(activeCategory)))
+    .slice().sort((a, b) => bloggerRank(a) - bloggerRank(b));
 
   hint.textContent = activeCategory === 'all'
     ? '共 ' + TOTAL + ' 个公众号，点击卡片查看二维码'
